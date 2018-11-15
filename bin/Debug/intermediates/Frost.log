@@ -1,9 +1,2 @@
-﻿  tilemap.cpp
-d:\dev\chestnuttilemap\src\chestnut2d\map\tilemap.cpp(68): warning C4018: '>': signed/unsigned mismatch
-d:\dev\chestnuttilemap\src\chestnut2d\map\tilemap.cpp(68): warning C4018: '>=': signed/unsigned mismatch
-  body.cpp
-  physics.cpp
-  frost.cpp
-  main.cpp
-  Generating Code...
-  Frost.vcxproj -> D:\Dev\ChestnutTileMap\bin\Debug\Frost.exe
+﻿  frost.cpp
+  Frost.vcxproj -> C:\Dev\Chestnut\bin\Debug\Frost.exe

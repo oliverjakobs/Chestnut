@@ -66,62 +66,16 @@ namespace chestnutPhysics
 
 	void Body::update(float deltaTime)
 	{		
-		if (!m_onGround)
-			m_velocity += glm::vec2(0.0f, -9.8f);
-
-		m_oldPosition = m_position;
-		m_oldVelocity = m_velocity;
-
-		m_wasOnGround = m_onGround;
-
-		m_position += m_velocity * deltaTime;
-							
-		float groundY = 0.0f;
-		if (m_velocity.y <= 0.0f && hasGround(m_oldPosition, m_position, &groundY))
-		{
-			m_position.y = groundY;
-			m_velocity.y = 0.0f;
-			m_onGround = true;
-		}
-		else
-			m_onGround = false;
-
-		float leftWallX = 0.0f;
-		if (m_velocity.x <= 0.0f && collidesWithLeftWall(m_oldPosition, m_position, &leftWallX))
-		{
-			if (m_oldPosition.x - m_AABB.halfDimension.x + m_AABBOffset.x >= leftWallX)
-			{
-				m_position.x = leftWallX + m_AABB.halfDimension.x - m_AABBOffset.x;
-				m_pushesLeftWall = true;
-			}
-			m_velocity.x = std::max(m_velocity.x, 0.0f);
-		}
-		else
-			m_pushesLeftWall = false;
-
-		float rightWallX = 0.0f;
-		if (m_velocity.x >= 0.0f && collidesWithRightWall(m_oldPosition, m_position, &rightWallX))
-		{
-			if (m_oldPosition.x + m_AABB.halfDimension.x + m_AABBOffset.x <= rightWallX)
-			{
-				m_position.x = rightWallX - m_AABB.halfDimension.x - m_AABBOffset.x;
-				m_pushesRightWall = true;
-			}
-
-			m_velocity.x = std::min(m_velocity.x, 0.0f);
-		}
-		else
-			m_pushesRightWall = false;
-
-		m_AABB.center = m_position + m_AABBOffset;
+		setPosition(m_position + m_velocity * deltaTime);
 	}
 
 	void Body::draw() const
 	{
-		Renderer::drawRect(Rect(m_AABB.center - m_AABB.halfDimension, m_AABB.halfDimension * 2.0f), m_onGround ? BLUE : GREEN);
+		Renderer::drawRect(Rect(m_AABB.center - m_AABB.halfDimension, m_AABB.halfDimension * 2.0f), m_pushesRightWall ? BLUE : GREEN);
 
-		Renderer::drawLine(m_AABB.getSensorBottom(m_AABB.center).start, m_AABB.getSensorBottom(m_AABB.center).end, RED);
-		Renderer::drawLine(m_AABB.getSensorLeft(m_AABB.center).start, m_AABB.getSensorLeft(m_AABB.center).end, RED);
+		//Renderer::drawLine(m_AABB.getSensorBottom(m_AABB.center).start, m_AABB.getSensorBottom(m_AABB.center).end, RED);
+		//Renderer::drawLine(m_AABB.getSensorLeft(m_AABB.center).start, m_AABB.getSensorLeft(m_AABB.center).end, RED);
+		//Renderer::drawLine(m_AABB.getSensorRight(m_AABB.center).start, m_AABB.getSensorRight(m_AABB.center).end, RED);
 
 		Renderer::fillCircle(m_position, 0.04f, BLACK);
 	}

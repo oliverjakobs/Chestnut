@@ -223,8 +223,6 @@
     <None Include="res\shaders\primitive.frag" />
     <None Include="res\shaders\primitive.geom" />
     <None Include="res\shaders\primitive.vert" />
-    <None Include="res\shader\ttf.frag" />
-    <None Include="res\shader\ttf.vert" />
     <None Include="res\shader\primitive.frag" />
     <None Include="res\shader\primitive.vert" />
     <None Include="res\shader\shader.frag" />
@@ -251,9 +249,6 @@
     <Font Include="res\fonts\GenBkBasR.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="chestnut.chst">
-      <SubType>Designer</SubType>
-    </Xml>
     <Xml Include="res\xml\trains.xml">
       <SubType>Designer</SubType>
     </Xml>
