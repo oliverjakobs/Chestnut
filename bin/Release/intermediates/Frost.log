@@ -1,0 +1,8 @@
+﻿LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Generating code
+  1247 of 4207 functions (29.6%) were compiled, the rest were copied from previous compilation.
+    853 functions were new in current compilation
+    482 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'D:\Dev\Chestnut2D\bin\Release\vc120.pdb'; linking object as if no debug info
+  Frost.vcxproj -> D:\Dev\Chestnut2D\bin\Release\Frost.exe
