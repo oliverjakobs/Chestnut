@@ -111,12 +111,12 @@ void Body::update(float deltaTime)
 
 void Body::draw() const
 {
-	/*Line sensor = m_AABB.getSensorTop(m_AABB.center);
+	Line sensor = m_AABB.getSensorTop(m_AABB.center);
 
-	for (auto& t : m_map->getAdjacentTiles(sensor.start, sensor.end - sensor.start))
+	for (auto& t : m_map->getAdjacentTiles(m_AABB.center - m_AABB.halfDimension, m_AABB.halfDimension * 2.0f))
 	{
 		Renderer::drawRect(t->posititon.x, t->posititon.y, m_map->getTileSize(), m_map->getTileSize(), t->type == Block ? RED : GREEN);
-	}*/
+	}
 
 	Renderer::drawRect(Rect(m_AABB.center - m_AABB.halfDimension, m_AABB.halfDimension * 2.0f), (m_collidesBottom || m_collidesTop || m_collidesLeft || m_collidesRight) ? BLUE : GREEN);
 
