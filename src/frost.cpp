@@ -45,7 +45,7 @@ void Frost::update(float deltaTime)
 		int x = m_map->getMapTileYAtPoint(mouse.x);
 		int y = m_map->getMapTileYAtPoint(mouse.y);
 
-		DEBUG_MESSAGE(m_map->getTileType(x, y));
+		DEBUG_MESSAGE("Tile at: " << x << ", " << y << ": " << m_map->getTileType(x, y));
 	}
 
 	//if (m_input->keyDown(GLFW_KEY_SPACE))

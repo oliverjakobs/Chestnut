@@ -1,12 +1,9 @@
 #pragma once
 
 #include "chestnut2D.h"
-#include "map\tilemap.h"
-
-#include "physics\physics.h"
+#include "body.h"
 
 using namespace chestnut2D;
-using namespace chestnutPhysics;
 
 class Frost : public Game
 {

@@ -88,7 +88,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;freetype.lib;Box2D_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
     <Manifest>
@@ -117,7 +117,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;freetype.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -137,17 +137,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\chestnut2D\font\bitmapfont.cpp" />
-    <ClCompile Include="src\chestnut2D\font\truetypefont.cpp" />
     <ClCompile Include="src\chestnut2D\graphics\buffers.cpp" />
     <ClCompile Include="src\chestnut2D\graphics\primitives.cpp" />
     <ClCompile Include="src\chestnut2D\graphics\shader.cpp" />
     <ClCompile Include="src\chestnut2D\graphics\view.cpp" />
     <ClCompile Include="src\chestnut2D\math\poly.cpp" />
     <ClCompile Include="src\chestnut2D\math\rect.cpp" />
-    <ClCompile Include="src\chestnut2D\physics\body.cpp" />
-    <ClCompile Include="src\chestnut2D\physics\physics.cpp" />
-    <ClCompile Include="src\chestnut2D\map\tilemap.cpp" />
+    <ClCompile Include="src\body.cpp" />
+    <ClCompile Include="src\tilemap.cpp" />
     <ClCompile Include="src\chestnut2D\timer.cpp" />
     <ClCompile Include="src\chestnut2D\game.cpp" />
     <ClCompile Include="src\chestnut2D\graphics\image.cpp" />
@@ -158,9 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\chestnut2D\chestnut2D.h" />
-    <ClInclude Include="src\chestnut2D\font\bitmapfont.h" />
-    <ClInclude Include="src\chestnut2D\font\font.h" />
-    <ClInclude Include="src\chestnut2D\font\truetypefont.h" />
     <ClInclude Include="src\chestnut2D\graphics\buffers.h" />
     <ClInclude Include="src\chestnut2D\graphics\color.h" />
     <ClInclude Include="src\chestnut2D\gl.h" />
@@ -169,12 +163,10 @@
     <ClInclude Include="src\chestnut2D\graphics\view.h" />
     <ClInclude Include="src\chestnut2D\math\poly.h" />
     <ClInclude Include="src\chestnut2D\math\rect.h" />
-    <ClInclude Include="src\chestnut2D\physics\body.h" />
-    <ClInclude Include="src\chestnut2D\physics\physics.h" />
-    <ClInclude Include="src\chestnut2D\map\tilemap.h" />
+    <ClInclude Include="src\body.h" />
+    <ClInclude Include="src\tilemap.h" />
     <ClInclude Include="src\chestnut2D\timer.h" />
     <ClInclude Include="src\chestnut2D\tools.h" />
-    <ClInclude Include="src\chestnut2D\tools\util\box2Dutil.h" />
     <ClInclude Include="src\chestnut2D\tools\util\glfw3utils.h" />
     <ClInclude Include="src\chestnut2D\tools\util\utils.h" />
     <ClInclude Include="src\chestnut2D\game.h" />
