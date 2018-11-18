@@ -48,6 +48,10 @@ Body::Body(float x, float y, float w, float h)
 	: m_AABB(AABB(glm::vec2(x, y + (h / 2.0f)), glm::vec2(w, h) / 2.0f)), m_position(glm::vec2(x, y)), m_AABBOffset(glm::vec2(0.0f, h / 2.0f))
 {
 	m_velocity = glm::vec2();
+	m_accel = glm::vec2();
+
+	m_maxVelocity = glm::vec2(50.0f);
+	m_maxAccel = glm::vec2(100.0f);
 
 	m_collidesBottom = false;
 	m_collidesLeft = false;
@@ -66,10 +70,16 @@ void Body::setMap(TileMap* map)
 
 void Body::update(float deltaTime)
 {
+	// apply gravity 
+	//if (!m_collidesBottom)
+		//m_velocity += glm::vec2(0.0f, -4.8f);
+
+
+	glm::vec2 oldPosition = m_position;
 	m_position.y += m_velocity.y * deltaTime;
 
 	float groundY = 0.0f;
-	if (m_velocity.y <= 0.0f && checkBottom(m_position, &groundY))
+	if (m_velocity.y <= 0.0f && checkBottom(m_position, oldPosition, &groundY))
 	{
 		m_position.y = groundY + m_AABB.halfDimension.y - m_AABBOffset.y;
 		m_collidesBottom = true;
@@ -78,7 +88,7 @@ void Body::update(float deltaTime)
 		m_collidesBottom = false;
 
 	groundY = 0.0f;
-	if (m_velocity.y >= 0.0f && checkTop(m_position, &groundY))
+	if (m_velocity.y >= 0.0f && checkTop(m_position, oldPosition, &groundY))
 	{
 		m_position.y = groundY - m_AABB.halfDimension.y - m_AABBOffset.y;
 		m_collidesTop = true;
@@ -86,10 +96,11 @@ void Body::update(float deltaTime)
 	else
 		m_collidesTop = false;
 
+	oldPosition = m_position;
 	m_position.x += m_velocity.x * deltaTime;
 
 	float wallX = 0.0f;
-	if (m_velocity.x <= 0.0f && checkLeft(m_position, &wallX))
+	if (m_velocity.x <= 0.0f && checkLeft(m_position, oldPosition, &wallX))
 	{
 		m_position.x = wallX + m_AABB.halfDimension.x - m_AABBOffset.x;
 		m_collidesLeft = true;
@@ -98,7 +109,7 @@ void Body::update(float deltaTime)
 		m_collidesLeft = false;
 
 	wallX = 0.0f;
-	if (m_velocity.x >= 0.0f && checkRight(m_position, &wallX))
+	if (m_velocity.x >= 0.0f && checkRight(m_position, oldPosition, &wallX))
 	{
 		m_position.x = wallX - m_AABB.halfDimension.x - m_AABBOffset.x;
 		m_collidesRight = true;
@@ -144,11 +155,24 @@ void Body::applyVelocity(float x, float y)
 	setVelocity(m_velocity.x + x, m_velocity.y + y);
 }
 
-bool Body::checkBottom(const glm::vec2& position, float* groundY) const
+bool Body::collidesBottom() const
+{
+	return m_collidesBottom;
+}
+
+bool Body::checkBottom(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY) const
 {
 	Line sensor = m_AABB.getSensorBottom(position + m_AABBOffset);
+	Line oldSensor = m_AABB.getSensorBottom(oldPosition + m_AABBOffset);
 
-	for (auto& t : m_map->getAdjacentTiles(sensor.start, sensor.end - sensor.start))
+	auto tiles = m_map->getAdjacentTiles(sensor.start, oldSensor.end - sensor.start);
+
+	std::sort(tiles.begin(), tiles.end(), [](const Tile* t1, const Tile* t2)
+	{
+		return t1->posititon.y > t2->posititon.y;
+	});
+
+	for (auto& t : tiles)
 	{
 		if (t->type == Block)
 		{
@@ -160,11 +184,19 @@ bool Body::checkBottom(const glm::vec2& position, float* groundY) const
 	return false;
 }
 
-bool Body::checkTop(const glm::vec2& position, float* groundY) const
+bool Body::checkTop(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY) const
 {
 	Line sensor = m_AABB.getSensorTop(position + m_AABBOffset);
+	Line oldSensor = m_AABB.getSensorTop(oldPosition + m_AABBOffset);
 
-	for (auto& t : m_map->getAdjacentTiles(sensor.start, sensor.end - sensor.start))
+	auto tiles = m_map->getAdjacentTiles(oldSensor.start, sensor.end - oldSensor.start);
+
+	std::sort(tiles.begin(), tiles.end(), [](const Tile* t1, const Tile* t2)
+	{
+		return t1->posititon.y < t2->posititon.y;
+	});
+
+	for (auto& t : tiles)
 	{
 		if (t->type == Block)
 		{
@@ -176,11 +208,19 @@ bool Body::checkTop(const glm::vec2& position, float* groundY) const
 	return false;
 }
 
-bool Body::checkLeft(const glm::vec2& position, float* wallX) const
+bool Body::checkLeft(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX) const
 {
 	Line sensor = m_AABB.getSensorLeft(position + m_AABBOffset);
+	Line oldSensor = m_AABB.getSensorLeft(oldPosition + m_AABBOffset);
 
-	for (auto& t : m_map->getAdjacentTiles(sensor.start, sensor.end - sensor.start))
+	auto tiles = m_map->getAdjacentTiles(sensor.start, oldSensor.end - sensor.start);
+
+	std::sort(tiles.begin(), tiles.end(), [](const Tile* t1, const Tile* t2)
+	{
+		return t1->posititon.x > t2->posititon.x;
+	});
+
+	for (auto& t : tiles)
 	{
 		if (t->type == Block)
 		{
@@ -192,11 +232,19 @@ bool Body::checkLeft(const glm::vec2& position, float* wallX) const
 	return false;
 }
 
-bool Body::checkRight(const glm::vec2& position, float* wallX) const
+bool Body::checkRight(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX) const
 {
 	Line sensor = m_AABB.getSensorRight(position + m_AABBOffset);
+	Line oldSensor = m_AABB.getSensorRight(oldPosition + m_AABBOffset);
 
-	for (auto& t : m_map->getAdjacentTiles(sensor.start, sensor.end - sensor.start))
+	auto tiles = m_map->getAdjacentTiles(oldSensor.start, sensor.end - oldSensor.start);
+
+	std::sort(tiles.begin(), tiles.end(), [](const Tile* t1, const Tile* t2)
+	{
+		return t1->posititon.x < t2->posititon.x;
+	});
+
+	for (auto& t : tiles)
 	{
 		if (t->type == Block)
 		{

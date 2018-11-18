@@ -27,10 +27,12 @@ class Body
 {
 private:
 	glm::vec2 m_position;
-	glm::vec2 m_oldPosition;
 
+	glm::vec2 m_accel;
 	glm::vec2 m_velocity;
-	glm::vec2 m_oldVelocity;
+
+	glm::vec2 m_maxAccel;
+	glm::vec2 m_maxVelocity;
 
 	bool m_collidesBottom;
 	bool m_collidesTop;
@@ -54,8 +56,10 @@ public:
 	void setVelocity(float x, float y);
 	void applyVelocity(float x, float y);
 
-	bool checkBottom(const glm::vec2& position, float* groundY) const;
-	bool checkTop(const glm::vec2& position, float* groundY) const;
-	bool checkLeft(const glm::vec2& position, float* wallX) const;
-	bool checkRight(const glm::vec2& position, float* wallX) const;
+	bool collidesBottom() const;
+
+	bool checkBottom(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY) const;
+	bool checkTop(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY) const;
+	bool checkLeft(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX) const;
+	bool checkRight(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX) const;
 };

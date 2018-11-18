@@ -23,7 +23,7 @@ Frost::~Frost()
 
 void Frost::update(float deltaTime)
 {
-	float movementSpeed = 4.0f;
+	float movementSpeed = 12.0f;
 
 	glm::vec2 velocity = glm::vec2();
 
