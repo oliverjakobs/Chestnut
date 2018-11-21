@@ -30,7 +30,7 @@ private:
 
 	std::vector<Tile> m_tiles;
 public:
-	TileMap(const std::string& tiles, float tileSize, unsigned int width, unsigned int  height);
+	TileMap(const std::string& image, const std::string& map);
 	~TileMap();
 
 	void draw() const;

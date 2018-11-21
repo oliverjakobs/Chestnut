@@ -10,7 +10,7 @@ Frost::Frost(const std::string& title, int width, int height, float viewW, float
 
 	setExitKey(GLFW_KEY_ESCAPE);
 
-	m_map = new TileMap("res/images/tiles.png", 0.4f, 40, 24);
+	m_map = new TileMap("res/images/tiles.png", "res/maps/tilemap.tile");
 
 	m_body = new Body(8.0f, 4.8f, 0.6f, 1.2f);
 	m_body->setMap(m_map);

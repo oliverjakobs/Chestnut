@@ -4,28 +4,36 @@
 
 using namespace chestnut2D;
 
-TileMap::TileMap(const std::string& tiles, float tileSize, unsigned int width, unsigned int  height)
-	: m_width(width), m_height(height), m_tileSize(tileSize)
+TileMap::TileMap(const std::string& image, const std::string& map)
 {
-	m_image = new Image(tiles, tileSize, tileSize, 8, 8);
+	auto parts = cutString("[Map]", readFile(map.c_str()));
 
-	std::vector<int> solidTiles = { 1, 2, 3, 8, 9, 11, 17, 18, 19 };
-	std::vector<int> oneWayTiles = { 4, 5, 6 };
+	auto lines = cutString("\n", parts[0]);
 
-	auto lines = cutString(",", readFile("res/maps/tilemap.tile"));
+	m_width = std::stoi(cutString(" ", lines[0])[1]);
+	m_height = std::stoi(cutString(" ", lines[1])[1]);
+	m_tileSize = std::stof(cutString(" ", lines[2])[1]);
 
-	for (unsigned int i = 0; i < height; i++)
+	auto solidTiles = cutString(" ", lines[3]);
+		
+	auto oneWayTiles = cutString(" ", lines[4]);
+
+	m_image = new Image(image, m_tileSize, m_tileSize, 8, 8);
+
+	auto tiles = cutString(",", parts[1]);
+
+	for (unsigned int i = 0; i < m_height; i++)
 	{
-		for (unsigned int j = 0; j < width; j++)
+		for (unsigned int j = 0; j < m_width; j++)
 		{
 			Tile tile;
 
-			tile.posititon = glm::vec2(j, height - i - 1) * m_tileSize;
-			tile.id = std::stoi(lines.at(i * width + j));
+			tile.posititon = glm::vec2(j, m_height - i - 1) * m_tileSize;
+			tile.id = std::stoi(tiles.at(i * m_width + j));
 
-			if (contains<int>(solidTiles, tile.id))
+			if (contains<std::string>(solidTiles, toString(tile.id)))
 				tile.type = Block;
-			else if (contains<int>(oneWayTiles, tile.id))
+			else if (contains<std::string>(oneWayTiles, toString(tile.id)))
 				tile.type = OneWay;
 			else
 				tile.type = Empty;

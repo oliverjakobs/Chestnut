@@ -133,8 +133,8 @@ namespace chestnut2D
 	void Image::draw(const glm::vec2& position, const glm::vec4& colorMod, int frame, const glm::mat4& view) const
 	{
 		float fX = (frame % m_columns) * m_frameWidth;
-		float fY = (frame / m_columns) * m_frameHeight;
-
+		float fY = 1 - m_frameHeight - ((frame / m_columns) * m_frameHeight);
+		
 		glm::mat4 model = glm::mat4();
 
 		switch (m_flip)
