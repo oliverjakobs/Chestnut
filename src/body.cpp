@@ -48,10 +48,7 @@ Body::Body(float x, float y, float w, float h)
 	: m_AABB(AABB(glm::vec2(x, y + (h / 2.0f)), glm::vec2(w, h) / 2.0f)), m_position(glm::vec2(x, y)), m_AABBOffset(glm::vec2(0.0f, h / 2.0f))
 {
 	m_velocity = glm::vec2();
-	m_accel = glm::vec2();
-
-	m_maxVelocity = glm::vec2(50.0f);
-	m_maxAccel = glm::vec2(100.0f);
+	m_targetVelocity = glm::vec2();
 
 	m_collidesBottom = false;
 	m_collidesLeft = false;
@@ -70,33 +67,12 @@ void Body::setMap(TileMap* map)
 
 void Body::update(float deltaTime)
 {
-	// apply gravity 
-	//if (!m_collidesBottom)
-		//m_velocity += glm::vec2(0.0f, -4.8f);
+	glm::vec2 gravity = glm::vec2(0.0f, -9.8f);
 
+	m_velocity += gravity * deltaTime;
+	m_velocity.x = m_targetVelocity.x;
 
 	glm::vec2 oldPosition = m_position;
-	m_position.y += m_velocity.y * deltaTime;
-
-	float groundY = 0.0f;
-	if (m_velocity.y <= 0.0f && checkBottom(m_position, oldPosition, &groundY))
-	{
-		m_position.y = groundY + m_AABB.halfDimension.y - m_AABBOffset.y;
-		m_collidesBottom = true;
-	}
-	else
-		m_collidesBottom = false;
-
-	groundY = 0.0f;
-	if (m_velocity.y >= 0.0f && checkTop(m_position, oldPosition, &groundY))
-	{
-		m_position.y = groundY - m_AABB.halfDimension.y - m_AABBOffset.y;
-		m_collidesTop = true;
-	}
-	else
-		m_collidesTop = false;
-
-	oldPosition = m_position;
 	m_position.x += m_velocity.x * deltaTime;
 
 	float wallX = 0.0f;
@@ -116,19 +92,35 @@ void Body::update(float deltaTime)
 	}
 	else
 		m_collidesRight = false;
+	
+	oldPosition = m_position;
+	m_position.y += m_velocity.y * deltaTime;
 
+	float groundY = 0.0f;
+	if (m_velocity.y <= 0.0f && checkBottom(m_position, oldPosition, &groundY))
+	{
+		m_position.y = groundY + m_AABB.halfDimension.y - m_AABBOffset.y;
+		m_collidesBottom = true;
+	}
+	else
+		m_collidesBottom = false;
+
+	groundY = 0.0f;
+	if (m_velocity.y >= 0.0f && checkTop(m_position, oldPosition, &groundY))
+	{
+		m_position.y = groundY - m_AABB.halfDimension.y - m_AABBOffset.y;
+		m_collidesTop = true;
+	}
+	else
+		m_collidesTop = false;
+	
 	m_AABB.center = m_position + m_AABBOffset;
+
+	m_targetVelocity = glm::vec2();
 }
 
 void Body::draw() const
 {
-	Line sensor = m_AABB.getSensorTop(m_AABB.center);
-
-	for (auto& t : m_map->getAdjacentTiles(m_AABB.center - m_AABB.halfDimension, m_AABB.halfDimension * 2.0f))
-	{
-		Renderer::drawRect(t->posititon.x, t->posititon.y, m_map->getTileSize(), m_map->getTileSize(), t->type == Block ? RED : GREEN);
-	}
-
 	Renderer::drawRect(Rect(m_AABB.center - m_AABB.halfDimension, m_AABB.halfDimension * 2.0f), (m_collidesBottom || m_collidesTop || m_collidesLeft || m_collidesRight) ? BLUE : GREEN);
 
 	Renderer::drawLine(m_AABB.getSensorBottom(m_AABB.center).start, m_AABB.getSensorBottom(m_AABB.center).end, RED);
@@ -150,9 +142,14 @@ void Body::setVelocity(float x, float y)
 	m_velocity = glm::vec2(x, y);
 }
 
-void Body::applyVelocity(float x, float y)
+void Body::setTargetVelocity(float x, float y)
 {
-	setVelocity(m_velocity.x + x, m_velocity.y + y);
+	m_targetVelocity = glm::vec2(x, y);
+}
+
+glm::vec2 Body::getVelocity() const
+{
+	return m_velocity;
 }
 
 bool Body::collidesBottom() const
@@ -174,7 +171,7 @@ bool Body::checkBottom(const glm::vec2& position, const glm::vec2& oldPosition, 
 
 	for (auto& t : tiles)
 	{
-		if (t->type == Block)
+		if (t->type == Block || t->type == OneWay)
 		{
 			*groundY = t->posititon.y + m_map->getTileSize();
 			return true;

@@ -84,13 +84,13 @@ namespace chestnut2D
 
 			if (m_debug)
 				debugDraw();
-
-			if (m_showFPS)
-				setTitle(stringf("Frost  |  FPS: %i", m_timer.getFPS()));
 			
 			Renderer::flush();
 
 			m_timer.end();
+
+			if (m_showFPS)
+				setTitle(stringf("Frost  |  FPS: %i", m_timer.getFPS()));
 		}
 	}
 

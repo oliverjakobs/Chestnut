@@ -28,11 +28,9 @@ class Body
 private:
 	glm::vec2 m_position;
 
-	glm::vec2 m_accel;
 	glm::vec2 m_velocity;
+	glm::vec2 m_targetVelocity;
 
-	glm::vec2 m_maxAccel;
-	glm::vec2 m_maxVelocity;
 
 	bool m_collidesBottom;
 	bool m_collidesTop;
@@ -54,7 +52,9 @@ public:
 
 	void setPosition(const glm::vec2& pos);
 	void setVelocity(float x, float y);
-	void applyVelocity(float x, float y);
+	void setTargetVelocity(float x, float y);
+
+	glm::vec2 getVelocity() const;
 
 	bool collidesBottom() const;
 

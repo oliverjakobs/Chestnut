@@ -26,4 +26,17 @@ namespace chestnutMath
 	{
 		return compare(vec1.x, vec2.x) && compare(vec1.y, vec2.y);
 	}
+
+	inline glm::vec2 clampVec2(const glm::vec2& vec, float c)
+	{
+		if (vec.length() > c)
+			return glm::normalize(vec) * c;
+
+		return vec;
+	}
+
+	inline float roundFloat(float f, int decimal)
+	{
+		return std::roundf(f * decimal) / decimal;
+	}
 }

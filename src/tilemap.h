@@ -21,32 +21,30 @@ struct Tile
 class TileMap
 {
 private:
-	Image* m_tiles;
+	Image* m_image;
 
 	unsigned int m_width;
 	unsigned int m_height;
 
 	float m_tileSize;
 
-	std::vector<Tile> m_map;
+	std::vector<Tile> m_tiles;
 public:
 	TileMap(const std::string& tiles, float tileSize, unsigned int width, unsigned int  height);
 	~TileMap();
 
-	void draw();
+	void draw() const;
+	void debugDraw() const;
 
 	float getTileSize() const;
 
 	int getMapTileYAtPoint(float y);
 	int getMapTileXAtPoint(float x);
 
+	glm::ivec2 getMapTileAtPoint(float x, float y) const;
+
 	std::vector<Tile*> getAdjacentTiles(float x, float y, float w, float h);
 	std::vector<Tile*> getAdjacentTiles(const glm::vec2& pos, const glm::vec2& size);
 
 	Tile* getTile(int x, int y);
-	TileType getTileType(int x, int y) const;
-	bool isObstacle(int x, int y) const;
-	bool isGround(int x, int y) const;
-	bool isOneWay(int x, int y) const;
-	bool isEmtpy(int x, int y) const;
 };

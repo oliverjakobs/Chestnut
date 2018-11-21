@@ -23,7 +23,8 @@ Frost::~Frost()
 
 void Frost::update(float deltaTime)
 {
-	float movementSpeed = 12.0f;
+	float movementSpeed = 8.0f;
+	float jumpPower = 8.0f;
 
 	glm::vec2 velocity = glm::vec2();
 
@@ -31,12 +32,14 @@ void Frost::update(float deltaTime)
 		velocity += glm::vec2(-1.0f, 0.0f);
 	if (m_input->keyDown(GLFW_KEY_D))
 		velocity += glm::vec2(1.0f, 0.0f);
-	if (m_input->keyDown(GLFW_KEY_S))
-		velocity += glm::vec2(0.0f, -1.0f);
-	if (m_input->keyDown(GLFW_KEY_W))
-		velocity += glm::vec2(0.0f, 1.0f);
 
-	m_body->setVelocity(velocity.x * movementSpeed, velocity.y * movementSpeed);
+	m_body->setTargetVelocity(velocity.x * movementSpeed, velocity.y);
+
+	if (m_input->keyDown(GLFW_KEY_SPACE) && m_body->collidesBottom())
+		m_body->setVelocity(m_body->getVelocity().x, jumpPower);
+	else if (m_input->keyUp(GLFW_KEY_SPACE))
+		if (m_body->getVelocity().y > 0)
+			m_body->setVelocity(m_body->getVelocity().x, m_body->getVelocity().y * 0.5f);
 	
 	if (m_input->mouseButtonHit(GLFW_MOUSE_BUTTON_LEFT))
 	{
@@ -45,11 +48,10 @@ void Frost::update(float deltaTime)
 		int x = m_map->getMapTileYAtPoint(mouse.x);
 		int y = m_map->getMapTileYAtPoint(mouse.y);
 
-		DEBUG_MESSAGE("Tile at: " << x << ", " << y << ": " << m_map->getTileType(x, y));
+		DEBUG_MESSAGE("Tile at: " << x << ", " << y << ": " << m_map->getTile(x, y)->type);
 	}
 
-	//if (m_input->keyDown(GLFW_KEY_SPACE))
-		m_body->update(deltaTime);
+	m_body->update(deltaTime);
 }
 
 void Frost::draw()
@@ -61,5 +63,5 @@ void Frost::draw()
 
 void Frost::debugDraw()
 {
-
+	m_map->debugDraw();
 }
