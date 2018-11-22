@@ -2,7 +2,7 @@
 
 #include "glm\glm.hpp"
 
-namespace chestnut2D
+namespace chst
 {
 	const glm::vec4 BLACK	= glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 	const glm::vec4 WHITE	= glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);

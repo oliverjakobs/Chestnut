@@ -1,6 +1,6 @@
 #pragma once
 
-namespace chestnut2D
+namespace chst
 {
 	class Timer
 	{

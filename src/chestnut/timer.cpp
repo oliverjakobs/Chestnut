@@ -2,7 +2,7 @@
 
 #include "gl.h"
 
-namespace chestnut2D
+namespace chst
 {
 	Timer::Timer()
 	{

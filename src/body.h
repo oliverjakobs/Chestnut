@@ -31,7 +31,6 @@ private:
 	glm::vec2 m_velocity;
 	glm::vec2 m_targetVelocity;
 
-
 	bool m_collidesBottom;
 	bool m_collidesTop;
 	bool m_collidesLeft;

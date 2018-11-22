@@ -3,7 +3,7 @@
 #include "graphics.h"
 #include "timer.h"
 
-namespace chestnut2D
+namespace chst
 {
 	bool Game::init(const std::string& title, int width, int height, float viewW, float viewH)
 	{

@@ -3,7 +3,7 @@
 #include <exception>
 #include <string.h>
 
-namespace chestnut2D
+namespace chst
 {
 	class ParserException : public std::exception
 	{

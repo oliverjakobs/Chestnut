@@ -2,7 +2,7 @@
 
 #include "tools.h"
 
-using namespace chestnut2D;
+using namespace chst;
 
 TileMap::TileMap(const std::string& image, const std::string& map)
 {

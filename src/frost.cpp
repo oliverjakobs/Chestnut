@@ -1,6 +1,6 @@
 #include "frost.h"
 
-using namespace chestnut2D;
+using namespace chst;
 
 Frost::Frost(const std::string& title, int width, int height, float viewW, float viewH)
 	: Game(title, width, height, viewW, viewH)

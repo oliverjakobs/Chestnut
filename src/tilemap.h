@@ -2,7 +2,7 @@
 
 #include "graphics.h"
 
-using namespace chestnut2D;
+using namespace chst;
 
 enum TileType
 {

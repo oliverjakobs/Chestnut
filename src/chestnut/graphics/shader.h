@@ -8,7 +8,7 @@
 
 #include "error\error.h"
 
-namespace chestnut2D
+namespace chst
 {
 	class Shader
 	{

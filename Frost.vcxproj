@@ -82,7 +82,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)src\chestnut2D;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\chestnut;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;ENABLE_IMGUI;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -109,7 +109,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)src\chestnut2D;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\chestnut;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;ENABLE_IMGUI;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -137,50 +137,50 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\chestnut2D\graphics\buffers.cpp" />
-    <ClCompile Include="src\chestnut2D\graphics\primitives.cpp" />
-    <ClCompile Include="src\chestnut2D\graphics\shader.cpp" />
-    <ClCompile Include="src\chestnut2D\graphics\view.cpp" />
-    <ClCompile Include="src\chestnut2D\math\poly.cpp" />
-    <ClCompile Include="src\chestnut2D\math\rect.cpp" />
+    <ClCompile Include="src\chestnut\graphics\buffers.cpp" />
+    <ClCompile Include="src\chestnut\graphics\primitives.cpp" />
+    <ClCompile Include="src\chestnut\graphics\shader.cpp" />
+    <ClCompile Include="src\chestnut\graphics\view.cpp" />
+    <ClCompile Include="src\chestnut\math\poly.cpp" />
+    <ClCompile Include="src\chestnut\math\rect.cpp" />
     <ClCompile Include="src\body.cpp" />
     <ClCompile Include="src\tilemap.cpp" />
-    <ClCompile Include="src\chestnut2D\timer.cpp" />
-    <ClCompile Include="src\chestnut2D\game.cpp" />
-    <ClCompile Include="src\chestnut2D\graphics\image.cpp" />
-    <ClCompile Include="src\chestnut2D\graphics\renderer.cpp" />
-    <ClCompile Include="src\chestnut2D\input\input.cpp" />
+    <ClCompile Include="src\chestnut\timer.cpp" />
+    <ClCompile Include="src\chestnut\game.cpp" />
+    <ClCompile Include="src\chestnut\graphics\image.cpp" />
+    <ClCompile Include="src\chestnut\graphics\renderer.cpp" />
+    <ClCompile Include="src\chestnut\input\input.cpp" />
     <ClCompile Include="src\frost.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\chestnut2D\chestnut2D.h" />
-    <ClInclude Include="src\chestnut2D\graphics\buffers.h" />
-    <ClInclude Include="src\chestnut2D\graphics\color.h" />
-    <ClInclude Include="src\chestnut2D\gl.h" />
-    <ClInclude Include="src\chestnut2D\graphics\primitives.h" />
-    <ClInclude Include="src\chestnut2D\graphics\shader.h" />
-    <ClInclude Include="src\chestnut2D\graphics\view.h" />
-    <ClInclude Include="src\chestnut2D\math\poly.h" />
-    <ClInclude Include="src\chestnut2D\math\rect.h" />
+    <ClInclude Include="src\chestnut\chestnut2D.h" />
+    <ClInclude Include="src\chestnut\graphics\buffers.h" />
+    <ClInclude Include="src\chestnut\graphics\color.h" />
+    <ClInclude Include="src\chestnut\gl.h" />
+    <ClInclude Include="src\chestnut\graphics\primitives.h" />
+    <ClInclude Include="src\chestnut\graphics\shader.h" />
+    <ClInclude Include="src\chestnut\graphics\view.h" />
+    <ClInclude Include="src\chestnut\math\poly.h" />
+    <ClInclude Include="src\chestnut\math\rect.h" />
     <ClInclude Include="src\body.h" />
     <ClInclude Include="src\tilemap.h" />
-    <ClInclude Include="src\chestnut2D\timer.h" />
-    <ClInclude Include="src\chestnut2D\tools.h" />
-    <ClInclude Include="src\chestnut2D\tools\util\glfw3utils.h" />
-    <ClInclude Include="src\chestnut2D\tools\util\utils.h" />
-    <ClInclude Include="src\chestnut2D\game.h" />
-    <ClInclude Include="src\chestnut2D\graphics.h" />
-    <ClInclude Include="src\chestnut2D\graphics\image.h" />
-    <ClInclude Include="src\chestnut2D\graphics\renderer.h" />
-    <ClInclude Include="src\chestnut2D\error\error.h" />
-    <ClInclude Include="src\chestnut2D\input\input.h" />
-    <ClInclude Include="src\chestnut2D\math\geometry.h" />
-    <ClInclude Include="src\chestnut2D\math\maths.h" />
-    <ClInclude Include="src\chestnut2D\tools\patterns\singelton.h" />
-    <ClInclude Include="src\chestnut2D\tools\util\fileutils.h" />
-    <ClInclude Include="src\chestnut2D\tools\flags.h" />
-    <ClInclude Include="src\chestnut2D\tools\util\stringutils.h" />
+    <ClInclude Include="src\chestnut\timer.h" />
+    <ClInclude Include="src\chestnut\tools.h" />
+    <ClInclude Include="src\chestnut\tools\util\glfw3utils.h" />
+    <ClInclude Include="src\chestnut\tools\util\utils.h" />
+    <ClInclude Include="src\chestnut\game.h" />
+    <ClInclude Include="src\chestnut\graphics.h" />
+    <ClInclude Include="src\chestnut\graphics\image.h" />
+    <ClInclude Include="src\chestnut\graphics\renderer.h" />
+    <ClInclude Include="src\chestnut\error\error.h" />
+    <ClInclude Include="src\chestnut\input\input.h" />
+    <ClInclude Include="src\chestnut\math\geometry.h" />
+    <ClInclude Include="src\chestnut\math\maths.h" />
+    <ClInclude Include="src\chestnut\tools\patterns\singelton.h" />
+    <ClInclude Include="src\chestnut\tools\util\fileutils.h" />
+    <ClInclude Include="src\chestnut\tools\flags.h" />
+    <ClInclude Include="src\chestnut\tools\util\stringutils.h" />
     <ClInclude Include="src\core\camera.h" />
     <ClInclude Include="src\core\collisionhandler.h" />
     <ClInclude Include="src\core\components\cameracomponent.h" />

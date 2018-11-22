@@ -2,7 +2,7 @@
 
 #include <algorithm>   
 
-using namespace chestnut2D;
+using namespace chst;
 
 AABB::AABB()
 	: center(glm::vec2()), halfDimension(glm::vec2())

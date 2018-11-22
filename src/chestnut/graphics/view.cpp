@@ -4,7 +4,7 @@
 
 #include "graphics.h"
 
-namespace chestnut2D
+namespace chst
 {
 	void View::create(float x, float y, float w, float h)
 	{

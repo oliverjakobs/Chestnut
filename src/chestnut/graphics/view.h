@@ -2,7 +2,7 @@
 
 #include "math\maths.h"
 
-namespace chestnut2D
+namespace chst
 {
 	struct View
 	{

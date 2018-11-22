@@ -5,7 +5,7 @@
 
 #include "glm\glm.hpp"
 
-namespace chestnut2D
+namespace chst
 {
 	enum RenderFlip
 	{

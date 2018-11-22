@@ -6,7 +6,7 @@
 
 #include "tools.h"
 
-namespace chestnut2D
+namespace chst
 {
 	class Game 
 	{

@@ -4,7 +4,7 @@
 
 #include <vector>
 
-namespace chestnut2D
+namespace chst
 {
 	struct GLRenderLines;
 	struct GLRenderTriangles;

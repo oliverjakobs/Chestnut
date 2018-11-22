@@ -3,7 +3,7 @@
 #include <string>
 #include <fstream>
 
-namespace chestnut2D
+namespace chst
 {
 	inline std::string readFile(const char* path)
 	{

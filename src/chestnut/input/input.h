@@ -3,7 +3,7 @@
 #include "gl.h"
 #include "glm\glm.hpp"
 
-namespace chestnut2D
+namespace chst
 {
 	class Input
 	{

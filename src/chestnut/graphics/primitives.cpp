@@ -9,7 +9,7 @@
 #include "tools\util\fileutils.h"
 #include "tools\util\utils.h"
 
-namespace chestnut2D
+namespace chst
 {
 	struct GLRenderLines
 	{

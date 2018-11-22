@@ -13,7 +13,7 @@
 
 #include "tools.h"
 
-namespace chestnut2D
+namespace chst
 {
 	using namespace chestnutMath;
 	

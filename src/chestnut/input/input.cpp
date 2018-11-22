@@ -3,7 +3,7 @@
 #include "graphics.h"
 #include "game.h"
 
-namespace chestnut2D
+namespace chst
 {
 	Input::Input()
 	{

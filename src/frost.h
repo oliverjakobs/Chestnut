@@ -3,7 +3,7 @@
 #include "chestnut2D.h"
 #include "body.h"
 
-using namespace chestnut2D;
+using namespace chst;
 
 class Frost : public Game
 {

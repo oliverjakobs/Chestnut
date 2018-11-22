@@ -5,7 +5,7 @@
 
 #include <sstream>
 
-namespace chestnut2D
+namespace chst
 {
 	inline bool stringCompare(const std::string& s1, const std::string& s2)
 	{

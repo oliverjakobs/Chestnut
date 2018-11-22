@@ -3,7 +3,7 @@
 #include "glm\gtc\type_ptr.hpp"
 #include "tools\util\utils.h"
 
-namespace chestnut2D
+namespace chst
 {
 	GLuint Shader::s_activeProgram = 0;
 

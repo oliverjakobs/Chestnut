@@ -3,7 +3,7 @@
 #include <string>
 #include "gl.h"
 
-namespace chestnut2D
+namespace chst
 {
 	inline unsigned int getGLFWKey(const std::string& key)
 	{

@@ -3,7 +3,7 @@
 #include "buffers.h"
 #include "glm\gtc\matrix_transform.hpp"
 
-namespace chestnut2D
+namespace chst
 {
 	Image::Image(const std::string& filename, int rows, int columns)
 	{
@@ -107,7 +107,9 @@ namespace chestnut2D
 
 	Image::~Image()
 	{
-		//SDL_DestroyTexture(m_texture);
+		glDeleteTextures(1, &m_texture);
+
+		glDeleteBuffers(1, &m_vao);
 	}
 
 	void Image::setRenderFlip(RenderFlip flip)
