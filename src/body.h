@@ -29,7 +29,6 @@ private:
 	glm::vec2 m_position;
 
 	glm::vec2 m_velocity;
-	glm::vec2 m_targetVelocity;
 
 	bool m_collidesBottom;
 	bool m_collidesTop;
@@ -49,9 +48,14 @@ public:
 	void update(float deltaTime);
 	void draw() const;
 
+	void moveX(float x);
+	void moveY(float y);
+
 	void setPosition(const glm::vec2& pos);
 	void setVelocity(float x, float y);
-	void setTargetVelocity(float x, float y);
+	void setVelocityX(float x);
+	void setVelocityY(float y);
+	void changeVelocity(float x, float y);
 
 	glm::vec2 getVelocity() const;
 

@@ -48,7 +48,6 @@ Body::Body(float x, float y, float w, float h)
 	: m_AABB(AABB(glm::vec2(x, y + (h / 2.0f)), glm::vec2(w, h) / 2.0f)), m_position(glm::vec2(x, y)), m_AABBOffset(glm::vec2(0.0f, h / 2.0f))
 {
 	m_velocity = glm::vec2();
-	m_targetVelocity = glm::vec2();
 
 	m_collidesBottom = false;
 	m_collidesLeft = false;
@@ -70,53 +69,11 @@ void Body::update(float deltaTime)
 	glm::vec2 gravity = glm::vec2(0.0f, -9.8f);
 
 	m_velocity += gravity * deltaTime;
-	m_velocity.x = m_targetVelocity.x;
 
-	glm::vec2 oldPosition = m_position;
-	m_position.x += m_velocity.x * deltaTime;
-
-	float wallX = 0.0f;
-	if (m_velocity.x <= 0.0f && checkLeft(m_position, oldPosition, &wallX))
-	{
-		m_position.x = wallX + m_AABB.halfDimension.x - m_AABBOffset.x;
-		m_collidesLeft = true;
-	}
-	else
-		m_collidesLeft = false;
-
-	wallX = 0.0f;
-	if (m_velocity.x >= 0.0f && checkRight(m_position, oldPosition, &wallX))
-	{
-		m_position.x = wallX - m_AABB.halfDimension.x - m_AABBOffset.x;
-		m_collidesRight = true;
-	}
-	else
-		m_collidesRight = false;
-	
-	oldPosition = m_position;
-	m_position.y += m_velocity.y * deltaTime;
-
-	float groundY = 0.0f;
-	if (m_velocity.y <= 0.0f && checkBottom(m_position, oldPosition, &groundY))
-	{
-		m_position.y = groundY + m_AABB.halfDimension.y - m_AABBOffset.y;
-		m_collidesBottom = true;
-	}
-	else
-		m_collidesBottom = false;
-
-	groundY = 0.0f;
-	if (m_velocity.y >= 0.0f && checkTop(m_position, oldPosition, &groundY))
-	{
-		m_position.y = groundY - m_AABB.halfDimension.y - m_AABBOffset.y;
-		m_collidesTop = true;
-	}
-	else
-		m_collidesTop = false;
+	moveX(m_velocity.x * deltaTime);
+	moveY(m_velocity.y * deltaTime);
 	
 	m_AABB.center = m_position + m_AABBOffset;
-
-	m_targetVelocity = glm::vec2();
 }
 
 void Body::draw() const
@@ -131,6 +88,59 @@ void Body::draw() const
 	Renderer::fillCircle(m_position, 0.04f, BLACK);
 }
 
+void Body::moveX(float x)
+{
+	glm::vec2 oldPosition = m_position;
+
+	m_position.x += x;
+
+	float wallX = 0.0f;
+	if (m_velocity.x <= 0.0f && checkLeft(m_position, oldPosition, &wallX))
+	{
+		m_position.x = wallX + m_AABB.halfDimension.x - m_AABBOffset.x;
+		m_velocity.x = 0.0f;
+		m_collidesLeft = true;
+	}
+	else
+		m_collidesLeft = false;
+
+	wallX = 0.0f;
+	if (m_velocity.x >= 0.0f && checkRight(m_position, oldPosition, &wallX))
+	{
+		m_position.x = wallX - m_AABB.halfDimension.x - m_AABBOffset.x;
+		m_velocity.x = 0.0f;
+		m_collidesRight = true;
+	}
+	else
+		m_collidesRight = false;
+}
+
+void Body::moveY(float y)
+{
+	glm::vec2 oldPosition = m_position;
+	m_position.y += y;
+
+	float groundY = 0.0f;
+	if (m_velocity.y <= 0.0f && checkBottom(m_position, oldPosition, &groundY))
+	{
+		m_position.y = groundY + m_AABB.halfDimension.y - m_AABBOffset.y;
+		m_velocity.y = 0.0f;
+		m_collidesBottom = true;
+	}
+	else
+		m_collidesBottom = false;
+
+	groundY = 0.0f;
+	if (m_velocity.y >= 0.0f && checkTop(m_position, oldPosition, &groundY))
+	{
+		m_position.y = groundY - m_AABB.halfDimension.y - m_AABBOffset.y;
+		m_velocity.y = 0.0f;
+		m_collidesTop = true;
+	}
+	else
+		m_collidesTop = false;
+}
+
 void Body::setPosition(const glm::vec2& pos)
 {
 	m_position = pos;
@@ -142,9 +152,19 @@ void Body::setVelocity(float x, float y)
 	m_velocity = glm::vec2(x, y);
 }
 
-void Body::setTargetVelocity(float x, float y)
+void Body::setVelocityX(float x)
 {
-	m_targetVelocity = glm::vec2(x, y);
+	m_velocity.x = x;
+}
+
+void Body::setVelocityY(float y)
+{
+	m_velocity.y = y;
+}
+
+void Body::changeVelocity(float x, float y)
+{
+	m_velocity += glm::vec2(x, y);
 }
 
 glm::vec2 Body::getVelocity() const

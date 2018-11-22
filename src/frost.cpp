@@ -26,20 +26,20 @@ void Frost::update(float deltaTime)
 	float movementSpeed = 8.0f;
 	float jumpPower = 8.0f;
 
-	glm::vec2 velocity = glm::vec2();
+	float velocity = 0.0f;
 
 	if (m_input->keyDown(GLFW_KEY_A))
-		velocity += glm::vec2(-1.0f, 0.0f);
+		velocity += -1.0f;
 	if (m_input->keyDown(GLFW_KEY_D))
-		velocity += glm::vec2(1.0f, 0.0f);
+		velocity += 1.0f;
 
-	m_body->setTargetVelocity(velocity.x * movementSpeed, velocity.y);
+	m_body->setVelocityX(velocity * movementSpeed);
 
 	if (m_input->keyDown(GLFW_KEY_SPACE) && m_body->collidesBottom())
-		m_body->setVelocity(m_body->getVelocity().x, jumpPower);
+		m_body->setVelocityY(jumpPower);
 	else if (m_input->keyUp(GLFW_KEY_SPACE))
 		if (m_body->getVelocity().y > 0)
-			m_body->setVelocity(m_body->getVelocity().x, m_body->getVelocity().y * 0.5f);
+			m_body->setVelocityY(m_body->getVelocity().y * 0.5f);
 	
 	if (m_input->mouseButtonHit(GLFW_MOUSE_BUTTON_LEFT))
 	{
