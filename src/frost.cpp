@@ -9,6 +9,7 @@ Frost::Frost(const std::string& title, int width, int height, float viewW, float
 	Renderer::setClearColor(glm::vec4(0.2, 0.2, 0.2, 1.0));
 
 	setExitKey(GLFW_KEY_ESCAPE);
+	setDebugKey(GLFW_KEY_F7);
 
 	m_map = new TileMap("res/images/tiles.png", "res/maps/tilemap.tile");
 
@@ -34,6 +35,9 @@ void Frost::update(float deltaTime)
 		velocity += 1.0f;
 
 	m_body->setVelocityX(velocity * movementSpeed);
+
+	if (m_input->keyDown(GLFW_KEY_S))
+		m_body->drop();
 
 	if (m_input->keyDown(GLFW_KEY_SPACE) && m_body->collidesBottom())
 		m_body->setVelocityY(jumpPower);

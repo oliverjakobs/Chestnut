@@ -52,6 +52,8 @@ Body::Body(float x, float y, float w, float h)
 	m_collidesBottom = false;
 	m_collidesLeft = false;
 	m_collidesRight = false;
+
+	m_drop = false;
 }
 
 Body::~Body()
@@ -74,6 +76,8 @@ void Body::update(float deltaTime)
 	moveY(m_velocity.y * deltaTime);
 	
 	m_AABB.center = m_position + m_AABBOffset;
+
+	m_drop = false;
 }
 
 void Body::draw() const
@@ -167,6 +171,11 @@ void Body::changeVelocity(float x, float y)
 	m_velocity += glm::vec2(x, y);
 }
 
+void Body::drop()
+{
+	m_drop = true;
+}
+
 glm::vec2 Body::getVelocity() const
 {
 	return m_velocity;
@@ -191,10 +200,16 @@ bool Body::checkBottom(const glm::vec2& position, const glm::vec2& oldPosition, 
 
 	for (auto& t : tiles)
 	{
-		if (t->type == Block || t->type == OneWay)
+		if (t->type == Block)
 		{
 			*groundY = t->posititon.y + m_map->getTileSize();
 			return true;
+		}
+		else if (t->type == OneWay && !m_drop)
+		{
+			*groundY = t->posititon.y + m_map->getTileSize();
+			if (oldPosition.y >= *groundY)
+				return true;
 		}
 	}
 

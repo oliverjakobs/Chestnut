@@ -35,6 +35,8 @@ private:
 	bool m_collidesLeft;
 	bool m_collidesRight;
 
+	bool m_drop;
+
 	AABB m_AABB;
 	glm::vec2 m_AABBOffset;
 
@@ -56,6 +58,8 @@ public:
 	void setVelocityX(float x);
 	void setVelocityY(float y);
 	void changeVelocity(float x, float y);
+
+	void drop();
 
 	glm::vec2 getVelocity() const;
 
