@@ -3,7 +3,7 @@
 using namespace chst;
 
 Frost::Frost(const std::string& title, int width, int height, float viewW, float viewH)
-	: Game(title, width, height, viewW, viewH)
+	: Game("Tilemap", 800, 600, 8, 6)
 {
 	Renderer::addShader("default", new Shader(readFile("res/shader/shader.vert").c_str(), readFile("res/shader/shader.frag").c_str()));
 	Renderer::setClearColor(glm::vec4(0.2, 0.2, 0.2, 1.0));
@@ -11,10 +11,20 @@ Frost::Frost(const std::string& title, int width, int height, float viewW, float
 	setExitKey(GLFW_KEY_ESCAPE);
 	setDebugKey(GLFW_KEY_F7);
 
-	m_map = new TileMap("res/images/tiles.png", "res/maps/tilemap.tile");
+	std::vector<int> map =
+	{
+		0, 0, 0, 0, 0, 0, 0, 0,
+		0, 1, 5, 5, 5, 5, 2, 0,
+		0, 6, 0, 0, 0, 0, 6, 0,
+		0, 6, 0, 0, 0, 0, 6, 0,
+		0, 3, 5, 5, 5, 5, 4, 0,
+		0, 0, 0, 0, 0, 0, 0, 0,
+	};
 
-	m_body = new Body(8.0f, 4.8f, 0.6f, 1.2f);
-	m_body->setMap(m_map);
+	m_map = new TileMap("res/images/tiles.png", 20, 15, 0.4f, "res/maps/map.txt");
+
+	//m_body = new Body(8.0f, 4.8f, 0.6f, 1.2f);
+	//m_body->setMap(m_map);
 }
 
 Frost::~Frost()
@@ -24,7 +34,7 @@ Frost::~Frost()
 
 void Frost::update(float deltaTime)
 {
-	float movementSpeed = 8.0f;
+	/*float movementSpeed = 8.0f;
 	float jumpPower = 8.0f;
 
 	float velocity = 0.0f;
@@ -55,14 +65,14 @@ void Frost::update(float deltaTime)
 		DEBUG_MESSAGE("Tile at: " << x << ", " << y << ": " << m_map->getTile(x, y)->type);
 	}
 
-	m_body->update(deltaTime);
+	m_body->update(deltaTime);*/
 }
 
 void Frost::draw()
 {	
 	m_map->draw();
 
-	m_body->draw();
+	//m_body->draw();
 }
 
 void Frost::debugDraw()

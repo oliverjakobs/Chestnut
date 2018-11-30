@@ -14,7 +14,7 @@ enum TileType
 struct Tile
 {
 	unsigned int id;
-	glm::vec2 posititon;
+	glm::vec2 position;
 	TileType type;
 };
 
@@ -30,6 +30,8 @@ private:
 
 	std::vector<Tile> m_tiles;
 public:
+	TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::vector<int>& map);
+	TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::string& map);
 	TileMap(const std::string& image, const std::string& map);
 	~TileMap();
 
@@ -37,9 +39,6 @@ public:
 	void debugDraw() const;
 
 	float getTileSize() const;
-
-	int getMapTileYAtPoint(float y);
-	int getMapTileXAtPoint(float x);
 
 	glm::ivec2 getMapTileAtPoint(float x, float y) const;
 

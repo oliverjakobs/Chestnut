@@ -195,19 +195,19 @@ bool Body::checkBottom(const glm::vec2& position, const glm::vec2& oldPosition, 
 
 	std::sort(tiles.begin(), tiles.end(), [](const Tile* t1, const Tile* t2)
 	{
-		return t1->posititon.y > t2->posititon.y;
+		return t1->position.y > t2->position.y;
 	});
 
 	for (auto& t : tiles)
 	{
 		if (t->type == Block)
 		{
-			*groundY = t->posititon.y + m_map->getTileSize();
+			*groundY = t->position.y + m_map->getTileSize();
 			return true;
 		}
 		else if (t->type == OneWay && !m_drop)
 		{
-			*groundY = t->posititon.y + m_map->getTileSize();
+			*groundY = t->position.y + m_map->getTileSize();
 			if (oldPosition.y >= *groundY)
 				return true;
 		}
@@ -225,14 +225,14 @@ bool Body::checkTop(const glm::vec2& position, const glm::vec2& oldPosition, flo
 
 	std::sort(tiles.begin(), tiles.end(), [](const Tile* t1, const Tile* t2)
 	{
-		return t1->posititon.y < t2->posititon.y;
+		return t1->position.y < t2->position.y;
 	});
 
 	for (auto& t : tiles)
 	{
 		if (t->type == Block)
 		{
-			*groundY = t->posititon.y;
+			*groundY = t->position.y;
 			return true;
 		}
 	}
@@ -249,14 +249,14 @@ bool Body::checkLeft(const glm::vec2& position, const glm::vec2& oldPosition, fl
 
 	std::sort(tiles.begin(), tiles.end(), [](const Tile* t1, const Tile* t2)
 	{
-		return t1->posititon.x > t2->posititon.x;
+		return t1->position.x > t2->position.x;
 	});
 
 	for (auto& t : tiles)
 	{
 		if (t->type == Block)
 		{
-			*wallX = t->posititon.x + m_map->getTileSize();
+			*wallX = t->position.x + m_map->getTileSize();
 			return true;
 		}
 	}
@@ -273,14 +273,14 @@ bool Body::checkRight(const glm::vec2& position, const glm::vec2& oldPosition, f
 
 	std::sort(tiles.begin(), tiles.end(), [](const Tile* t1, const Tile* t2)
 	{
-		return t1->posititon.x < t2->posititon.x;
+		return t1->position.x < t2->position.x;
 	});
 
 	for (auto& t : tiles)
 	{
 		if (t->type == Block)
 		{
-			*wallX = t->posititon.x;
+			*wallX = t->position.x;
 			return true;
 		}
 	}

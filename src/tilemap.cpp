@@ -4,6 +4,54 @@
 
 using namespace chst;
 
+TileMap::TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::vector<int>& map)
+{
+	m_width = width;
+	m_height = height;
+
+	m_tileSize = tileSize;
+
+	m_image = new Image(imagePath, m_tileSize, m_tileSize, 3, 8);
+
+	for (unsigned int i = 0; i < m_height; i++)
+	{
+		for (unsigned int j = 0; j < m_width; j++)
+		{
+			Tile tile;
+
+			tile.position = glm::vec2(j, m_height - (i + 1)) * m_tileSize;
+			tile.id = map.at(i * m_width + j);
+
+			m_tiles.push_back(tile);
+		}
+	}
+}
+
+TileMap::TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::string& map)
+{
+	m_width = width;
+	m_height = height;
+
+	m_tileSize = tileSize;
+
+	m_image = new Image(imagePath, m_tileSize, m_tileSize, 3, 8);
+
+	auto tiles = cutString(",", readFile(map.c_str()));
+
+	for (unsigned int i = 0; i < m_height; i++)
+	{
+		for (unsigned int j = 0; j < m_width; j++)
+		{
+			Tile tile;
+
+			tile.position = glm::vec2(j, m_height - (i + 1)) * m_tileSize;
+			tile.id = std::stoi(tiles.at(i * m_width + j));
+
+			m_tiles.push_back(tile);
+		}
+	}
+}
+
 TileMap::TileMap(const std::string& image, const std::string& map)
 {
 	auto parts = cutString("[Map]", readFile(map.c_str()));
@@ -28,7 +76,7 @@ TileMap::TileMap(const std::string& image, const std::string& map)
 		{
 			Tile tile;
 
-			tile.posititon = glm::vec2(j, m_height - i - 1) * m_tileSize;
+			tile.position = glm::vec2(j, m_height - i - 1) * m_tileSize;
 			tile.id = std::stoi(tiles.at(i * m_width + j));
 
 			if (contains<std::string>(solidTiles, toString(tile.id)))
@@ -52,7 +100,7 @@ void TileMap::draw() const
 {
 	for (auto& tile : m_tiles)
 	{
-		m_image->draw(tile.posititon, tile.id);
+		m_image->draw(tile.position, tile.id);
 	}
 }
 
@@ -61,25 +109,15 @@ void TileMap::debugDraw() const
 	for (auto& tile : m_tiles)
 	{
 		if (tile.type == Block)
-			Renderer::drawRect(tile.posititon.x, tile.posititon.y, m_tileSize, m_tileSize, RED);
+			Renderer::drawRect(tile.position.x, tile.position.y, m_tileSize, m_tileSize, RED);
 		else if (tile.type == OneWay)
-			Renderer::drawRect(tile.posititon.x, tile.posititon.y, m_tileSize, m_tileSize, BLUE);
+			Renderer::drawRect(tile.position.x, tile.position.y, m_tileSize, m_tileSize, BLUE);
 	}
 }
 
 float TileMap::getTileSize() const
 {
 	return m_tileSize;
-}
-
-int TileMap::getMapTileYAtPoint(float y)
-{
-	return static_cast<int>(std::floor(y / m_tileSize));
-}
-
-int TileMap::getMapTileXAtPoint(float x)
-{
-	return static_cast<int>(std::floor(x / m_tileSize));
 }
 
 glm::ivec2 TileMap::getMapTileAtPoint(float x, float y) const
