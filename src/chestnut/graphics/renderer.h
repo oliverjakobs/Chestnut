@@ -71,6 +71,7 @@ namespace chst
 
 		// ----------------------------primitives------------------------------------------------------------------------
 		static void drawLine(const glm::vec2& start, const glm::vec2& end, const glm::vec4& color);
+		static void drawLine(const Line& line, const glm::vec4& color);
 		static void drawRect(float x, float y, float w, float h, const glm::vec4& color);
 		static void drawRect(Rect rect, const glm::vec4& color);
 		static void drawCircle(const glm::vec2& center, float radius, const glm::vec4& color);

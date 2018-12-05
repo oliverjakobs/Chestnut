@@ -35,8 +35,11 @@ namespace chestnutMath
 		return vec;
 	}
 
-	inline float roundFloat(float f, int decimal)
+	inline glm::vec2 project(const glm::vec2& a, const glm::vec2& b)
 	{
-		return std::roundf(f * decimal) / decimal;
+		return glm::dot(a, glm::normalize(b)) * glm::normalize(b);
 	}
+
+	inline float roundFloat(float f, int decimal) { return std::roundf(f * decimal) / decimal; }
+	inline float ceilFloat(float f, int decimal) { return std::ceilf(f * decimal) / decimal; }
 }

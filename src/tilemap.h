@@ -7,8 +7,12 @@ using namespace chst;
 enum TileType
 {
 	Empty = 0,
-	Block = 1,
-	OneWay = 2
+	Solid = 1,
+	OneWay = 2,
+	SlopeLeft = 3,
+	SlopeRight = 4,
+	CeilLeft = 5,
+	CeilRight = 6
 };
 
 struct Tile

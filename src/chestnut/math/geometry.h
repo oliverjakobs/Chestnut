@@ -141,6 +141,8 @@ namespace chestnutMath
 		glm::vec2 start;
 		glm::vec2 end;
 
+		Line() : start(glm::vec2(0.0f)), end(glm::vec2(0.0f)) {};
+
 		Line(float x1, float y1, float x2, float y2)
 			: start(glm::vec2(x1, y1)), end(glm::vec2(x2, y2)) {};
 

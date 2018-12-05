@@ -20,6 +20,8 @@ namespace chst
 
 		unsigned int m_exitKey;
 		unsigned int m_debugKey;
+
+		std::string m_title;
 		
 		bool init(const std::string& title, int width, int height, float viewW, float viewH);
 	public:

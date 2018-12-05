@@ -47,6 +47,21 @@ TileMap::TileMap(const std::string& imagePath, int width, int height, float tile
 			tile.position = glm::vec2(j, m_height - (i + 1)) * m_tileSize;
 			tile.id = std::stoi(tiles.at(i * m_width + j));
 
+			if (tile.id == 9)
+				tile.type = SlopeLeft;
+			else if (tile.id == 10)
+				tile.type = SlopeRight;
+			else if (tile.id == 11)
+				tile.type = Empty;
+			else if (tile.id == 12)
+				tile.type = Empty;
+			else if (tile.id > 12)
+				tile.type = OneWay;
+			else if (tile.id > 0)
+				tile.type = Solid;
+			else
+				tile.type = Empty;
+
 			m_tiles.push_back(tile);
 		}
 	}
@@ -80,7 +95,7 @@ TileMap::TileMap(const std::string& image, const std::string& map)
 			tile.id = std::stoi(tiles.at(i * m_width + j));
 
 			if (contains<std::string>(solidTiles, toString(tile.id)))
-				tile.type = Block;
+				tile.type = Solid;
 			else if (contains<std::string>(oneWayTiles, toString(tile.id)))
 				tile.type = OneWay;
 			else
@@ -108,10 +123,14 @@ void TileMap::debugDraw() const
 {
 	for (auto& tile : m_tiles)
 	{
-		if (tile.type == Block)
+		if (tile.type == Solid)
 			Renderer::drawRect(tile.position.x, tile.position.y, m_tileSize, m_tileSize, RED);
 		else if (tile.type == OneWay)
 			Renderer::drawRect(tile.position.x, tile.position.y, m_tileSize, m_tileSize, BLUE);
+		else if (tile.type == SlopeLeft)
+			Renderer::drawPolygon({ tile.position, tile.position + glm::vec2(m_tileSize, 0.0f),  tile.position + glm::vec2(0.0f, m_tileSize) }, BLUE);
+		else if (tile.type == SlopeRight)
+			Renderer::drawPolygon({ tile.position, tile.position + glm::vec2(m_tileSize, 0.0f),  tile.position + glm::vec2(m_tileSize) }, BLUE);
 	}
 }
 

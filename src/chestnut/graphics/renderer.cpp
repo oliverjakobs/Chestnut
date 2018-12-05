@@ -278,6 +278,11 @@ namespace chst
 		instance()->m_primitives.drawLine(start, end, color, getViewMat());
 	}
 
+	void Renderer::drawLine(const Line& line, const glm::vec4 & color)
+	{
+		instance()->m_primitives.drawLine(line.start, line.end, color, getViewMat());
+	}
+
 	void Renderer::drawRect(float x, float y, float w, float h, const glm::vec4& color)
 	{
 		std::vector<glm::vec2> vertices =

@@ -12,6 +12,8 @@ namespace chst
 #else 
 		setDebug(false);
 #endif
+		m_title = title;
+
 		if (!Renderer::init(title.c_str(), width, height, viewW, viewH))
 		{
 			DEBUG_MESSAGE("Failed to initialize Renderer");
@@ -90,7 +92,7 @@ namespace chst
 			m_timer.end();
 
 			if (m_showFPS)
-				setTitle(stringf("Frost  |  FPS: %i", m_timer.getFPS()));
+				setTitle(m_title + stringf("  |  FPS: %i", m_timer.getFPS()));
 		}
 	}
 
