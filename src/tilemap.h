@@ -45,9 +45,11 @@ public:
 	float getTileSize() const;
 
 	glm::ivec2 getMapTileAtPoint(float x, float y) const;
+	glm::ivec2 getMapTileAtPoint(const glm::vec2& pos) const;
 
 	std::vector<Tile*> getAdjacentTiles(float x, float y, float w, float h);
 	std::vector<Tile*> getAdjacentTiles(const glm::vec2& pos, const glm::vec2& size);
 
 	Tile* getTile(int x, int y);
+	Tile* getTile(const glm::ivec2& pos);
 };

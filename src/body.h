@@ -16,13 +16,17 @@ private:
 	glm::vec2 m_offsetHorizontal;
 	glm::vec2 m_offsetVertical;
 
-	Rect botSensor;
+	glm::vec2 leftSlopeSensor;
+	glm::vec2 rightSlopeSensor;
 
 	bool m_collidesBottom;
 	bool m_collidesTop;
 	bool m_collidesLeft;
 	bool m_collidesRight;
 	bool m_onSlope;
+	bool m_slopeDetected;
+
+	Rect rect;
 
 	float gravityScale; 
 
@@ -32,11 +36,9 @@ private:
 
 	TileMap* m_map;
 public:
-	Body(float x, float y, float w, float h);
+	Body(TileMap* map, float x, float y, float w, float h);
 	virtual ~Body();
-
-	void setMap(TileMap* map);
-
+	
 	void update(float deltaTime);
 	void draw() const;
 
@@ -53,10 +55,11 @@ private:
 	void moveX(float x);
 	void moveY(float y);
 
-	bool checkBottom(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY, bool* onSlope);
-	bool checkTop(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY) const;
-	bool checkLeft(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX) const;
-	bool checkRight(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX) const;
+	bool checkBottom(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY);
+	bool checkTop(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY);
+	bool checkLeft(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX);
+	bool checkRight(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX);
+	bool checkSlope(const glm::vec2& position, int slope) const;
 
 	Line getSensorBottom(const glm::vec2& center, const glm::vec2& offset) const;
 	Line getSensorTop(const glm::vec2& center, const glm::vec2& offset) const;

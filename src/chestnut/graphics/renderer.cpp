@@ -44,7 +44,7 @@ namespace chst
 
 		glfwMakeContextCurrent(instance()->m_window);
 
-		glfwSwapInterval(1);
+		glfwSwapInterval(0.0f);
 
 		if (glewInit() != GLEW_OK)
 		{

@@ -247,6 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\maps\map.txt" />
+    <Text Include="res\maps\map2.txt" />
     <Text Include="res\scripts\entities.chst" />
     <Text Include="res\scripts\scenes.chst" />
   </ItemGroup>

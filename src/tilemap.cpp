@@ -55,12 +55,12 @@ TileMap::TileMap(const std::string& imagePath, int width, int height, float tile
 				tile.type = Empty;
 			else if (tile.id == 12)
 				tile.type = Empty;
-			else if (tile.id > 12)
+			else if (tile.id == 13 || tile.id == 14 || tile.id == 15)
 				tile.type = OneWay;
-			else if (tile.id > 0)
-				tile.type = Solid;
-			else
+			else if (tile.id == 0)
 				tile.type = Empty;
+			else
+				tile.type = Solid;
 
 			m_tiles.push_back(tile);
 		}
@@ -128,9 +128,9 @@ void TileMap::debugDraw() const
 		else if (tile.type == OneWay)
 			Renderer::drawRect(tile.position.x, tile.position.y, m_tileSize, m_tileSize, BLUE);
 		else if (tile.type == SlopeLeft)
-			Renderer::drawPolygon({ tile.position, tile.position + glm::vec2(m_tileSize, 0.0f),  tile.position + glm::vec2(0.0f, m_tileSize) }, BLUE);
+			Renderer::drawPolygon({ tile.position, tile.position + glm::vec2(m_tileSize, 0.0f),  tile.position + glm::vec2(0.0f, m_tileSize) }, MAGENTA);
 		else if (tile.type == SlopeRight)
-			Renderer::drawPolygon({ tile.position, tile.position + glm::vec2(m_tileSize, 0.0f),  tile.position + glm::vec2(m_tileSize) }, BLUE);
+			Renderer::drawPolygon({ tile.position, tile.position + glm::vec2(m_tileSize, 0.0f),  tile.position + glm::vec2(m_tileSize) }, MAGENTA);
 	}
 }
 
@@ -142,6 +142,11 @@ float TileMap::getTileSize() const
 glm::ivec2 TileMap::getMapTileAtPoint(float x, float y) const
 {
 	return glm::ivec2(static_cast<int>(std::floor(x / m_tileSize)), static_cast<int>(std::floor(y / m_tileSize)));
+}
+
+glm::ivec2 TileMap::getMapTileAtPoint(const glm::vec2 & pos) const
+{
+	return getMapTileAtPoint(pos.x, pos.y);
 }
 
 std::vector<Tile*> TileMap::getAdjacentTiles(float x, float y, float w, float h)
@@ -176,4 +181,9 @@ Tile* TileMap::getTile(int x, int y)
 		return nullptr;
 
 	return &m_tiles.at((m_height - y - 1) * m_width + x);
+}
+
+Tile* TileMap::getTile(const glm::ivec2& pos)
+{
+	return getTile(pos.x, pos.y);
 }

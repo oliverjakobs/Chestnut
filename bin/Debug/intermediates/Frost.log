@@ -1,2 +1,3 @@
-﻿  body.cpp
+﻿  tilemap.cpp
+d:\dev\chestnut\src\tilemap.cpp(180): warning C4018: '>=': signed/unsigned mismatch
   Frost.vcxproj -> D:\Dev\Chestnut\bin\Debug\Frost.exe

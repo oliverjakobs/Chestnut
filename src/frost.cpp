@@ -22,9 +22,9 @@ Frost::Frost(const std::string& title, int width, int height, float viewW, float
 	};
 
 	m_map = new TileMap("res/images/tiles.png", 20, 15, 0.4f, "res/maps/map.txt");
+	//m_map = new TileMap("res/images/tiles.png", 40, 30, 0.2f, "res/maps/map2.txt");
 
-	m_body = new Body(4.0f, 3.0f, 0.4f, 0.6f);
-	m_body->setMap(m_map);
+	m_body = new Body(m_map, 4.0f, 3.0f, 0.4f, 0.6f);
 }
 
 Frost::~Frost()
@@ -54,6 +54,13 @@ void Frost::update(float deltaTime)
 
 	if (m_input->keyDown(GLFW_KEY_S))
 		m_body->drop();
+
+	if (m_input->mouseButtonHit(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		glm::vec2 mouse = Renderer::getView()->fromScreen(m_input->getMousePosition());
+		glm::ivec2 pos = m_map->getMapTileAtPoint(mouse);
+		DEBUG_MESSAGE("Tile at: " << pos.x << ", " << pos.y << ": " << m_map->getTile(pos)->type);
+	}
 
 	m_body->update(deltaTime);
 }
