@@ -115,7 +115,8 @@ void TileMap::draw() const
 {
 	for (auto& tile : m_tiles)
 	{
-		m_image->draw(tile.position, tile.id);
+		if (tile.id > 0)
+			m_image->draw(tile.position, tile.id);
 	}
 }
 
