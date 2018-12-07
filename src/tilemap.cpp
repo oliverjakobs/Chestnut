@@ -2,7 +2,87 @@
 
 #include "tools.h"
 
+#include "graphics\buffers.h"
+#include "glm\gtc\matrix_transform.hpp"
+
 using namespace chst;
+
+void TileMap::loadFrameBuffer(float w, float h)
+{
+	m_shader = new Shader(readFile("res/shader/framebuffer.vert").c_str(), readFile("res/shader/framebuffer.frag").c_str());
+
+	float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+							 // positions   // texCoords
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		-1.0f, -1.0f,  0.0f, 0.0f,
+		1.0f, -1.0f,  1.0f, 0.0f,
+
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		1.0f, -1.0f,  1.0f, 0.0f,
+		1.0f,  1.0f,  1.0f, 1.0f
+	};
+
+	unsigned int quadVBO;
+	glGenVertexArrays(1, &m_vao);
+	glGenBuffers(1, &quadVBO);
+	glBindVertexArray(m_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
+	glGenFramebuffers(1, &m_fbo);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+
+	glGenTextures(1, &m_texture);
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
+
+	unsigned int rbo;
+	glGenRenderbuffers(1, &rbo);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h); // use a single renderbuffer object for both a depth AND stencil buffer.
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+																								 
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	{
+		DEBUG_MESSAGE("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void TileMap::updateFrameBuffer()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+	glEnable(GL_DEPTH_TEST);
+
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	for (auto& tile : m_tiles)
+	{
+		m_image->draw(tile.position, tile.id);
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glDisable(GL_DEPTH_TEST);
+}
+
+void TileMap::deleteFrameBuffer()
+{
+	glDeleteTextures(1, &m_texture);
+	glDeleteBuffers(1, &m_vao);
+	glDeleteFramebuffers(1, &m_fbo);
+}
 
 TileMap::TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::vector<int>& map)
 {
@@ -65,6 +145,10 @@ TileMap::TileMap(const std::string& imagePath, int width, int height, float tile
 			m_tiles.push_back(tile);
 		}
 	}
+
+	loadFrameBuffer(Renderer::getWindowWidth(), Renderer::getWindowHeight());
+
+	updateFrameBuffer();
 }
 
 TileMap::TileMap(const std::string& image, const std::string& map)
@@ -109,15 +193,24 @@ TileMap::TileMap(const std::string& image, const std::string& map)
 
 TileMap::~TileMap()
 {
+	SAFE_DELETE(m_image);
+
+	m_tiles.clear();
+
+	deleteFrameBuffer();
 }
 
 void TileMap::draw() const
 {
-	for (auto& tile : m_tiles)
-	{
-		if (tile.id > 0)
-			m_image->draw(tile.position, tile.id);
-	}
+	glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(0.0f));
+	
+	//Renderer::renderTexture(m_vao, m_texture, glm::vec2(), glm::mat4(), Renderer::getViewMat());
+
+	m_shader->enable();
+	glBindVertexArray(m_vao);
+	glBindTexture(GL_TEXTURE_2D, m_texture);	// use the color attachment texture as the texture of the quad plane
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
 }
 
 void TileMap::debugDraw() const

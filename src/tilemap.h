@@ -33,6 +33,15 @@ private:
 	float m_tileSize;
 
 	std::vector<Tile> m_tiles;
+
+	GLuint m_fbo;
+	GLuint m_vao;
+	GLuint m_texture;
+	Shader* m_shader;
+
+	void loadFrameBuffer(float width, float height);
+	void updateFrameBuffer();
+	void deleteFrameBuffer();
 public:
 	TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::vector<int>& map);
 	TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::string& map);

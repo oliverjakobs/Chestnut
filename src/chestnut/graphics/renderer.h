@@ -61,7 +61,7 @@ namespace chst
 		// ----------------------------texture---------------------------------------------------------------------------
 		static GLuint createTexture(const char* path, float* w, float* h, bool flipOnLoad);
 		static void deleteTexture(GLuint* textureID);
-		static void bindTexture(GLuint texture, unsigned int slot = 0);
+		static void bindTexture(GLuint texture, GLuint slot = 0);
 		
 		static void renderTexture(unsigned int vao, unsigned int texture, const glm::vec2& srcPos, const glm::mat4& model, const glm::mat4& view = Renderer::getViewMat(), const std::string& shader = "");
 

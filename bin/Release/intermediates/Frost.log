@@ -1,9 +1,29 @@
-﻿  body.cpp
+﻿  buffers.cpp
+  primitives.cpp
+  shader.cpp
+  view.cpp
+  poly.cpp
+  rect.cpp
+  body.cpp
+  tilemap.cpp
+d:\dev\chestnut\src\tilemap.cpp(44): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\dev\chestnut\src\tilemap.cpp(52): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\dev\chestnut\src\tilemap.cpp(149): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\dev\chestnut\src\tilemap.cpp(274): warning C4018: '>=': signed/unsigned mismatch
+  timer.cpp
+  game.cpp
+  image.cpp
+  renderer.cpp
+d:\dev\chestnut\src\chestnut\graphics\renderer.cpp(47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\dev\chestnut\src\chestnut\graphics\renderer.cpp(56): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+  input.cpp
+  frost.cpp
+  main.cpp
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Generating code
-  2 of 1249 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+  1272 of 1287 functions (98.8%) were compiled, the rest were copied from previous compilation.
+    220 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Dev\Chestnut\bin\Release\vc120.pdb'; linking object as if no debug info
-  Frost.vcxproj -> C:\Dev\Chestnut\bin\Release\Frost.exe
+glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'D:\Dev\Chestnut\bin\Release\vc120.pdb'; linking object as if no debug info
+  Frost.vcxproj -> D:\Dev\Chestnut\bin\Release\Frost.exe

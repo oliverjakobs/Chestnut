@@ -53,6 +53,7 @@ namespace chst
 			return false;
 		}
 
+		glViewport(0.0f, 0.0f, w, h);
 		instance()->m_primitives.create();
 		instance()->m_view.create(0.0f, 0.0f, viewW, viewH);
 		
@@ -234,7 +235,7 @@ namespace chst
 		glDeleteTextures(1, textureID);
 	}
 
-	void Renderer::bindTexture(GLuint texture, unsigned int slot)
+	void Renderer::bindTexture(GLuint texture, GLuint slot)
 	{
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, texture);
