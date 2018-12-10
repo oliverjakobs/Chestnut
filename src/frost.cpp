@@ -3,7 +3,7 @@
 using namespace chst;
 
 Frost::Frost(const std::string& title, int width, int height, float viewW, float viewH)
-	: Game("Tilemap", 1600, 1200, 8, 6)
+	: Game("Tilemap", 1200, 900, 8, 6)
 {
 	Renderer::addShader("default", new Shader(readFile("res/shader/shader.vert").c_str(), readFile("res/shader/shader.frag").c_str()));
 	Renderer::setClearColor(glm::vec4(0.2, 0.2, 0.2, 1.0));

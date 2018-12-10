@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\chestnut\graphics\framebuffer.cpp" />
     <ClCompile Include="src\chestnut\graphics\buffers.cpp" />
     <ClCompile Include="src\chestnut\graphics\primitives.cpp" />
     <ClCompile Include="src\chestnut\graphics\shader.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\chestnut\chestnut2D.h" />
+    <ClInclude Include="src\chestnut\graphics\framebuffer.h" />
     <ClInclude Include="src\chestnut\graphics\buffers.h" />
     <ClInclude Include="src\chestnut\graphics\color.h" />
     <ClInclude Include="src\chestnut\gl.h" />

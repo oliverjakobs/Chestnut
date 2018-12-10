@@ -1,6 +1,8 @@
-﻿  tilemap.cpp
-d:\dev\chestnut\src\tilemap.cpp(44): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-d:\dev\chestnut\src\tilemap.cpp(52): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-d:\dev\chestnut\src\tilemap.cpp(149): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\dev\chestnut\src\tilemap.cpp(274): warning C4018: '>=': signed/unsigned mismatch
-  Frost.vcxproj -> D:\Dev\Chestnut\bin\Debug\Frost.exe
+﻿  body.cpp
+  frost.cpp
+  main.cpp
+  tilemap.cpp
+c:\dev\chestnut\src\tilemap.cpp(85): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\dev\chestnut\src\tilemap.cpp(201): warning C4018: '>=': signed/unsigned mismatch
+  Generating Code...
+  Frost.vcxproj -> C:\Dev\Chestnut\bin\Debug\Frost.exe
