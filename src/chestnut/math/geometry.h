@@ -3,7 +3,7 @@
 #include <vector>
 #include "glm\glm.hpp"
 
-namespace chestnutMath
+namespace chstMath
 {
 	inline bool isInside(const glm::vec2& point, float x, float y, float w, float h)
 	{

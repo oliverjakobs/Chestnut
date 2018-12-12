@@ -5,109 +5,65 @@
 
 namespace chst
 {
-	Image::Image(const std::string& filename, int rows, int columns)
+	std::vector<GLfloat> Image::getVertices(float w, float h, float fW, float fH)
 	{
-		if (!filename.empty())
-			m_texture = Renderer::createTexture(filename.c_str(), &m_width, &m_height, true);
-
-		m_vao = createVertexArray();
-
-		m_frameWidth = 1.0f / columns;
-		m_frameHeight = 1.0f / rows;
-
-		m_columns = columns;
-		m_rows = rows;
-
-		GLfloat vertices[]
+		return 
 		{
 			0.0f, 0.0f, 0.0f, 0.0f,
-			m_width, 0.0f, m_frameWidth, 0.0f,
-			m_width, m_height, m_frameWidth, m_frameHeight,
-			0.0f, m_height,	0.0f, m_frameHeight
+			   w, 0.0f,   fW, 0.0f,
+			   w,    h,   fW,   fH,
+			0.0f,    h, 0.0f,   fH,
+			// FLIP_HORIZONTAL
+			0.0f, 0.0f,   fW, 0.0f,
+			   w, 0.0f, 0.0f, 0.0f,
+			   w,    h, 0.0f,   fH,
+			0.0f,    h,   fW,   fH
 		};
+	}
 
-		createVertexBuffer(vertices, sizeof(vertices), BufferLayout(
-			{
-				{ GL_FLOAT, 2 },
-				{ GL_FLOAT, 2 }
-			}));
+	Image::Image(const std::string& filename, int rows, int columns)
+		: m_columns(columns), m_rows(rows)
+	{
+		m_texture = new Texture(filename.c_str(), true);
+		m_width = static_cast<float>(m_texture->getWidth());
+		m_height = static_cast<float>(m_texture->getHeight());
 
-		GLuint indices[] = { 0,1,2,2,3,0 };
+		m_vao = createVertexArray();
+				
+		std::vector<GLfloat> vertices = getVertices(m_width, m_height, getFrameWidth(), getFrameHeight());
 
-		createIndexBuffer(indices, 6);
+		createVertexBuffer(vertices.data(), vertices.size() * sizeof(GLfloat), BufferLayout({ { GL_FLOAT, 2 }, { GL_FLOAT, 2 } }));
 	}
 
 	Image::Image(const std::string& filename, float scale, int rows, int columns)
+		: m_columns(columns), m_rows(rows)
 	{
-		if (!filename.empty())
-			m_texture = Renderer::createTexture(filename.c_str(), &m_width, &m_height, true);
-
-		m_width *= scale;
-		m_height *= scale;
+		m_texture = new Texture(filename.c_str(), true);
+		m_width = m_texture->getWidth() * scale;
+		m_height = m_texture->getHeight() * scale;
 
 		m_vao = createVertexArray();
 
-		m_frameWidth = 1.0f / columns;
-		m_frameHeight = 1.0f / rows;
+		std::vector<GLfloat> vertices = getVertices(m_width, m_height, getFrameWidth(), getFrameHeight());
 
-		m_columns = columns;
-		m_rows = rows;
-
-		GLfloat vertices[]
-		{
-			0.0f, 0.0f, 0.0f, 0.0f,
-			m_width, 0.0f, m_frameWidth, 0.0f,
-			m_width, m_height, m_frameWidth, m_frameHeight,
-			0.0f, m_height,	0.0f, m_frameHeight
-		};
-
-		createVertexBuffer(vertices, sizeof(vertices), BufferLayout(
-			{
-				{ GL_FLOAT, 2 },
-				{ GL_FLOAT, 2 }
-			}));
-
-		GLuint indices[] = { 0,1,2,2,3,0 };
-
-		createIndexBuffer(indices, 6);
+		createVertexBuffer(vertices.data(), vertices.size() * sizeof(GLfloat), BufferLayout({ { GL_FLOAT, 2 },{ GL_FLOAT, 2 } }));
 	}
 
 	Image::Image(const std::string& filename, float width, float height, int rows, int columns)
-		: m_width(width), m_height(height)
+		: m_width(width), m_height(height), m_columns(columns), m_rows(rows)
 	{
-		if (!filename.empty())
-			m_texture = Renderer::createTexture(filename.c_str(), nullptr, nullptr, true);
+		m_texture = new Texture(filename.c_str(), true);
 		
 		m_vao = createVertexArray();
 
-		m_frameWidth = 1.0f / columns;
-		m_frameHeight = 1.0f / rows;
+		std::vector<GLfloat> vertices = getVertices(m_width, m_height, getFrameWidth(), getFrameHeight());
 
-		m_columns = columns;
-		m_rows = rows;
-
-		GLfloat vertices[]
-		{
-			0.0f, 0.0f, 0.0f, 0.0f,
-			m_width, 0.0f, m_frameWidth, 0.0f,
-			m_width, m_height, m_frameWidth, m_frameHeight,
-			0.0f, m_height,	0.0f, m_frameHeight
-		};
-
-		createVertexBuffer(vertices, sizeof(vertices), BufferLayout(
-			{
-				{ GL_FLOAT, 2 },
-				{ GL_FLOAT, 2 }
-			}));
-
-		GLuint indices[] = { 0,1,2,2,3,0 };
-
-		createIndexBuffer(indices, 6);
+		createVertexBuffer(vertices.data(), vertices.size() * sizeof(GLfloat), BufferLayout({ { GL_FLOAT, 2 },{ GL_FLOAT, 2 } }));
 	}
 
 	Image::~Image()
 	{
-		glDeleteTextures(1, &m_texture);
+		SAFE_DELETE(m_texture);
 
 		glDeleteBuffers(1, &m_vao);
 	}
@@ -134,26 +90,29 @@ namespace chst
 
 	void Image::draw(const glm::vec2& position, const glm::vec4& colorMod, int frame, const glm::mat4& view) const
 	{
-		float fX = (frame % m_columns) * m_frameWidth;
-		float fY = 1 - m_frameHeight - ((frame / m_columns) * m_frameHeight);
+		float fX = (frame % m_columns) * getFrameWidth();
+		float fY = 1 - getFrameHeight() - ((frame / m_columns) * getFrameHeight());
 		
-		glm::mat4 model = glm::mat4();
+		glm::mat4 projection = glm::mat4();
+		glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(position, 0.0f));
+
+		std::vector<GLuint> indices;
 
 		switch (m_flip)
 		{
-		case FLIP_HORIZONTAL:
-			model = glm::translate(model, glm::vec3(position.x + m_width, position.y, 0.0f));
-			model = glm::scale(model, glm::vec3(-1.0f, 1.0f, 1.0f));
-			break;
 		case FLIP_VERTICAL:
-
+			indices = { 8,9,10,10,11,8 };
+			break;
+		case FLIP_HORIZONTAL:
+			indices = { 4,5,6,6,7,4 };
 			break;
 		default:
-			model = glm::translate(model, glm::vec3(position, 0.0f));
+			indices = { 0,1,2,2,3,0 };
 			break;
 		}
 
-		Renderer::renderTexture(m_vao, m_texture, glm::vec2(fX, fY), model, view);
+		glBindVertexArray(m_vao);
+		Renderer::renderTexture(m_texture, glm::vec2(fX, fY), projection * view * model, indices);
 	}
 
 	float Image::getWidth() const
@@ -164,5 +123,15 @@ namespace chst
 	float Image::getHeight() const
 	{
 		return m_height;
+	}
+
+	float Image::getFrameWidth() const
+	{
+		return 1.0f / m_columns;
+	}
+
+	float Image::getFrameHeight() const
+	{
+		return 1.0f / m_rows;
 	}
 }

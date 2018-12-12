@@ -18,18 +18,17 @@ namespace chst
 	{
 	protected:
 		unsigned int m_vao;
-		unsigned int m_texture;
+		Texture* m_texture;
 
 		float m_width;
 		float m_height;
-
-		float m_frameWidth;
-		float m_frameHeight;
 
 		int m_columns;
 		int m_rows;
 
 		RenderFlip m_flip;
+
+		std::vector<GLfloat> getVertices(float w, float h, float fW, float fH);
 	public:
 		Image(const std::string& filename, int rows = 1, int columns = 1);
 		Image(const std::string& filename, float scale, int rows = 1, int columns = 1);
@@ -46,5 +45,8 @@ namespace chst
 		
 		float getWidth() const;
 		float getHeight() const;
+
+		float getFrameWidth() const;
+		float getFrameHeight() const;
 	};
 }

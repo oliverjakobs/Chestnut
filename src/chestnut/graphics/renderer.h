@@ -1,11 +1,8 @@
 #pragma once
 
-#include "shader.h"
-
 #include "primitives.h"
 
 #include <map>
-#include <vector>
 
 #include "color.h"
 
@@ -13,10 +10,10 @@
 
 #include "tools.h"
 
+#include "texture.h"
+
 namespace chst
-{
-	using namespace chestnutMath;
-	
+{	
 	class Renderer : public Singleton<Renderer>
 	{
 	private:				
@@ -32,7 +29,7 @@ namespace chst
 		Renderer();
 		~Renderer();
 						
-		void setCameraPos(float x, float y, Rect* constraint);
+		void setViewPos(float x, float y, chstMath::Rect* constraint);
 		
 		// ----------------------------statics---------------------------------------------------------------------------
 		static bool init(const char* title, int w, int h, float viewW, float viewH);
@@ -59,11 +56,8 @@ namespace chst
 		static GLFWwindow* getContext();
 		
 		// ----------------------------texture---------------------------------------------------------------------------
-		static GLuint createTexture(const char* path, float* w, float* h, bool flipOnLoad);
-		static void deleteTexture(GLuint* textureID);
-		static void bindTexture(GLuint texture, GLuint slot = 0);
-		
-		static void renderTexture(unsigned int vao, unsigned int texture, const glm::vec2& srcPos, const glm::mat4& model, const glm::mat4& view = Renderer::getViewMat(), const std::string& shader = "");
+		static void renderTexture(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shader = "");
+
 
 		// ----------------------------render queue----------------------------------------------------------------------
 		static void start();
@@ -71,14 +65,15 @@ namespace chst
 
 		// ----------------------------primitives------------------------------------------------------------------------
 		static void drawLine(const glm::vec2& start, const glm::vec2& end, const glm::vec4& color);
-		static void drawLine(const Line& line, const glm::vec4& color);
+		static void drawLine(const chstMath::Line& line, const glm::vec4& color);
 		static void drawRect(float x, float y, float w, float h, const glm::vec4& color);
-		static void drawRect(Rect rect, const glm::vec4& color);
+		static void drawRect(const glm::vec2& pos, const glm::vec2& dim, const glm::vec4& color);
+		static void drawRect(chstMath::Rect rect, const glm::vec4& color);
 		static void drawCircle(const glm::vec2& center, float radius, const glm::vec4& color);
 		static void drawPolygon(const std::vector<glm::vec2>& vertices, const glm::vec4& color);
 
 		static void fillRect(float x, float y, float w, float h, const glm::vec4& color);
-		static void fillRect(Rect rect, const glm::vec4& color);
+		static void fillRect(chstMath::Rect rect, const glm::vec4& color);
 		static void fillCircle(const glm::vec2& center, float radius, const glm::vec4& color);
 		static void fillPolygon(const std::vector<glm::vec2>& vertices, const glm::vec4& color);
 		

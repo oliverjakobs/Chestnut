@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shader.h"
+#include "renderer.h"
 
 namespace chst
 {
@@ -9,11 +9,9 @@ namespace chst
 	private:
 		GLuint m_fbo;
 		GLuint m_vao;
-		GLuint m_texture;
-		Shader* m_shader;
-
+		Texture* m_texture;
 	public:
-		FrameBuffer(Shader* shader, float w, float h);
+		FrameBuffer();
 		~FrameBuffer();
 
 		void bind();

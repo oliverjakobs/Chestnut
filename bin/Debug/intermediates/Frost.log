@@ -1,8 +1,29 @@
-﻿  body.cpp
+﻿  animationcomponent.cpp
+  playercomponent.cpp
+  entity.cpp
+  physicscomponent.cpp
+  animation.cpp
+  framebuffer.cpp
+  buffers.cpp
+  primitives.cpp
+  shader.cpp
+  texture.cpp
+  view.cpp
+  poly.cpp
+  rect.cpp
+  body.cpp
+  tilemap.cpp
+  timer.cpp
+  game.cpp
+  image.cpp
+  renderer.cpp
+  input.cpp
+  Generating Code...
+  Compiling...
   frost.cpp
   main.cpp
-  tilemap.cpp
-c:\dev\chestnut\src\tilemap.cpp(85): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\dev\chestnut\src\tilemap.cpp(201): warning C4018: '>=': signed/unsigned mismatch
   Generating Code...
-  Frost.vcxproj -> C:\Dev\Chestnut\bin\Debug\Frost.exe
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'D:\Dev\Chestnut\bin\Debug\vc120.pdb'; linking object as if no debug info
+  Frost.vcxproj -> D:\Dev\Chestnut\bin\Debug\Frost.exe

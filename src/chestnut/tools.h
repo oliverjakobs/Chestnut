@@ -8,3 +8,5 @@
 #include "tools\util\utils.h"
 
 #include "tools\flags.h"
+
+#include "tools\timer.h"

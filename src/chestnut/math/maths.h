@@ -2,7 +2,7 @@
 
 #include "poly.h"
 
-namespace chestnutMath
+namespace chstMath
 {
 #define EPSILON 0.000001
 #define M_PI	3.14159265359f

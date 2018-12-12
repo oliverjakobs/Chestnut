@@ -1,7 +1,5 @@
 #pragma once
 
-#include "timer.h"
-
 #include "input\input.h"
 
 #include "tools.h"

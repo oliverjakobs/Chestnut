@@ -1,17 +1,11 @@
 #include "Game.h"
 
 #include "graphics.h"
-#include "timer.h"
 
 namespace chst
 {
 	bool Game::init(const std::string& title, int width, int height, float viewW, float viewH)
 	{
-#if _DEBUG
-		setDebug(true);
-#else 
-		setDebug(false);
-#endif
 		m_title = title;
 
 		if (!Renderer::init(title.c_str(), width, height, viewW, viewH))
@@ -23,14 +17,15 @@ namespace chst
 
 		m_input = new Input();
 
-		Renderer::enableBlend(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 		return true;
 	}
 
 	Game::Game(const std::string& title, int width, int height, float viewW, float viewH)
 	{
 		init(title, width, height, viewW, viewH);
+
+		m_debug = false;
+		m_showFPS = false;
 	}
 
 	Game::~Game()

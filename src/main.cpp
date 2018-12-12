@@ -2,10 +2,16 @@
 
 int main(int argc, char* argv[])
 {
-	Frost game("Frost", 1600, 960, 16.0f, 9.6f);
+	Frost game("Tilemap", 1200, 900, 8, 6);
 
-	game.showFPS(true);
-	
+	for (int i = 0; i < argc; i++)
+	{
+		if (stringCompare(argv[i], "-fps"))
+			game.showFPS(true);
+		else if (stringCompare(argv[i], "-debug"))
+			game.setDebug(true);
+	}
+		
 	game.run();
 
 	return 0;

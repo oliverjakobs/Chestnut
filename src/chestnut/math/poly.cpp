@@ -1,6 +1,6 @@
 #include "poly.h"
 
-namespace chestnutMath
+namespace chstMath
 {
 	Poly::Poly(std::vector<glm::vec2> vert) 
 		: m_vertices(vert)

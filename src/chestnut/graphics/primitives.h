@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glm\glm.hpp"
+#include "shader.h"
 
 #include <vector>
 
@@ -19,7 +19,7 @@ namespace chst
 		Primitives();
 		~Primitives();
 
-		void create();
+		void create(Shader* shader);
 		void destroy();
 
 		void flush(const glm::mat4& view);

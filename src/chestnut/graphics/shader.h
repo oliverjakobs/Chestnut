@@ -17,12 +17,13 @@ namespace chst
 
 		static GLuint s_activeProgram;
 	public:
+		// shader creation
 		static GLuint createProgram(const char* vertSrc, const char* geomSrc, const char* fragSrc);
 		static GLuint compileShader(unsigned int type, const char* source);
 		static void printLog(GLuint object);
 
-		Shader(const char* vs, const char* fs);
-		Shader(const char* vs, const char* gs, const char* fs);
+		Shader(const std::string& vs, const std::string& fs);
+		Shader(const std::string& vs, const std::string& gs, const std::string& fs);
 		~Shader();
 
 		void setUniform1i(const GLchar* name, int value);

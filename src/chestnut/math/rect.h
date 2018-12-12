@@ -2,7 +2,7 @@
 
 #include "geometry.h"
 
-namespace chestnutMath
+namespace chstMath
 {
 	struct Rect
 	{

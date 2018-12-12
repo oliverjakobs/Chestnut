@@ -6,8 +6,7 @@
 #include "glm\gtc\type_ptr.hpp"
 #include <assert.h>
 
-#include "tools\util\fileutils.h"
-#include "tools\util\utils.h"
+#include "tools.h"
 
 namespace chst
 {
@@ -185,10 +184,8 @@ namespace chst
 		assert(m_triangles == NULL);
 	}
 
-	void Primitives::create()
+	void Primitives::create(Shader* shader)
 	{
-		Shader* shader = new Shader(readFile("res/shader/primitive.vert").c_str(), readFile("res/shader/primitive.frag").c_str());
-
 		m_lines = new GLRenderLines();
 		m_lines->create(shader);
 

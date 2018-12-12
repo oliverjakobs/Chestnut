@@ -137,16 +137,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\chestnut\ecs\animationcomponent.cpp" />
+    <ClCompile Include="src\chestnut\ecs\playercomponent.cpp" />
+    <ClCompile Include="src\chestnut\ecs\entity.cpp" />
+    <ClCompile Include="src\chestnut\ecs\physicscomponent.cpp" />
+    <ClCompile Include="src\chestnut\graphics\animation.cpp" />
     <ClCompile Include="src\chestnut\graphics\framebuffer.cpp" />
     <ClCompile Include="src\chestnut\graphics\buffers.cpp" />
     <ClCompile Include="src\chestnut\graphics\primitives.cpp" />
     <ClCompile Include="src\chestnut\graphics\shader.cpp" />
+    <ClCompile Include="src\chestnut\graphics\texture.cpp" />
     <ClCompile Include="src\chestnut\graphics\view.cpp" />
     <ClCompile Include="src\chestnut\math\poly.cpp" />
     <ClCompile Include="src\chestnut\math\rect.cpp" />
-    <ClCompile Include="src\body.cpp" />
-    <ClCompile Include="src\tilemap.cpp" />
-    <ClCompile Include="src\chestnut\timer.cpp" />
+    <ClCompile Include="src\chestnut\physics\body.cpp" />
+    <ClCompile Include="src\chestnut\physics\tilemap.cpp" />
+    <ClCompile Include="src\chestnut\tools\timer.cpp" />
     <ClCompile Include="src\chestnut\game.cpp" />
     <ClCompile Include="src\chestnut\graphics\image.cpp" />
     <ClCompile Include="src\chestnut\graphics\renderer.cpp" />
@@ -156,18 +162,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\chestnut\chestnut2D.h" />
+    <ClInclude Include="src\chestnut\ecs.h" />
+    <ClInclude Include="src\chestnut\ecs\animationcomponent.h" />
+    <ClInclude Include="src\chestnut\ecs\component.h" />
+    <ClInclude Include="src\chestnut\ecs\playercomponent.h" />
+    <ClInclude Include="src\chestnut\ecs\entity.h" />
+    <ClInclude Include="src\chestnut\ecs\physicscomponent.h" />
+    <ClInclude Include="src\chestnut\graphics\animation.h" />
     <ClInclude Include="src\chestnut\graphics\framebuffer.h" />
     <ClInclude Include="src\chestnut\graphics\buffers.h" />
     <ClInclude Include="src\chestnut\graphics\color.h" />
     <ClInclude Include="src\chestnut\gl.h" />
     <ClInclude Include="src\chestnut\graphics\primitives.h" />
     <ClInclude Include="src\chestnut\graphics\shader.h" />
+    <ClInclude Include="src\chestnut\graphics\texture.h" />
     <ClInclude Include="src\chestnut\graphics\view.h" />
     <ClInclude Include="src\chestnut\math\poly.h" />
     <ClInclude Include="src\chestnut\math\rect.h" />
-    <ClInclude Include="src\body.h" />
-    <ClInclude Include="src\tilemap.h" />
-    <ClInclude Include="src\chestnut\timer.h" />
+    <ClInclude Include="src\chestnut\physics.h" />
+    <ClInclude Include="src\chestnut\physics\body.h" />
+    <ClInclude Include="src\chestnut\physics\tilemap.h" />
+    <ClInclude Include="src\chestnut\tools\timer.h" />
     <ClInclude Include="src\chestnut\tools.h" />
     <ClInclude Include="src\chestnut\tools\util\glfw3utils.h" />
     <ClInclude Include="src\chestnut\tools\util\utils.h" />
@@ -217,8 +232,6 @@
     <None Include="res\shaders\primitive.frag" />
     <None Include="res\shaders\primitive.geom" />
     <None Include="res\shaders\primitive.vert" />
-    <None Include="res\shader\framebuffer.frag" />
-    <None Include="res\shader\framebuffer.vert" />
     <None Include="res\shader\primitive.frag" />
     <None Include="res\shader\primitive.vert" />
     <None Include="res\shader\shader.frag" />
@@ -235,6 +248,8 @@
     <Image Include="res\images\room_living_room.png" />
     <Image Include="res\images\room_player.png" />
     <Image Include="res\images\stairs.png" />
+    <Image Include="res\images\tiles.png" />
+    <Image Include="res\images\tiles_id.png" />
     <Image Include="res\images\train.png" />
   </ItemGroup>
   <ItemGroup>

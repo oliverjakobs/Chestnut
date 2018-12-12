@@ -2,12 +2,9 @@
 
 #include "tools\util\utils.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
-
 namespace chst
 {
-	using namespace chestnutMath;
+	using namespace chstMath;
 
 	Renderer::Renderer()
 	{
@@ -44,7 +41,9 @@ namespace chst
 
 		glfwMakeContextCurrent(instance()->m_window);
 
-		glfwSwapInterval(0.0f);
+		Renderer::enableBlend(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glfwSwapInterval(GL_FALSE);
 
 		if (glewInit() != GLEW_OK)
 		{
@@ -53,8 +52,8 @@ namespace chst
 			return false;
 		}
 
-		glViewport(0.0f, 0.0f, w, h);
-		instance()->m_primitives.create();
+		glViewport(0, 0, w, h);
+		instance()->m_primitives.create(new Shader("res/shader/primitive.vert", "res/shader/primitive.frag"));
 		instance()->m_view.create(0.0f, 0.0f, viewW, viewH);
 		
 		return true;
@@ -71,19 +70,10 @@ namespace chst
 
 	void Renderer::setWindowIcon(const std::string& path)
 	{
-		if (path.empty())
-			return;
-
-		GLFWimage images[1];
-
-		stbi_set_flip_vertically_on_load(true);
-
-		images[0].pixels = stbi_load(path.c_str(), &images[0].width, &images[0].height, 0, 4); //rgba channels 
-		glfwSetWindowIcon(instance()->m_window, 1, images); 
-		stbi_image_free(images[0].pixels); 
+		Texture::loadAsIcon(path, instance()->m_window);
 	}
 	
-	void Renderer::setCameraPos(float posX, float posY, Rect* constraint)
+	void Renderer::setViewPos(float posX, float posY, Rect* constraint)
 	{
 		if (constraint != nullptr)
 		{			
@@ -190,73 +180,29 @@ namespace chst
 	{
 		return instance()->m_window;
 	}
-
-	GLuint Renderer::createTexture(const char* path, float* w, float* h, bool flipOnLoad)
+	
+	void Renderer::renderTexture(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shaderName)
 	{
-		unsigned int textureID;
-		glGenTextures(1, &textureID);
-
-		stbi_set_flip_vertically_on_load(flipOnLoad);
-
-		int width = 0;
-		int height = 0;
-		int bpp;
-
-		unsigned char* data = stbi_load(path, &width, &height, &bpp, 4);
-
-		if (data)
+		if (texture != nullptr && texture->getTextureID() != 0)
 		{
-			glBindTexture(GL_TEXTURE_2D, textureID);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-			glGenerateMipmap(GL_TEXTURE_2D);
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-			stbi_image_free(data);
-		}
-		else
-		{
-			DEBUG_MESSAGE("[stb] Unable to load file: " << path);
-		}
-
-		if (w != nullptr)
-			*w = (float)width;
-		if (h != nullptr)
-			*h = (float)height;
-
-		return textureID;
-	}
-
-	void Renderer::deleteTexture(GLuint* textureID)
-	{
-		glDeleteTextures(1, textureID);
-	}
-
-	void Renderer::bindTexture(GLuint texture, GLuint slot)
-	{
-		glActiveTexture(GL_TEXTURE0 + slot);
-		glBindTexture(GL_TEXTURE_2D, texture);
-	}
-
-	void Renderer::renderTexture(unsigned int vao, unsigned int texture, const glm::vec2& srcPos, const glm::mat4& model, const glm::mat4& view, const std::string& shaderName)
-	{
-		if (texture != 0)
-		{
-			bindTexture(texture);
-			glBindVertexArray(vao);
+			texture->bind();
 
 			Shader* shader = getShader(shaderName);
 
-			glm::mat4 projection = glm::mat4();
-
 			shader->enable();
-			shader->setUniformMat4("mvp", projection * view * model);
-			shader->setUniform2f("uFramePos", srcPos);
 
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+			try
+			{
+				shader->setUniformMat4("mvp", mvp);
+				shader->setUniform2f("uFramePos", srcPos);
+			}
+			catch (ShaderException& e)
+			{
+				DEBUG_MESSAGE(e.what());
+				return;
+			}
+			
+			glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
 		}
 	}
 
@@ -264,7 +210,7 @@ namespace chst
 	{
 		glClearErrorLog();
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	void Renderer::flush()
@@ -295,6 +241,11 @@ namespace chst
 		};
 
 		instance()->m_primitives.drawPolygon(vertices, color, getViewMat());
+	}
+
+	void Renderer::drawRect(const glm::vec2& pos, const glm::vec2& dim, const glm::vec4& color)
+	{
+		drawRect(pos.x, pos.y, dim.x, dim.y, color);
 	}
 
 	void Renderer::drawRect(Rect rect, const glm::vec4& color)

@@ -2,7 +2,7 @@
 
 #include "rect.h"
 
-namespace chestnutMath
+namespace chstMath
 {
 	class Poly
 	{

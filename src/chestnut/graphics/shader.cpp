@@ -1,7 +1,7 @@
 #include "shader.h"
 
 #include "glm\gtc\type_ptr.hpp"
-#include "tools\util\utils.h"
+#include "tools.h"
 
 namespace chst
 {
@@ -100,14 +100,14 @@ namespace chst
 		free(log);
 	}
 
-	Shader::Shader(const char* vs, const char* fs)
+	Shader::Shader(const std::string& vs, const std::string& fs)
 	{
-		m_program = createProgram(vs, "", fs);
+		m_program = createProgram(readFile(vs.c_str()).c_str(), "", readFile(fs.c_str()).c_str());
 	}
 
-	Shader::Shader(const char* vs, const char* gs, const char* fs)
+	Shader::Shader(const std::string& vs, const std::string& gs, const std::string& fs)
 	{
-		m_program = createProgram(vs, gs, fs);
+		m_program = createProgram(readFile(vs.c_str()).c_str(), readFile(gs.c_str()).c_str(), readFile(fs.c_str()).c_str());
 	}
 
 	Shader::~Shader()
@@ -215,6 +215,9 @@ namespace chst
 
 		GLint location = glGetUniformLocation(m_program, name);
 
+		if (location < 0)
+			throw ShaderException("unkown location for name: " + std::string(name));
+
 		GLenum error = glGetError();
 
 		if (error == GL_INVALID_VALUE)
@@ -225,6 +228,7 @@ namespace chst
 		{
 			throw ShaderException("program is not a program object or has not been successfully linked.");
 		}
+
 
 		return location;
 	}
