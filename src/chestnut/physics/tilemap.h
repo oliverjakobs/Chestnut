@@ -37,13 +37,13 @@ namespace chst
 
 		FrameBuffer* m_frameBuffer;
 
-		void updateFrameBuffer();
 	public:
 		TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::vector<int>& map);
 		TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::string& map);
 		TileMap(const std::string& image, const std::string& map);
 		~TileMap();
 
+		void updateFrameBuffer();
 		void draw() const;
 		void debugDraw() const;
 

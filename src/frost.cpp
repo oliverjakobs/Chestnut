@@ -35,11 +35,12 @@ Frost::~Frost()
 
 void Frost::update(float deltaTime)
 {
-	if (m_input->mouseButtonHit(GLFW_MOUSE_BUTTON_LEFT))
+	if (m_input->mouseButtonDown(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		glm::vec2 mouse = Renderer::getView()->fromScreen(m_input->getMousePosition());
-		glm::ivec2 pos = m_map->getMapTileAtPoint(mouse);
-		DEBUG_MESSAGE("Tile at: " << pos.x << ", " << pos.y << ": " << m_map->getTile(pos)->type);
+		m_map->getTile(m_map->getMapTileAtPoint(mouse))->id = 18;
+		m_map->getTile(m_map->getMapTileAtPoint(mouse))->type = Solid;
+		m_map->updateFrameBuffer();
 	}
 
 	m_entity->handleInput(m_input);

@@ -5,20 +5,6 @@
 
 namespace chst
 {
-	void TileMap::updateFrameBuffer()
-	{
-		m_frameBuffer->bind();
-
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		for (auto& tile : m_tiles)
-		{
-			m_image->draw(tile.position, tile.id);
-		}
-
-		m_frameBuffer->unbind();
-	}
-
 	TileMap::TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::vector<int>& map)
 	{
 		m_width = width;
@@ -132,6 +118,20 @@ namespace chst
 		SAFE_DELETE(m_frameBuffer);
 
 		m_tiles.clear();
+	}
+
+	void TileMap::updateFrameBuffer()
+	{
+		m_frameBuffer->bind();
+
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		for (auto& tile : m_tiles)
+		{
+			m_image->draw(tile.position, tile.id);
+		}
+
+		m_frameBuffer->unbind();
 	}
 
 	void TileMap::draw() const
