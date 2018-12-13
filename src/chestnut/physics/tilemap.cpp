@@ -134,6 +134,15 @@ namespace chst
 		m_frameBuffer->unbind();
 	}
 
+	void TileMap::update(float deltaTime)
+	{
+		if (m_changed)
+		{
+			updateFrameBuffer();
+			m_changed = false;
+		}
+	}
+
 	void TileMap::draw() const
 	{
 		m_frameBuffer->draw();
@@ -159,28 +168,28 @@ namespace chst
 		return m_tileSize;
 	}
 
-	glm::ivec2 TileMap::getMapTileAtPoint(float x, float y) const
+	glm::ivec2 TileMap::getTilePos(float x, float y) const
 	{
 		return glm::ivec2(static_cast<int>(std::floor(x / m_tileSize)), static_cast<int>(std::floor(y / m_tileSize)));
 	}
 
-	glm::ivec2 TileMap::getMapTileAtPoint(const glm::vec2 & pos) const
+	glm::ivec2 TileMap::getTilePos(const glm::vec2 & pos) const
 	{
-		return getMapTileAtPoint(pos.x, pos.y);
+		return getTilePos(pos.x, pos.y);
 	}
 
-	std::vector<Tile*> TileMap::getAdjacentTiles(float x, float y, float w, float h)
+	std::vector<const Tile*> TileMap::getAdjacentTiles(float x, float y, float w, float h)
 	{
-		std::vector<Tile*> tiles;
+		std::vector<const Tile*> tiles;
 
-		glm::ivec2 start = getMapTileAtPoint(x, y);
-		glm::ivec2 end = getMapTileAtPoint(x + w, y + h);
+		glm::ivec2 start = getTilePos(x, y);
+		glm::ivec2 end = getTilePos(x + w, y + h);
 
 		for (int i = start.x; i <= end.x; i++)
 		{
 			for (int j = start.y; j <= end.y; j++)
 			{
-				Tile* t = getTile(i, j);
+				const Tile* t = getTileM(i, j);
 
 				if (t != nullptr)
 					tiles.push_back(t);
@@ -190,12 +199,44 @@ namespace chst
 		return tiles;
 	}
 
-	std::vector<Tile*> TileMap::getAdjacentTiles(const glm::vec2& pos, const glm::vec2& size)
+	std::vector<const Tile*> TileMap::getAdjacentTiles(const glm::vec2& pos, const glm::vec2& size)
 	{
 		return getAdjacentTiles(pos.x, pos.y, size.x, size.y);
 	}
 
-	Tile* TileMap::getTile(int x, int y)
+	void TileMap::changeTile(const glm::vec2& pos, unsigned int id, TileType type)
+	{
+		changeTile(pos.x, pos.y, id, type);
+	}
+
+	void TileMap::changeTile(float x, float y, unsigned int id, TileType type)
+	{
+		glm::ivec2 pos = getTilePos(x, y);
+
+		if (pos.x < 0 || pos.x >= m_width || pos.y < 0 || pos.y >= m_height)
+			return;
+
+		Tile* tile = &m_tiles.at((m_height - pos.y - 1) * m_width + pos.x);
+
+		if (!(tile->id == id || tile->type == type))
+		{
+			tile->id = id;
+			tile->type = type;
+			m_changed = true;
+		}
+	}
+
+	const Tile* TileMap::getTile(float x, float y) const
+	{
+		return getTileM(getTilePos(x, y));
+	}
+
+	const Tile* TileMap::getTile(const glm::vec2& pos) const
+	{
+		return getTile(pos.x, pos.y);
+	}
+
+	const Tile* TileMap::getTileM(int x, int y) const
 	{
 		if (x < 0 || x >= m_width || y < 0 || y >= m_height)
 			return nullptr;
@@ -203,8 +244,8 @@ namespace chst
 		return &m_tiles.at((m_height - y - 1) * m_width + x);
 	}
 
-	Tile* TileMap::getTile(const glm::ivec2& pos)
+	const Tile* TileMap::getTileM(const glm::ivec2& pos) const
 	{
-		return getTile(pos.x, pos.y);
+		return getTileM(pos.x, pos.y);
 	}
 }

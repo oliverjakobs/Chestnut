@@ -35,13 +35,17 @@ Frost::~Frost()
 
 void Frost::update(float deltaTime)
 {
-	if (m_input->mouseButtonDown(GLFW_MOUSE_BUTTON_LEFT))
+	if (m_input->mouseButtonHit(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		glm::vec2 mouse = Renderer::getView()->fromScreen(m_input->getMousePosition());
-		m_map->getTile(m_map->getMapTileAtPoint(mouse))->id = 18;
-		m_map->getTile(m_map->getMapTileAtPoint(mouse))->type = Solid;
-		m_map->updateFrameBuffer();
+
+		if (m_map->getTile(mouse)->type == Empty)
+			m_map->changeTile(mouse, 18, Solid);
+		else if (m_map->getTile(mouse)->id == 18)
+			m_map->changeTile(mouse, 0, Empty);
 	}
+
+	m_map->update(deltaTime);
 
 	m_entity->handleInput(m_input);
 

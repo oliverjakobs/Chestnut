@@ -37,6 +37,7 @@ namespace chst
 
 		FrameBuffer* m_frameBuffer;
 
+		bool m_changed;
 	public:
 		TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::vector<int>& map);
 		TileMap(const std::string& imagePath, int width, int height, float tileSize, const std::string& map);
@@ -44,18 +45,24 @@ namespace chst
 		~TileMap();
 
 		void updateFrameBuffer();
+		void update(float deltaTime);
 		void draw() const;
 		void debugDraw() const;
 
 		float getTileSize() const;
 
-		glm::ivec2 getMapTileAtPoint(float x, float y) const;
-		glm::ivec2 getMapTileAtPoint(const glm::vec2& pos) const;
+		glm::ivec2 getTilePos(float x, float y) const;
+		glm::ivec2 getTilePos(const glm::vec2& pos) const;
 
-		std::vector<Tile*> getAdjacentTiles(float x, float y, float w, float h);
-		std::vector<Tile*> getAdjacentTiles(const glm::vec2& pos, const glm::vec2& size);
+		std::vector<const Tile*> getAdjacentTiles(float x, float y, float w, float h);
+		std::vector<const Tile*> getAdjacentTiles(const glm::vec2& pos, const glm::vec2& size);
 
-		Tile* getTile(int x, int y);
-		Tile* getTile(const glm::ivec2& pos);
+		void changeTile(const glm::vec2& pos, unsigned int id, TileType type);
+		void changeTile(float x, float y, unsigned int id, TileType type);
+
+		const Tile* getTile(float x, float y) const;
+		const Tile* getTile(const glm::vec2& pos) const;
+		const Tile* getTileM(int x, int y) const;
+		const Tile* getTileM(const glm::ivec2& pos) const;
 	};
 }

@@ -290,7 +290,7 @@ namespace chst
 
 	bool Body::checkSlope(const glm::vec2& position, int slope) const
 	{
-		Tile* tile = m_map->getTile(m_map->getMapTileAtPoint(position));
+		const Tile* tile = m_map->getTile(position);
 
 		if (tile == nullptr)
 			return false;
