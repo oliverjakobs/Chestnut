@@ -147,12 +147,12 @@ namespace chst
 		return glfwWindowShouldClose(instance()->m_window) == 1;
 	}
 
-	void Renderer::setDefaultShader(const std::string & name)
+	void Renderer::setDefaultShader(const std::string& name)
 	{
 		instance()->m_defaultShader = name;
 	}
 
-	void Renderer::addShader(const std::string & name, Shader * shader)
+	void Renderer::addShader(const std::string& name, Shader* shader)
 	{
 		instance()->m_shaders[name] = shader;
 
@@ -181,7 +181,17 @@ namespace chst
 		return instance()->m_window;
 	}
 	
-	void Renderer::renderTexture(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shaderName)
+	void Renderer::renderTexture(Texture * texture, std::vector<GLuint> indices)
+	{
+		if (texture != nullptr && texture->getTextureID() != 0)
+		{
+			texture->bind();
+			
+			glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+		}
+	}
+
+	void Renderer::renderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shaderName)
 	{
 		if (texture != nullptr && texture->getTextureID() != 0)
 		{

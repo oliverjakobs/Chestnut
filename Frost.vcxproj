@@ -232,6 +232,7 @@
     <None Include="res\shaders\primitive.frag" />
     <None Include="res\shaders\primitive.geom" />
     <None Include="res\shaders\primitive.vert" />
+    <None Include="res\shader\kernel.frag" />
     <None Include="res\shader\primitive.frag" />
     <None Include="res\shader\primitive.vert" />
     <None Include="res\shader\shader.frag" />

@@ -63,6 +63,6 @@ namespace chst
 	void FrameBuffer::draw()
 	{
 		glBindVertexArray(m_vao);
-		Renderer::renderTexture(m_texture, glm::vec2(), glm::mat4(1.0f), { 0,1,2,2,3,0 });
+		Renderer::renderTextureS(m_texture, glm::vec2(), glm::mat4(1.0f), { 0,1,2,2,3,0 }, "kernel");
 	}
 }

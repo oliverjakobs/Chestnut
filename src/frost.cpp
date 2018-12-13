@@ -6,6 +6,7 @@ Frost::Frost(const std::string& title, int width, int height, float viewW, float
 	: Game(title, width, height, viewW, viewH)
 {
 	Renderer::addShader("default", new Shader("res/shader/shader.vert", "res/shader/shader.frag"));
+	Renderer::addShader("kernel", new Shader("res/shader/shader.vert", "res/shader/kernel.frag"));
 
 	Renderer::setClearColor(glm::vec4(0.2, 0.2, 0.2, 1.0));
 

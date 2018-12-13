@@ -56,8 +56,8 @@ namespace chst
 		static GLFWwindow* getContext();
 		
 		// ----------------------------texture---------------------------------------------------------------------------
-		static void renderTexture(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shader = "");
-
+		static void renderTexture(Texture* texture, std::vector<GLuint> indices);
+		static void renderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shader);
 
 		// ----------------------------render queue----------------------------------------------------------------------
 		static void start();

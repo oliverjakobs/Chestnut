@@ -21,6 +21,11 @@ namespace chst
 		};
 	}
 
+	GLuint Image::getIndex(unsigned int pos) const
+	{
+		return 0 + (m_flip * 4);
+	}
+
 	Image::Image(const std::string& filename, int rows, int columns)
 		: m_columns(columns), m_rows(rows)
 	{
@@ -73,22 +78,12 @@ namespace chst
 		m_flip = flip;
 	}
 
-	void Image::draw(float x, float y, int frame, const glm::mat4& view) const
+	void Image::draw(float x, float y, int frame, const glm::mat4& view, const std::string& shader) const
 	{
-		draw(glm::vec2(x, y), WHITE, frame, view);
+		draw(glm::vec2(x, y), frame, view, shader);
 	}
 
-	void Image::draw(float x, float y, const glm::vec4& colorMod, int frame, const glm::mat4& view) const
-	{
-		draw(glm::vec2(x, y), colorMod, frame, view);		
-	}
-
-	void Image::draw(const glm::vec2& position, int frame, const glm::mat4& view) const
-	{
-		draw(position, WHITE, frame, view);
-	}
-
-	void Image::draw(const glm::vec2& position, const glm::vec4& colorMod, int frame, const glm::mat4& view) const
+	void Image::draw(const glm::vec2& position, int frame, const glm::mat4& view, const std::string& shader) const
 	{
 		float fX = (frame % m_columns) * getFrameWidth();
 		float fY = 1 - getFrameHeight() - ((frame / m_columns) * getFrameHeight());
@@ -96,23 +91,10 @@ namespace chst
 		glm::mat4 projection = glm::mat4();
 		glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(position, 0.0f));
 
-		std::vector<GLuint> indices;
-
-		switch (m_flip)
-		{
-		case FLIP_VERTICAL:
-			indices = { 8,9,10,10,11,8 };
-			break;
-		case FLIP_HORIZONTAL:
-			indices = { 4,5,6,6,7,4 };
-			break;
-		default:
-			indices = { 0,1,2,2,3,0 };
-			break;
-		}
+		std::vector<GLuint> indices = { 0u + (m_flip * 4), 1u + (m_flip * 4), 2u + (m_flip * 4), 2u + (m_flip * 4), 3u + (m_flip * 4), 0u + (m_flip * 4) };
 
 		glBindVertexArray(m_vao);
-		Renderer::renderTexture(m_texture, glm::vec2(fX, fY), projection * view * model, indices);
+		Renderer::renderTextureS(m_texture, glm::vec2(fX, fY), projection * view * model, indices, shader);
 	}
 
 	float Image::getWidth() const

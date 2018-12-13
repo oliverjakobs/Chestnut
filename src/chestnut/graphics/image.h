@@ -9,9 +9,9 @@ namespace chst
 {
 	enum RenderFlip
 	{
-		FLIP_NONE,
-		FLIP_HORIZONTAL,
-		FLIP_VERTICAL
+		FLIP_NONE = 0,
+		FLIP_HORIZONTAL = 1,
+		FLIP_VERTICAL = 2
 	};
 
 	class Image
@@ -29,6 +29,8 @@ namespace chst
 		RenderFlip m_flip;
 
 		std::vector<GLfloat> getVertices(float w, float h, float fW, float fH);
+
+		GLuint getIndex(unsigned int pos) const;
 	public:
 		Image(const std::string& filename, int rows = 1, int columns = 1);
 		Image(const std::string& filename, float scale, int rows = 1, int columns = 1);
@@ -37,11 +39,8 @@ namespace chst
 
 		void setRenderFlip(RenderFlip flip);
 		
-		virtual void draw(float x, float y, int frame = 0, const glm::mat4& view = Renderer::getViewMat()) const;
-		virtual void draw(float x, float y, const glm::vec4& colorMod, int frame = 0, const glm::mat4& view = Renderer::getViewMat()) const;
-
-		virtual void draw(const glm::vec2& position, int frame = 0, const glm::mat4& view = Renderer::getViewMat()) const;
-		virtual void draw(const glm::vec2& position, const glm::vec4& colorMod, int frame = 0, const glm::mat4& view = Renderer::getViewMat()) const;
+		virtual void draw(float x, float y, int frame = 0, const glm::mat4& view = Renderer::getViewMat(), const std::string& shader = "") const;
+		virtual void draw(const glm::vec2& position, int frame = 0, const glm::mat4& view = Renderer::getViewMat(), const std::string& shader = "") const;
 		
 		float getWidth() const;
 		float getHeight() const;
