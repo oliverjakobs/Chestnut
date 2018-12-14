@@ -11,6 +11,8 @@ int main(int argc, char* argv[])
 		else if (stringCompare(argv[i], "-debug"))
 			game.setDebug(true);
 	}
+
+	game.lockFPS(false);
 		
 	game.run();
 

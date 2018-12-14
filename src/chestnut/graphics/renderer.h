@@ -14,6 +14,14 @@
 
 namespace chst
 {	
+	enum ShaderType
+	{
+		NO_TYPE,
+		DEFAULT,
+		KERNEL,
+		PRIMITIVE
+	};
+
 	class Renderer : public Singleton<Renderer>
 	{
 	private:				
@@ -23,6 +31,7 @@ namespace chst
 
 		std::string m_defaultShader;
 		std::map<std::string, Shader*> m_shaders;
+		std::map<ShaderType, std::string> m_shaderTypes;
 
 		GLFWwindow* m_window;
 	public:
@@ -50,14 +59,17 @@ namespace chst
 		static bool closed();
 
 		static void setDefaultShader(const std::string& name);
-		static void addShader(const std::string& name, Shader* shader);
+		static void addShader(const std::string& name, Shader* shader, ShaderType type = NO_TYPE);
 		static Shader* getShader(const std::string& name);
+		static Shader* getShader(ShaderType type);
 
 		static GLFWwindow* getContext();
 		
 		// ----------------------------texture---------------------------------------------------------------------------
 		static void renderTexture(Texture* texture, std::vector<GLuint> indices);
 		static void renderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shader);
+		static void renderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, ShaderType shader);
+		static void renderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, Shader* shader);
 
 		// ----------------------------render queue----------------------------------------------------------------------
 		static void start();

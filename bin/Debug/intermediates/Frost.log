@@ -1,5 +1,5 @@
-﻿  animationcomponent.cpp
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'D:\Dev\Chestnut\bin\Debug\vc120.pdb'; linking object as if no debug info
+﻿  game.cpp
+  frost.cpp
+  main.cpp
+  Generating Code...
   Frost.vcxproj -> D:\Dev\Chestnut\bin\Debug\Frost.exe

@@ -5,8 +5,8 @@ using namespace chst;
 Frost::Frost(const std::string& title, int width, int height, float viewW, float viewH)
 	: Game(title, width, height, viewW, viewH)
 {
-	Renderer::addShader("default", new Shader("res/shader/shader.vert", "res/shader/shader.frag"));
-	Renderer::addShader("kernel", new Shader("res/shader/shader.vert", "res/shader/kernel.frag"));
+	Renderer::addShader("default", new Shader("res/shader/shader.vert", "res/shader/shader.frag"), DEFAULT);
+	Renderer::addShader("kernel", new Shader("res/shader/shader.vert", "res/shader/kernel.frag"), KERNEL);
 
 	Renderer::setClearColor(glm::vec4(0.2, 0.2, 0.2, 1.0));
 
@@ -45,7 +45,7 @@ void Frost::update(float deltaTime)
 		else if (m_map->getTile(mouse)->id == 18)
 			m_map->changeTile(mouse, 0, Empty);
 	}
-
+	
 	m_map->update(deltaTime);
 
 	m_entity->handleInput(m_input);

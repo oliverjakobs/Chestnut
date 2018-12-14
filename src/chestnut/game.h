@@ -30,6 +30,7 @@ namespace chst
 
 		void setDebug(bool b);
 		void showFPS(bool b);
+		void lockFPS(bool b);
 		
 		void setExitKey(unsigned int key);
 		void setDebugKey(unsigned int key);

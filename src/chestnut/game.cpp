@@ -33,7 +33,7 @@ namespace chst
 
 	}
 
-	void Game::setTitle(const std::string & title)
+	void Game::setTitle(const std::string& title)
 	{
 		glfwSetWindowTitle(Renderer::getContext(), title.c_str());
 	}
@@ -46,6 +46,11 @@ namespace chst
 	void Game::showFPS(bool b)
 	{
 		m_showFPS = b;
+	}
+
+	void Game::lockFPS(bool b)
+	{
+		glfwSwapInterval(b);
 	}
 
 	void Game::setExitKey(unsigned int key)

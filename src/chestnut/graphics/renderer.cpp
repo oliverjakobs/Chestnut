@@ -43,8 +43,6 @@ namespace chst
 
 		Renderer::enableBlend(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		glfwSwapInterval(GL_FALSE);
-
 		if (glewInit() != GLEW_OK)
 		{
 			DEBUG_MESSAGE("[Glew] Failed to initialize glew");
@@ -152,26 +150,50 @@ namespace chst
 		instance()->m_defaultShader = name;
 	}
 
-	void Renderer::addShader(const std::string& name, Shader* shader)
+	void Renderer::addShader(const std::string& name, Shader* shader, ShaderType type)
 	{
 		instance()->m_shaders[name] = shader;
 
-		if (instance()->m_defaultShader.empty())
-			instance()->m_defaultShader = name;
+		if (type != NO_TYPE)
+			instance()->m_shaderTypes[type] = name;
+		else
+		{
+			try
+			{
+				instance()->m_shaderTypes.at(DEFAULT);
+			}
+			catch (std::out_of_range outofrange)
+			{
+				instance()->m_shaderTypes[DEFAULT] = name;
+			}
+		}
 	}
 
-	Shader* Renderer::getShader(const std::string & name)
+	Shader* Renderer::getShader(const std::string& name)
 	{
+		if (name.empty())
+			return getShader(DEFAULT);
+
 		try
 		{
-			if (name.empty())
-				return instance()->m_shaders.at(instance()->m_defaultShader);
-			else
-				return instance()->m_shaders.at(name);
+			return instance()->m_shaders.at(name);
 		}
 		catch (std::out_of_range outofrange)
 		{
 			DEBUG_MESSAGE("No such shader: " << (name.empty() ? instance()->m_defaultShader : name));
+			return nullptr;
+		}
+	}
+
+	Shader* Renderer::getShader(ShaderType type)
+	{
+		try
+		{
+			return instance()->m_shaders.at(instance()->m_shaderTypes.at(type));
+		}
+		catch (std::out_of_range outofrange)
+		{
+			DEBUG_MESSAGE("No such shader type: " << type);
 			return nullptr;
 		}
 	}
@@ -191,14 +213,22 @@ namespace chst
 		}
 	}
 
-	void Renderer::renderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shaderName)
+	void Renderer::renderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shader)
+	{
+		renderTextureS(texture, srcPos, mvp, indices, getShader(shader));
+	}
+
+	void Renderer::renderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, ShaderType shader)
+	{
+		renderTextureS(texture, srcPos, mvp, indices, getShader(shader));
+	}
+
+	void Renderer::renderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, Shader* shader)
 	{
 		if (texture != nullptr && texture->getTextureID() != 0)
 		{
 			texture->bind();
-
-			Shader* shader = getShader(shaderName);
-
+			
 			shader->enable();
 
 			try
@@ -211,7 +241,7 @@ namespace chst
 				DEBUG_MESSAGE(e.what());
 				return;
 			}
-			
+
 			glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
 		}
 	}
