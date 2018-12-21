@@ -20,8 +20,6 @@ namespace chst
 
 	void PhysicsComponent::update(float deltaTime)
 	{
-		m_body->update(deltaTime);
-
 		m_entity->setPosition(m_body->getPosition());
 	}
 
@@ -68,6 +66,11 @@ namespace chst
 	Direction PhysicsComponent::getDirection() const
 	{
 		return m_direction;
+	}
+
+	Body* PhysicsComponent::getBody() const
+	{
+		return m_body;
 	}
 
 	bool PhysicsComponent::isOnFloor() const

@@ -10,8 +10,11 @@ namespace chst
 	private:
 		PhysicsComponent* m_physComp;
 		AnimationComponent* m_animComp;
+
+		float m_movementSpeed;
+		float m_jumpPower;
 	public:
-		PlayerComponent();
+		PlayerComponent(float ms, float jp);
 		~PlayerComponent();
 
 		bool setEntity(Entity* e) override;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "graphics.h"
-#include "graphics\framebuffer.h"
 
 namespace chst
 {
@@ -23,6 +22,8 @@ namespace chst
 		TileType type;
 	};
 
+	class Body;
+
 	class TileMap
 	{
 	private:
@@ -34,6 +35,7 @@ namespace chst
 		float m_tileSize;
 
 		std::vector<Tile> m_tiles;
+		std::vector<Body*> m_bodies;
 
 		FrameBuffer* m_frameBuffer;
 
@@ -44,12 +46,15 @@ namespace chst
 		TileMap(const std::string& image, const std::string& map);
 		~TileMap();
 
+		Body* createBody(float x, float y, float w, float h);
+
 		void updateFrameBuffer();
 		void update(float deltaTime);
 		void draw() const;
 		void debugDraw() const;
 
 		float getTileSize() const;
+		glm::vec2 getDimension() const;
 
 		glm::ivec2 getTilePos(float x, float y) const;
 		glm::ivec2 getTilePos(const glm::vec2& pos) const;

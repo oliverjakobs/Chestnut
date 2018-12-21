@@ -35,6 +35,7 @@ namespace chst
 		void drop();
 
 		Direction getDirection() const;
+		Body* getBody() const;
 
 		bool isOnFloor() const;
 

@@ -1,7 +1,8 @@
 #include "tilemap.h"
 
-#include "graphics\buffers.h"
 #include "glm\gtc\matrix_transform.hpp"
+
+#include "body.h"
 
 namespace chst
 {
@@ -53,9 +54,9 @@ namespace chst
 				else if (tile.id == 10)
 					tile.type = SlopeRight;
 				else if (tile.id == 11)
-					tile.type = Empty;
+					tile.type = Solid;
 				else if (tile.id == 12)
-					tile.type = Empty;
+					tile.type = Solid;
 				else if (tile.id == 13 || tile.id == 14 || tile.id == 15)
 					tile.type = Platform;
 				else if (tile.id == 0)
@@ -120,6 +121,15 @@ namespace chst
 		m_tiles.clear();
 	}
 
+	Body* TileMap::createBody(float x, float y, float w, float h)
+	{
+		Body* body = new Body(this, x, y, w, h);
+
+		m_bodies.push_back(body);
+
+		return body;
+	}
+
 	void TileMap::updateFrameBuffer()
 	{
 		m_frameBuffer->bind();
@@ -140,6 +150,11 @@ namespace chst
 		{
 			updateFrameBuffer();
 			m_changed = false;
+		}
+
+		for (auto& body : m_bodies)
+		{
+			body->update(deltaTime);
 		}
 	}
 
@@ -166,6 +181,11 @@ namespace chst
 	float TileMap::getTileSize() const
 	{
 		return m_tileSize;
+	}
+
+	glm::vec2 TileMap::getDimension() const
+	{
+		return glm::vec2(m_width, m_height);
 	}
 
 	glm::ivec2 TileMap::getTilePos(float x, float y) const

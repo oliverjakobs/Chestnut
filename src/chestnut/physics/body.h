@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math\maths.h"
+#include "aabb.h"
 #include "tilemap.h"
 
 namespace chst
@@ -9,37 +9,34 @@ namespace chst
 	{
 	private:
 		glm::vec2 m_position;
-		glm::vec2 m_halfDimension;
 
+		AABB m_aabb;
+		glm::vec2 m_aabbOffset;
+		
 		glm::vec2 m_velocity;
 
 		glm::vec2 m_offsetHorizontal;
 		glm::vec2 m_offsetVertical;
-
-		glm::vec2 leftSlopeSensor;
-		glm::vec2 rightSlopeSensor;
-
+		
 		bool m_collidesBottom;
 		bool m_collidesTop;
 		bool m_collidesLeft;
 		bool m_collidesRight;
+
 		bool m_onSlope;
 		bool m_slopeDetected;
-
-		chstMath::Rect rect;
-
-		float gravityScale;
+		
+		float m_gravityScale;
+		float m_sensorOffset;
 
 		bool m_drop;
 
-		float sensorOffset;
-
 		TileMap* m_map;
-	public:
 		Body(TileMap* map, float x, float y, float w, float h);
 		virtual ~Body();
 
 		void update(float deltaTime);
+	public:
 		void draw() const;
 
 		void setPosition(const glm::vec2& pos);
@@ -52,6 +49,9 @@ namespace chst
 
 		bool collidesBottom() const;
 
+		TileMap* getMap() const;
+
+		friend TileMap;
 	private:
 		void moveX(float x);
 		void moveY(float y);

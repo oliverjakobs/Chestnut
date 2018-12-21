@@ -180,6 +180,7 @@
     <ClInclude Include="src\chestnut\math\poly.h" />
     <ClInclude Include="src\chestnut\math\rect.h" />
     <ClInclude Include="src\chestnut\physics.h" />
+    <ClInclude Include="src\chestnut\physics\aabb.h" />
     <ClInclude Include="src\chestnut\physics\body.h" />
     <ClInclude Include="src\chestnut\physics\tilemap.h" />
     <ClInclude Include="src\chestnut\tools\timer.h" />

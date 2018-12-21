@@ -2,9 +2,12 @@
 
 #include "tools\util\utils.h"
 
+using namespace chstMath;
+
 namespace chst
 {
-	PlayerComponent::PlayerComponent()
+	PlayerComponent::PlayerComponent(float ms, float jp)
+		: m_movementSpeed(ms), m_jumpPower(jp)
 	{
 	}
 
@@ -30,25 +33,20 @@ namespace chst
 			return false;
 		}
 
-
-		m_entity = e;
-		return m_entity != nullptr;
+		return (m_entity = e) != nullptr;
 	}
 
 	void PlayerComponent::handleInput(Input* input)
 	{
-		float movementSpeed = 4.0f;
-		float jumpPower = 8.0f;
-
 		glm::vec2 velocity = glm::vec2(0.0f, m_physComp->getVelocity().y);
 
 		if (input->keyDown(GLFW_KEY_A))
-			velocity.x += -movementSpeed;
+			velocity.x += -m_movementSpeed;
 		if (input->keyDown(GLFW_KEY_D))
-			velocity.x += movementSpeed;
+			velocity.x += m_movementSpeed;
 
 		if (input->keyDown(GLFW_KEY_SPACE) && m_physComp->isOnFloor())
-			velocity.y = jumpPower;
+			velocity.y = m_jumpPower;
 		else if (input->keyUp(GLFW_KEY_SPACE))
 			if (m_physComp->getVelocity().y > 0)
 				velocity.y = (m_physComp->getVelocity().y * 0.5f);
@@ -81,6 +79,8 @@ namespace chst
 			else
 				m_animComp->play("idle");
 		}
+
+		Renderer::instance()->setViewPos(m_entity->getCenter().x, m_entity->getCenter().y, new Rect(glm::vec2(), m_physComp->getBody()->getMap()->getDimension() * m_physComp->getBody()->getMap()->getTileSize()));
 	}
 
 	void PlayerComponent::draw() const

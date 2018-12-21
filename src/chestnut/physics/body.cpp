@@ -7,10 +7,10 @@ namespace chst
 	using namespace chstMath;
 
 	Body::Body(TileMap* map, float x, float y, float w, float h)
-		: m_map(map), m_position(glm::vec2(x, y)), m_halfDimension(glm::vec2(w, h) / 2.0f)
+		: m_map(map), m_position(glm::vec2(x, y)), m_aabbOffset(glm::vec2(0.0f, h / 2.0f)), m_aabb(m_position + m_aabbOffset, glm::vec2(w, h) / 2.0f)
 	{
 		m_velocity = glm::vec2();
-		sensorOffset = 0.02f;
+		m_sensorOffset = 0.02f;
 
 		m_collidesBottom = false;
 		m_collidesTop = false;
@@ -18,11 +18,8 @@ namespace chst
 		m_collidesRight = false;
 		m_onSlope = false;
 		m_slopeDetected = false;
-
-		leftSlopeSensor = glm::vec2(-(m_halfDimension.x + m_map->getTileSize() - sensorOffset), sensorOffset);
-		rightSlopeSensor = glm::vec2(m_halfDimension.x + m_map->getTileSize() - sensorOffset, sensorOffset);
-
-		gravityScale = 1.0f;
+		
+		m_gravityScale = 1.0f;
 
 		m_drop = false;
 	}
@@ -36,55 +33,50 @@ namespace chst
 	{
 		glm::vec2 gravity = glm::vec2(0.0f, -9.8f);
 
+		// vary gravity scale to keep on slope
 		if (m_onSlope && m_velocity.y <= 0.0f)
-			gravityScale = 100.0f;
+			m_gravityScale = 100.0f;
 		else
-			gravityScale = 1.0f;
+			m_gravityScale = 1.0f;
 
-		m_velocity += gravity * gravityScale * deltaTime;
+		m_velocity += gravity * m_gravityScale * deltaTime;
 
-		m_offsetHorizontal = glm::vec2(sensorOffset, m_onSlope ? 0.08f : 0.01f);
-		m_offsetVertical = glm::vec2(0.01f, sensorOffset);
+		m_offsetHorizontal = glm::vec2(m_sensorOffset, m_onSlope ? 0.08f : 0.01f);
+		m_offsetVertical = glm::vec2(0.01f, m_sensorOffset);
 
+		// check for slopes
 		if (m_velocity.x < 0.0f)
-			m_slopeDetected = checkSlope(m_position + leftSlopeSensor, SlopeLeft);
+			m_slopeDetected = checkSlope(m_position + glm::vec2(-(m_aabb.halfDimension.x + m_map->getTileSize() - m_sensorOffset), m_sensorOffset), SlopeLeft);
 		else if (m_velocity.x > 0.0f)
-			m_slopeDetected = checkSlope(m_position + rightSlopeSensor, SlopeRight);
+			m_slopeDetected = checkSlope(m_position + glm::vec2(m_aabb.halfDimension.x + m_map->getTileSize() - m_sensorOffset, m_sensorOffset), SlopeRight);
 		else
 			m_slopeDetected = false;
 
+		// move first in x direction and then in y direction
 		moveX(m_velocity.x * deltaTime);
 		moveY(m_velocity.y * deltaTime);
+
+		m_aabb.center = m_position + m_aabbOffset;
 
 		m_drop = false;
 	}
 
 	void Body::draw() const
 	{
-		Renderer::drawRect(Rect(m_position - glm::vec2(m_halfDimension.x, 0.0f), m_halfDimension * 2.0f), m_onSlope ? BLUE : GREEN);
+		Renderer::drawRect(Rect(m_aabb.center - m_aabb.halfDimension, m_aabb.halfDimension * 2.0f), m_onSlope ? BLUE : GREEN);
 
-		Renderer::drawLine(getSensorBottom(m_position + glm::vec2(0.0f, m_halfDimension.y), m_offsetVertical), RED);
-		Renderer::drawLine(getSensorTop(m_position + glm::vec2(0.0f, m_halfDimension.y), m_offsetVertical), RED);
-		Renderer::drawLine(getSensorLeft(m_position + glm::vec2(0.0f, m_halfDimension.y), m_offsetHorizontal), RED);
-		Renderer::drawLine(getSensorRight(m_position + glm::vec2(0.0f, m_halfDimension.y), m_offsetHorizontal), RED);
-
-		//Renderer::drawRect(rect, RED);
-
-		/*Line sensor = getSensorBottom(m_position + glm::vec2(0.0f, m_halfDimension.y), glm::vec2(sensorOffset));
-
-		auto tiles = m_map->getAdjacentTiles(sensor.start, sensor.end - sensor.start + glm::vec2(0.0f, sensorOffset));
-
-		for (auto& t : tiles)
-		{
-			Renderer::fillRect(t->position.x, t->position.y, m_map->getTileSize(), m_map->getTileSize(), blendColor(CYAN, 0.2f));
-		}*/
-
+		Renderer::drawLine(getSensorBottom(m_position + m_aabbOffset, m_offsetVertical), RED);
+		Renderer::drawLine(getSensorTop(m_position + m_aabbOffset, m_offsetVertical), RED);
+		Renderer::drawLine(getSensorLeft(m_position + m_aabbOffset, m_offsetHorizontal), RED);
+		Renderer::drawLine(getSensorRight(m_position + m_aabbOffset, m_offsetHorizontal), RED);
+		
 		Renderer::fillCircle(m_position, 0.04f, BLACK);
 	}
 
 	void Body::setPosition(const glm::vec2& pos)
 	{
 		m_position = pos;
+		m_aabb.center = m_position + m_aabbOffset;
 	}
 
 	void Body::setVelocity(const glm::vec2 & vel)
@@ -112,6 +104,11 @@ namespace chst
 		return m_collidesBottom;
 	}
 
+	TileMap* Body::getMap() const
+	{
+		return m_map;
+	}
+
 	void Body::moveX(float x)
 	{
 		m_collidesLeft = false;
@@ -124,7 +121,7 @@ namespace chst
 		float wallX = 0.0f;
 		if (m_velocity.x <= 0.0f && checkLeft(m_position, oldPosition, &wallX))
 		{
-			m_position.x = wallX + m_halfDimension.x;
+			m_position.x = wallX + m_aabb.halfDimension.x;
 			m_velocity.x = 0.0f;
 			m_collidesLeft = true;
 		}
@@ -132,7 +129,7 @@ namespace chst
 		wallX = 0.0f;
 		if (m_velocity.x >= 0.0f && checkRight(m_position, oldPosition, &wallX))
 		{
-			m_position.x = wallX - m_halfDimension.x;
+			m_position.x = wallX - m_aabb.halfDimension.x;
 			m_velocity.x = 0.0f;
 			m_collidesRight = true;
 		}
@@ -159,7 +156,7 @@ namespace chst
 		groundY = 0.0f;
 		if (m_velocity.y >= 0.0f && checkTop(m_position, oldPosition, &groundY))
 		{
-			m_position.y = groundY - (2.0f * m_halfDimension.y);
+			m_position.y = groundY - (2.0f * m_aabb.halfDimension.y);
 			m_velocity.y = 0.0f;
 			m_collidesTop = true;
 		}
@@ -167,13 +164,11 @@ namespace chst
 
 	bool Body::checkBottom(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY)
 	{
-		Line sensor = getSensorBottom(position + glm::vec2(0.0f, m_halfDimension.y), m_offsetVertical);
-		Line oldSensor = getSensorBottom(oldPosition + glm::vec2(0.0f, m_halfDimension.y), m_offsetVertical);
+		Line sensor = getSensorBottom(position + m_aabbOffset, m_offsetVertical);
+		Line oldSensor = getSensorBottom(oldPosition + m_aabbOffset, m_offsetVertical);
 
 		auto tiles = m_map->getAdjacentTiles(sensor.start, oldSensor.end - sensor.start + (m_slopeDetected ? glm::vec2(0.0f, m_map->getTileSize() / 2.0f) : glm::vec2()));
-
-		rect = Rect(sensor.start, oldSensor.end - sensor.start + (m_slopeDetected ? glm::vec2(0.0f, sensorOffset) : glm::vec2()));
-
+		
 		std::sort(tiles.begin(), tiles.end(), [](const Tile* t1, const Tile* t2)
 		{
 			if (t1->position.y == t2->position.y)
@@ -191,7 +186,7 @@ namespace chst
 			}
 			else if (t->type == SlopeLeft)
 			{
-				float x = m_position.x - m_halfDimension.x - t->position.x;
+				float x = m_position.x - m_aabb.halfDimension.x - t->position.x;
 
 				*groundY = t->position.y + m_map->getTileSize() - x;
 				m_onSlope = true;
@@ -199,7 +194,7 @@ namespace chst
 			}
 			else if (t->type == SlopeRight)
 			{
-				float x = m_position.x + m_halfDimension.x - t->position.x;
+				float x = m_position.x + m_aabb.halfDimension.x - t->position.x;
 
 				*groundY = t->position.y + x;
 				m_onSlope = true;
@@ -218,8 +213,8 @@ namespace chst
 
 	bool Body::checkTop(const glm::vec2& position, const glm::vec2& oldPosition, float* groundY)
 	{
-		Line sensor = getSensorTop(position + glm::vec2(0.0f, m_halfDimension.y), m_offsetVertical);
-		Line oldSensor = getSensorTop(oldPosition + glm::vec2(0.0f, m_halfDimension.y), m_offsetVertical);
+		Line sensor = getSensorTop(position + m_aabbOffset, m_offsetVertical);
+		Line oldSensor = getSensorTop(oldPosition + m_aabbOffset, m_offsetVertical);
 
 		auto tiles = m_map->getAdjacentTiles(oldSensor.start, sensor.end - oldSensor.start);
 
@@ -242,8 +237,8 @@ namespace chst
 
 	bool Body::checkLeft(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX)
 	{
-		Line sensor = getSensorLeft(position + glm::vec2(0.0f, m_halfDimension.y), m_offsetHorizontal);
-		Line oldSensor = getSensorLeft(oldPosition + glm::vec2(0.0f, m_halfDimension.y), m_offsetHorizontal);
+		Line sensor = getSensorLeft(position + m_aabbOffset, m_offsetHorizontal);
+		Line oldSensor = getSensorLeft(oldPosition + m_aabbOffset, m_offsetHorizontal);
 
 		auto tiles = m_map->getAdjacentTiles(sensor.start, oldSensor.end - sensor.start);
 
@@ -266,8 +261,8 @@ namespace chst
 
 	bool Body::checkRight(const glm::vec2& position, const glm::vec2& oldPosition, float* wallX)
 	{
-		Line sensor = getSensorRight(position + glm::vec2(0.0f, m_halfDimension.y), m_offsetHorizontal);
-		Line oldSensor = getSensorRight(oldPosition + glm::vec2(0.0f, m_halfDimension.y), m_offsetHorizontal);
+		Line sensor = getSensorRight(position + m_aabbOffset, m_offsetHorizontal);
+		Line oldSensor = getSensorRight(oldPosition + m_aabbOffset, m_offsetHorizontal);
 
 		auto tiles = m_map->getAdjacentTiles(oldSensor.start, sensor.end - oldSensor.start);
 
@@ -300,21 +295,21 @@ namespace chst
 
 	Line Body::getSensorBottom(const glm::vec2& cen, const glm::vec2& offset) const
 	{
-		return Line(cen.x - m_halfDimension.x + offset.x, cen.y - m_halfDimension.y - offset.y, cen.x + m_halfDimension.x - offset.x, cen.y - m_halfDimension.y - offset.y);
+		return Line(cen.x - m_aabb.halfDimension.x + offset.x, cen.y - m_aabb.halfDimension.y - offset.y, cen.x + m_aabb.halfDimension.x - offset.x, cen.y - m_aabb.halfDimension.y - offset.y);
 	}
 
 	Line Body::getSensorTop(const glm::vec2& cen, const glm::vec2& offset) const
 	{
-		return Line(cen.x - m_halfDimension.x + 0.01f, cen.y + m_halfDimension.y + sensorOffset, cen.x + m_halfDimension.x - 0.01f, cen.y + m_halfDimension.y + sensorOffset);
+		return Line(cen.x - m_aabb.halfDimension.x + offset.x, cen.y + m_aabb.halfDimension.y + offset.y, cen.x + m_aabb.halfDimension.x - offset.x, cen.y + m_aabb.halfDimension.y + offset.y);
 	}
 
 	Line Body::getSensorLeft(const glm::vec2& cen, const glm::vec2& offset) const
 	{
-		return Line(cen.x - m_halfDimension.x - offset.x, cen.y - m_halfDimension.y + offset.y, cen.x - m_halfDimension.x - offset.x, cen.y + m_halfDimension.y - offset.y);
+		return Line(cen.x - m_aabb.halfDimension.x - offset.x, cen.y - m_aabb.halfDimension.y + offset.y, cen.x - m_aabb.halfDimension.x - offset.x, cen.y + m_aabb.halfDimension.y - offset.y);
 	}
 
 	Line Body::getSensorRight(const glm::vec2& cen, const glm::vec2& offset) const
 	{
-		return Line(cen.x + m_halfDimension.x + offset.x, cen.y - m_halfDimension.y + offset.y, cen.x + m_halfDimension.x + offset.x, cen.y + m_halfDimension.y - offset.y);
+		return Line(cen.x + m_aabb.halfDimension.x + offset.x, cen.y - m_aabb.halfDimension.y + offset.y, cen.x + m_aabb.halfDimension.x + offset.x, cen.y + m_aabb.halfDimension.y - offset.y);
 	}
 }

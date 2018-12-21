@@ -14,19 +14,19 @@ Frost::Frost(const std::string& title, int width, int height, float viewW, float
 	setDebugKey(GLFW_KEY_F7);
 	
 	//m_map = new TileMap("res/images/tiles.png", 20, 15, 0.4f, "res/maps/map.txt");
-	m_map = new TileMap("res/images/tiles.png", 40, 30, 0.2f, "res/maps/map2.txt");
+	m_map = new TileMap("res/images/tiles.png", 60, 30, 0.2f, "res/maps/map2.txt");
 	
 	m_entity = new Entity("player", 4.0f, 3.0f, 0.2f, 0.2f);
 
-	m_entity->addComponent(new PhysicsComponent(new Body(m_map, 4.0f, 3.0f, 0.4f, 0.6f)));
-	m_entity->addComponent(new AnimationComponent(new Image("res/images/player.png", 0.5f, 0.7f, 4, 6),
+	m_entity->addComponent(new PhysicsComponent(m_map->createBody(4.0f, 3.0f, 0.3f, 0.6f)));
+	m_entity->addComponent(new AnimationComponent(new Image("res/images/player.png", 0.4f, 0.6f, 4, 6),
 		{
 			AnimationDef("idle", new Animation(0, 4, 0.2f)),
 			AnimationDef("walk", new Animation(6, 6, 0.125f)),
 			AnimationDef("jump", new Animation(12, 3, 0.3f)),
 			AnimationDef("fall", new Animation(18, 2, 0.4f))
 		}));
-	m_entity->addComponent(new PlayerComponent());
+	m_entity->addComponent(new PlayerComponent(4.0f, 8.0f));
 }
 
 Frost::~Frost()
