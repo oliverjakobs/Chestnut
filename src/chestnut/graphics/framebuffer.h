@@ -12,19 +12,20 @@ namespace chst
 
 		int m_width;
 		int m_height;
-		float m_scale;
 
 		glm::mat4 m_view;
+		glm::mat4 m_model;
 
 		Texture* m_texture;
 	public:
-		FrameBuffer(int w, int h, float scale);
+		FrameBuffer(int w, int h);
 		~FrameBuffer();
 
 		void bind();
-		void unbind(bool safe = false);
+		void unbind();
 
 		void draw();
+		void toFile();
 
 		glm::mat4 getView() const;
 	};

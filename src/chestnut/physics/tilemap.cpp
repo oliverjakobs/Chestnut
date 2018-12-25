@@ -69,7 +69,7 @@ namespace chst
 		}
 
 		//m_frameBuffer = new FrameBuffer(Renderer::getWindowWidth(), Renderer::getWindowHeight());
-		m_frameBuffer = new FrameBuffer(m_width * m_tileSize, m_height * m_tileSize, 100);
+		m_frameBuffer = new FrameBuffer(m_width * m_tileSize, m_height * m_tileSize);
 
 		updateFrameBuffer();
 	}

@@ -10,7 +10,7 @@ namespace chst
 		: m_map(map), m_position(glm::vec2(x, y)), m_aabbOffset(glm::vec2(0.0f, h / 2.0f)), m_aabb(m_position + m_aabbOffset, glm::vec2(w, h) / 2.0f)
 	{
 		m_velocity = glm::vec2();
-		m_sensorOffset = 0.02f;
+		m_sensorOffset = 2.0f;
 
 		m_collidesBottom = false;
 		m_collidesTop = false;
@@ -31,7 +31,7 @@ namespace chst
 
 	void Body::update(float deltaTime)
 	{
-		glm::vec2 gravity = glm::vec2(0.0f, -9.8f);
+		glm::vec2 gravity = glm::vec2(0.0f, -980);
 
 		// vary gravity scale to keep on slope
 		if (m_onSlope && m_velocity.y <= 0.0f)
@@ -41,8 +41,8 @@ namespace chst
 
 		m_velocity += gravity * m_gravityScale * deltaTime;
 
-		m_offsetHorizontal = glm::vec2(m_sensorOffset, m_onSlope ? 0.08f : 0.01f);
-		m_offsetVertical = glm::vec2(0.01f, m_sensorOffset);
+		m_offsetHorizontal = glm::vec2(m_sensorOffset, m_onSlope ? 12.0f : 2.0f);
+		m_offsetVertical = glm::vec2(2.0f, m_sensorOffset);
 
 		// check for slopes
 		if (m_velocity.x < 0.0f)

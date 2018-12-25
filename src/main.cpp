@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[])
 {
-	Frost game("Tilemap", 1200, 900, 8, 6);
+	Frost game("Tilemap", 1200, 900, 800, 600);
 
 	game.showFPS(true);
 	game.setDebug(true);

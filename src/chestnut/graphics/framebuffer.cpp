@@ -12,8 +12,8 @@
 
 namespace chst
 {
-	FrameBuffer::FrameBuffer(int w, int h, float scale)
-		: m_width(w), m_height(h), m_scale(scale)
+	FrameBuffer::FrameBuffer(int w, int h)
+		: m_width(w), m_height(h)
 	{
 		m_view = glm::ortho(0.0f, (float)w, 0.0f, (float)h, 1.0f, -1.0f);
 
@@ -33,7 +33,10 @@ namespace chst
 
 		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 
-		m_texture = new Texture(w * m_scale, h * m_scale, nullptr);
+		m_texture = new Texture(w, h, nullptr);
+
+		m_model = glm::translate(glm::mat4(), glm::vec3(m_width / 2.0f, m_height / 2.0f, 0.0f));
+		m_model = glm::scale(m_model, glm::vec3(m_width / 2.0f, m_height / 2.0f, 0.0f));
 
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture->getTextureID(), 0);
 
@@ -55,27 +58,11 @@ namespace chst
 	void FrameBuffer::bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-		glViewport(0, 0, m_width * m_scale, m_height * m_scale);
+		glViewport(0, 0, m_width, m_height);
 	}
 
-	void FrameBuffer::unbind(bool safe)
+	void FrameBuffer::unbind()
 	{
-		GLubyte* data = (GLubyte*)malloc(4 * m_width * m_height * (m_scale * m_scale));
-
-		if (data)
-		{
-			glReadPixels(0, 0, m_width * m_scale, m_height * m_scale, GL_RGBA, GL_UNSIGNED_BYTE, data);
-		}
-
-		if (safe)
-		{
-			stbi_flip_vertically_on_write(1);
-
-			stbi_write_bmp("res/images/tilemap.png", m_width * m_scale, m_height * m_scale, 4, data);
-		}
-
-		free(data);
-
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, Renderer::getWindowWidth(), Renderer::getWindowHeight());
 	}
@@ -83,13 +70,26 @@ namespace chst
 	void FrameBuffer::draw()
 	{
 		glBindVertexArray(m_vao);
-		
-		glm::mat4 mvp = Renderer::getViewMat();
+				
+		Renderer::renderTextureS(m_texture, glm::vec2(), Renderer::getViewMat() * m_model, { 0,1,2,2,3,0 }, DEFAULT);
+	}
 
-		mvp = glm::translate(mvp, glm::vec3(m_width / 2.0f, m_height / 2.0f, 0.0f));
-		mvp = glm::scale(mvp, glm::vec3(m_width / 2.0f, m_height / 2.0f, 0.0f));
+	void FrameBuffer::toFile()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+		GLubyte* data = (GLubyte*)malloc(4 * m_width * m_height);
 
-		Renderer::renderTextureS(m_texture, glm::vec2(), mvp, { 0,1,2,2,3,0 }, DEFAULT);
+		if (data)
+		{
+			glReadPixels(0, 0, m_width, m_height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		}
+
+		stbi_flip_vertically_on_write(1);
+
+		stbi_write_bmp("res/images/tilemap.png", m_width, m_height, 4, data);
+
+		free(data);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	glm::mat4 FrameBuffer::getView() const
