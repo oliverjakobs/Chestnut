@@ -1,2 +1,7 @@
-﻿  tilemap.cpp
+﻿  framebuffer.cpp
+d:\dev\chestnut\src\chestnut\graphics\framebuffer.cpp(36): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\dev\chestnut\src\chestnut\graphics\framebuffer.cpp(58): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\dev\chestnut\src\chestnut\graphics\framebuffer.cpp(63): warning C4244: 'argument': conversion from 'float' to '::size_t', possible loss of data
+d:\dev\chestnut\src\chestnut\graphics\framebuffer.cpp(67): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\dev\chestnut\src\chestnut\graphics\framebuffer.cpp(74): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   Frost.vcxproj -> D:\Dev\Chestnut\bin\Debug\Frost.exe

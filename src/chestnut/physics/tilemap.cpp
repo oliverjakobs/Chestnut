@@ -68,7 +68,8 @@ namespace chst
 			}
 		}
 
-		m_frameBuffer = new FrameBuffer();
+		//m_frameBuffer = new FrameBuffer(Renderer::getWindowWidth(), Renderer::getWindowHeight());
+		m_frameBuffer = new FrameBuffer(m_width * m_tileSize, m_height * m_tileSize, 100);
 
 		updateFrameBuffer();
 	}
@@ -138,7 +139,8 @@ namespace chst
 
 		for (auto& tile : m_tiles)
 		{
-			m_image->draw(tile.position, tile.id);
+			m_image->draw(tile.position, tile.id, m_frameBuffer->getView());
+			//m_image->draw(tile.position, tile.id);
 		}
 
 		m_frameBuffer->unbind();
@@ -148,8 +150,8 @@ namespace chst
 	{
 		if (m_changed)
 		{
-			updateFrameBuffer();
 			m_changed = false;
+			updateFrameBuffer();
 		}
 
 		for (auto& body : m_bodies)

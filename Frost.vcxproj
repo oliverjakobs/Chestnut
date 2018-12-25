@@ -161,6 +161,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\stb_image_write.h" />
     <ClInclude Include="src\chestnut\chestnut2D.h" />
     <ClInclude Include="src\chestnut\ecs.h" />
     <ClInclude Include="src\chestnut\ecs\animationcomponent.h" />

@@ -14,7 +14,7 @@ namespace chst
 		int m_width;
 		int m_height;
 	public:
-		Texture(int w, int h);
+		Texture(int w, int h, GLubyte* pixels);
 		Texture(const char* path, bool flipOnLoad);
 		~Texture();
 		
