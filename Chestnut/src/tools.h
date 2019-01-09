@@ -1,0 +1,12 @@
+#pragma once
+
+#include "tools\patterns\singelton.h"
+
+#include "tools\util\fileutils.h"
+#include "tools\util\glfw3utils.h"
+#include "tools\util\stringutils.h"
+#include "tools\util\utils.h"
+
+#include "tools\flags.h"
+
+#include "tools\timer.h"

@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3338928A-1F05-ED95-481E-DB3D344A2224}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Chestnut</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Debug\Chestnut\</OutDir>
+    <IntDir>..\bin-int\Debug\Chestnut\</IntDir>
+    <TargetName>Chestnut</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Release\Chestnut\</OutDir>
+    <IntDir>..\bin-int\Release\Chestnut\</IntDir>
+    <TargetName>Chestnut</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>CHESTNUT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;external\include;external\glfw\include;external\glew\include;external\toolbox\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Debug\Chestnut\Chestnut.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Debug\Chestnut\Chestnut.dll\ (xcopy /Q /E /Y /I ..\bin\Debug\Chestnut\Chestnut.dll ..\bin\Debug\Frost &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug\Chestnut\Chestnut.dll ..\bin\Debug\Frost &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>CHESTNUT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;external\include;external\glfw\include;external\glew\include;external\toolbox\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Release\Chestnut\Chestnut.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Release\Chestnut\Chestnut.dll\ (xcopy /Q /E /Y /I ..\bin\Release\Chestnut\Chestnut.dll ..\bin\Release\Frost &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release\Chestnut\Chestnut.dll ..\bin\Release\Frost &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\chestnut2D.h" />
+    <ClInclude Include="src\ecs.h" />
+    <ClInclude Include="src\ecs\animationcomponent.h" />
+    <ClInclude Include="src\ecs\component.h" />
+    <ClInclude Include="src\ecs\entity.h" />
+    <ClInclude Include="src\ecs\physicscomponent.h" />
+    <ClInclude Include="src\ecs\playercomponent.h" />
+    <ClInclude Include="src\error\error.h" />
+    <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\gl.h" />
+    <ClInclude Include="src\graphics.h" />
+    <ClInclude Include="src\graphics\animation.h" />
+    <ClInclude Include="src\graphics\buffers.h" />
+    <ClInclude Include="src\graphics\color.h" />
+    <ClInclude Include="src\graphics\framebuffer.h" />
+    <ClInclude Include="src\graphics\image.h" />
+    <ClInclude Include="src\graphics\primitives.h" />
+    <ClInclude Include="src\graphics\renderer.h" />
+    <ClInclude Include="src\graphics\shader.h" />
+    <ClInclude Include="src\graphics\texture.h" />
+    <ClInclude Include="src\graphics\view.h" />
+    <ClInclude Include="src\input\input.h" />
+    <ClInclude Include="src\math\geometry.h" />
+    <ClInclude Include="src\math\maths.h" />
+    <ClInclude Include="src\math\poly.h" />
+    <ClInclude Include="src\math\rect.h" />
+    <ClInclude Include="src\physics.h" />
+    <ClInclude Include="src\physics\aabb.h" />
+    <ClInclude Include="src\physics\body.h" />
+    <ClInclude Include="src\physics\tilemap.h" />
+    <ClInclude Include="src\tools.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ecs\animationcomponent.cpp" />
+    <ClCompile Include="src\ecs\entity.cpp" />
+    <ClCompile Include="src\ecs\physicscomponent.cpp" />
+    <ClCompile Include="src\ecs\playercomponent.cpp" />
+    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\graphics\animation.cpp" />
+    <ClCompile Include="src\graphics\buffers.cpp" />
+    <ClCompile Include="src\graphics\framebuffer.cpp" />
+    <ClCompile Include="src\graphics\image.cpp" />
+    <ClCompile Include="src\graphics\primitives.cpp" />
+    <ClCompile Include="src\graphics\renderer.cpp" />
+    <ClCompile Include="src\graphics\shader.cpp" />
+    <ClCompile Include="src\graphics\texture.cpp" />
+    <ClCompile Include="src\graphics\view.cpp" />
+    <ClCompile Include="src\input\input.cpp" />
+    <ClCompile Include="src\math\poly.cpp" />
+    <ClCompile Include="src\math\rect.cpp" />
+    <ClCompile Include="src\physics\body.cpp" />
+    <ClCompile Include="src\physics\tilemap.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="external\glfw\GLFW.vcxproj">
+      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="external\glew\GLEW.vcxproj">
+      <Project>{F44A857C-E081-860D-896E-6C107584020F}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
