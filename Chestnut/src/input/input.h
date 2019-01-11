@@ -1,11 +1,13 @@
 #pragma once
 
 #include "gl.h"
+#include "api.h"
+
 #include "glm\glm.hpp"
 
 namespace chst
 {
-	class Input
+	class CHESTNUT_API Input
 	{
 	private:
 		bool m_keys[GLFW_KEY_LAST];

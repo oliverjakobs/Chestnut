@@ -19,8 +19,18 @@
     <Filter Include="physics">
       <UniqueIdentifier>{A823A1AC-1403-2048-1D1B-AB1E897986A9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{36DF7010-A2F3-98C1-6B75-3C21D74895F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\patterns">
+      <UniqueIdentifier>{F61B909E-E2E9-83A4-CB7D-F4CAB7EA5F09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\util">
+      <UniqueIdentifier>{63745F86-4F2C-A1D3-B833-7A2FA40A3CC4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\api.h" />
     <ClInclude Include="src\chestnut2D.h" />
     <ClInclude Include="src\ecs.h" />
     <ClInclude Include="src\ecs\animationcomponent.h">
@@ -100,6 +110,27 @@
       <Filter>physics</Filter>
     </ClInclude>
     <ClInclude Include="src\tools.h" />
+    <ClInclude Include="src\tools\flags.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\patterns\singelton.h">
+      <Filter>tools\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\timer.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\util\fileutils.h">
+      <Filter>tools\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\util\glfw3utils.h">
+      <Filter>tools\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\util\stringutils.h">
+      <Filter>tools\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\util\utils.h">
+      <Filter>tools\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ecs\animationcomponent.cpp">
@@ -156,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="src\physics\tilemap.cpp">
       <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\timer.cpp">
+      <Filter>tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

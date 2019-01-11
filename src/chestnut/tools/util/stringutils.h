@@ -5,7 +5,7 @@
 
 #include <sstream>
 
-namespace chst
+namespace tb
 {
 	inline bool stringCompare(const std::string& s1, const std::string& s2)
 	{
@@ -72,8 +72,8 @@ namespace chst
 		return os.str();
 	}
 
-	template< typename... argv >
-	std::string stringf(const char* format, argv... args) 
+	template <typename... argv>
+	std::string stringf(const char* format, argv... args)
 	{
 		const size_t SIZE = std::snprintf(NULL, 0, format, args...);
 

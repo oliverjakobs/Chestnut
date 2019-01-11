@@ -2,7 +2,7 @@
 
 #include "graphics.h"
 
-#include "tools\util\utils.h"
+#include "tools.h"
 
 namespace chst
 {

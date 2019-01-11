@@ -4,7 +4,7 @@
 
 #include "glm\glm.hpp"
 
-#include "tools\util\stringutils.h"
+#include "tools.h"
 
 #include "error\error.h"
 

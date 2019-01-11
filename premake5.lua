@@ -10,11 +10,10 @@ outputDir = "%{cfg.buildcfg}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Chestnut/external/glfw/include" 
-IncludeDir["GLEW"] = "Chestnut/external/glew/include"
-IncludeDir["ToolBox"] = "Chestnut/external/toolbox/include"
+IncludeDir["GLAD"] = "Chestnut/external/glad/include"
 
 include "Chestnut/external/glfw"
-include "Chestnut/external/glew"
+include "Chestnut/external/glad"
 
 project "Chestnut"
 	location "Chestnut"
@@ -33,7 +32,7 @@ project "Chestnut"
 	links
 	{
 		"GLFW",
-		"GLEW",
+		"GLAD",
 		"opengl32"
 	}
 
@@ -42,8 +41,7 @@ project "Chestnut"
 		"%{prj.name}/src",
 		"%{prj.name}/external/include", 
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.GLEW}",
-		"%{IncludeDir.ToolBox}"
+		"%{IncludeDir.GLAD}"
 	}
 
 	filter "system:windows"
@@ -53,7 +51,7 @@ project "Chestnut"
 
 		defines
 		{
-			"CHESTNUT_EXPORTS"
+			"CHST_EXPORTS"
 		}
 
 		postbuildcommands
@@ -81,8 +79,7 @@ project "Frost"
 		"Chestnut/src",
 		"Chestnut/external/include", 
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.GLAD}",
-		"%{IncludeDir.ToolBox}"
+		"%{IncludeDir.GLAD}"
 	}
 
 	links

@@ -58,8 +58,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>CHESTNUT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;external\include;external\glfw\include;external\glew\include;external\toolbox\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CHST_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;external\include;external\glfw\include;external\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -77,8 +77,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>CHESTNUT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;external\include;external\glfw\include;external\glew\include;external\toolbox\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CHST_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;external\include;external\glfw\include;external\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -93,6 +93,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\api.h" />
     <ClInclude Include="src\chestnut2D.h" />
     <ClInclude Include="src\ecs.h" />
     <ClInclude Include="src\ecs\animationcomponent.h" />
@@ -124,6 +125,13 @@
     <ClInclude Include="src\physics\body.h" />
     <ClInclude Include="src\physics\tilemap.h" />
     <ClInclude Include="src\tools.h" />
+    <ClInclude Include="src\tools\flags.h" />
+    <ClInclude Include="src\tools\patterns\singelton.h" />
+    <ClInclude Include="src\tools\timer.h" />
+    <ClInclude Include="src\tools\util\fileutils.h" />
+    <ClInclude Include="src\tools\util\glfw3utils.h" />
+    <ClInclude Include="src\tools\util\stringutils.h" />
+    <ClInclude Include="src\tools\util\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ecs\animationcomponent.cpp" />
@@ -145,13 +153,14 @@
     <ClCompile Include="src\math\rect.cpp" />
     <ClCompile Include="src\physics\body.cpp" />
     <ClCompile Include="src\physics\tilemap.cpp" />
+    <ClCompile Include="src\tools\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="external\glfw\GLFW.vcxproj">
       <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
     </ProjectReference>
-    <ProjectReference Include="external\glew\GLEW.vcxproj">
-      <Project>{F44A857C-E081-860D-896E-6C107584020F}</Project>
+    <ProjectReference Include="external\glad\GLAD.vcxproj">
+      <Project>{5D4A857C-4981-860D-F26D-6C10DE83020F}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

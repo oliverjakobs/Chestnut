@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-#include "tools\util\utils.h"
+#include "tools.h"
 
 namespace chst
 {
@@ -43,9 +43,9 @@ namespace chst
 
 		Renderer::enableBlend(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		if (glewInit() != GLEW_OK)
+		if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
-			DEBUG_MESSAGE("[Glew] Failed to initialize glew");
+			DEBUG_MESSAGE("[GLAD] Failed to initialize Glad");
 			glfwTerminate();
 			return false;
 		}
