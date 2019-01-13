@@ -7,8 +7,8 @@
 #endif
 
 #ifdef CHST_ENABLE_ASSERTS
-#define GOLEM_ASSERT(x, ...) { if(!(x)) { GOLEM_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#define GOLEM_CORE_ASSERT(x, ...) { if(!(x)) { GOLEM_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define CHST_ASSERT(x, ...) { if(!(x)) { GOLEM_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define CHST_CORE_ASSERT(x, ...) { if(!(x)) { GOLEM_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #else
 #define CHST_ASSERT(x, ...)
 #define CHST_CORE_ASSERT(x, ...)

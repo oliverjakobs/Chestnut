@@ -23,6 +23,9 @@ project "Chestnut"
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 
+	pchheader "chstpch.h"
+	pchsource "Chestnut/src/chstpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -84,7 +87,7 @@ project "Frost"
 
 	links
 	{
-		"Golem"
+		"Chestnut"
 	}
 
 	filter "system:windows"
