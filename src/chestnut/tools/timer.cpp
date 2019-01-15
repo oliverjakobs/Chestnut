@@ -36,12 +36,12 @@ namespace chst
 		}
 	}
 
-	float Timer::getDeltaTime() const
+	float Timer::getDeltaTime()
 	{
 		return m_deltaTime;
 	}
 
-	int Timer::getFPS() const
+	int Timer::getFPS()
 	{
 		return m_fps;
 	}

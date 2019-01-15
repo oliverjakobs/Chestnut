@@ -2,9 +2,7 @@
 
 #include "api.h"
 
-#include "chstpch.h"
-
-#include "patterns\Singelton.h"
+#include "Patterns\Singelton.h"
 
 namespace chst
 {

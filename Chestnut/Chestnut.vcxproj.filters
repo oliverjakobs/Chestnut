@@ -7,8 +7,11 @@
     <Filter Include="Chestnut\Events">
       <UniqueIdentifier>{B74C76F5-23D8-E3B9-2CE9-66AE98F33FBA}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Patterns">
-      <UniqueIdentifier>{B6AE1992-A27B-749D-CB94-6245B7C0A92B}</UniqueIdentifier>
+    <Filter Include="Chestnut\ImGui">
+      <UniqueIdentifier>{9DC73E36-8995-323C-7229-A3625E960EA1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chestnut\Patterns">
+      <UniqueIdentifier>{7345EB25-DF5B-E9BB-28D3-74DD9428BA43}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,14 +37,13 @@
     <ClInclude Include="src\Chestnut\Log.h">
       <Filter>Chestnut</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Window.h">
-      <Filter>Chestnut</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Singelton.h">
-      <Filter>Patterns</Filter>
+    <ClInclude Include="src\Chestnut\Patterns\Singelton.h">
+      <Filter>Chestnut\Patterns</Filter>
     </ClInclude>
     <ClInclude Include="src\api.h" />
     <ClInclude Include="src\chstpch.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Renderer.h" />
+    <ClInclude Include="src\Chestnut\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Chestnut\Game.cpp">
@@ -50,9 +52,8 @@
     <ClCompile Include="src\Chestnut\Log.cpp">
       <Filter>Chestnut</Filter>
     </ClCompile>
-    <ClCompile Include="src\Chestnut\Window.cpp">
-      <Filter>Chestnut</Filter>
-    </ClCompile>
     <ClCompile Include="src\chstpch.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\Chestnut\Timer.cpp" />
   </ItemGroup>
 </Project>

@@ -16,4 +16,4 @@
 
 #define BIT(x) (1 << x)
 
-#define SAFE_DELETE(ptr) if( (ptr) != nullptr ) delete (ptr); (ptr) = nullptr;
+#define SAFE_DELETE(ptr) { if((ptr) != nullptr) delete (ptr); (ptr) = nullptr; }
