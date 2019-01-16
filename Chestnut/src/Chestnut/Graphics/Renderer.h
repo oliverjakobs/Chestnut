@@ -39,6 +39,7 @@ namespace chst
 		static void SetWindowTitle(const std::string& title);
 		static std::string GetWindowTitle();
 
+		static GLFWwindow* getContext();
 		static unsigned int GetWindowWidth();
 		static unsigned int GetWindowHeight();
 	};

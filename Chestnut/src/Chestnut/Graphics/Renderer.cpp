@@ -5,7 +5,7 @@ namespace chst
 {
 	static void GLFWErrorCallback(int error, const char* desc)
 	{
-		CHST_CORE_ERROR("[GLFW]: (%c) %d", error, desc);
+		//CHST_CORE_ERROR("[GLFW]: (%c) %d", error, desc);
 	}
 
 	bool Renderer::Init(const std::string& title, int width, int height)
@@ -118,7 +118,6 @@ namespace chst
 
 	void Renderer::Flush()
 	{
-		glfwPollEvents();
 		glfwSwapBuffers(Get()->m_window);
 	}
 
@@ -147,6 +146,11 @@ namespace chst
 	std::string Renderer::GetWindowTitle()
 	{
 		return Get()->m_data.title;
+	}
+
+	GLFWwindow* Renderer::getContext()
+	{
+		return Get()->m_window;
 	}
 
 	unsigned int Renderer::GetWindowWidth()

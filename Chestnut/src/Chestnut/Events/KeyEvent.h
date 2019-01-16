@@ -8,6 +8,7 @@ namespace chst
 	{
 	protected:
 		int m_keyCode;
+		int m_keyState;
 		KeyEvent(int keycode) : m_keyCode(keycode) {}
 	public:
 		inline int getKeyCode() const { return m_keyCode; }

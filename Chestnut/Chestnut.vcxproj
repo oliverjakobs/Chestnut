@@ -103,6 +103,7 @@
     <ClInclude Include="src\Chestnut\Events\MouseEvent.h" />
     <ClInclude Include="src\Chestnut\Game.h" />
     <ClInclude Include="src\Chestnut\Graphics\Renderer.h" />
+    <ClInclude Include="src\Chestnut\Input.h" />
     <ClInclude Include="src\Chestnut\Log.h" />
     <ClInclude Include="src\Chestnut\Patterns\Singelton.h" />
     <ClInclude Include="src\Chestnut\Timer.h" />
@@ -112,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="src\Chestnut\Game.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\Chestnut\Input.cpp" />
     <ClCompile Include="src\Chestnut\Log.cpp" />
     <ClCompile Include="src\Chestnut\Timer.cpp" />
     <ClCompile Include="src\chstpch.cpp">
