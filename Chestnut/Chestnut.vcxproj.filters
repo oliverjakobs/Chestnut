@@ -10,6 +10,9 @@
     <Filter Include="Chestnut\Graphics">
       <UniqueIdentifier>{D3E99FC7-3F00-9E5D-8877-297FF4CC6EE5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Chestnut\Math">
+      <UniqueIdentifier>{ECB42A11-5875-A647-21B0-EFC48D2FEB23}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Chestnut\Patterns">
       <UniqueIdentifier>{7345EB25-DF5B-E9BB-28D3-74DD9428BA43}</UniqueIdentifier>
     </Filter>
@@ -34,7 +37,19 @@
     <ClInclude Include="src\Chestnut\Game.h">
       <Filter>Chestnut</Filter>
     </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Buffers.h">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Primitives.h">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="src\Chestnut\Graphics\Renderer.h">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Shader.h">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\View.h">
       <Filter>Chestnut\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\Chestnut\Input.h">
@@ -43,20 +58,48 @@
     <ClInclude Include="src\Chestnut\Log.h">
       <Filter>Chestnut</Filter>
     </ClInclude>
+    <ClInclude Include="src\Chestnut\Math\Geometry.h">
+      <Filter>Chestnut\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Math\Maths.h">
+      <Filter>Chestnut\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Math\Poly.h">
+      <Filter>Chestnut\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Math\Rect.h">
+      <Filter>Chestnut\Math</Filter>
+    </ClInclude>
     <ClInclude Include="src\Chestnut\Patterns\Singelton.h">
       <Filter>Chestnut\Patterns</Filter>
     </ClInclude>
     <ClInclude Include="src\Chestnut\Timer.h">
       <Filter>Chestnut</Filter>
     </ClInclude>
+    <ClInclude Include="src\Chestnut\fileutils.h">
+      <Filter>Chestnut</Filter>
+    </ClInclude>
     <ClInclude Include="src\api.h" />
     <ClInclude Include="src\chstpch.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Color.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Chestnut\Game.cpp">
       <Filter>Chestnut</Filter>
     </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Buffers.cpp">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Primitives.cpp">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClCompile>
     <ClCompile Include="src\Chestnut\Graphics\Renderer.cpp">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Shader.cpp">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\View.cpp">
       <Filter>Chestnut\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\Chestnut\Input.cpp">
@@ -64,6 +107,12 @@
     </ClCompile>
     <ClCompile Include="src\Chestnut\Log.cpp">
       <Filter>Chestnut</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Math\Poly.cpp">
+      <Filter>Chestnut\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Math\Rect.cpp">
+      <Filter>Chestnut\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\Chestnut\Timer.cpp">
       <Filter>Chestnut</Filter>

@@ -3,6 +3,8 @@
 
 namespace chst
 {
+	using namespace chstMath;
+
 	static void GLFWErrorCallback(int error, const char* desc)
 	{
 		//CHST_CORE_ERROR("[GLFW]: (%c) %d", error, desc);
@@ -34,6 +36,9 @@ namespace chst
 		CHST_CORE_ASSERT(status, "[GLAD] Failed to initialize Glad");
 
 		glfwSetWindowUserPointer(Get()->m_window, &Get()->m_data);
+
+		Get()->m_view.create(0.0f, 0.0f, width, height);
+		Get()->m_primitives.create(new Shader("res/shader/primitive.vert", "res/shader/primitive.frag"));
 
 		// set glfw callbacks
 		glfwSetWindowSizeCallback(Get()->m_window, [](GLFWwindow* win, int w, int h)
@@ -118,6 +123,7 @@ namespace chst
 
 	void Renderer::Flush()
 	{
+		Get()->m_primitives.flush(GetViewMat());
 		glfwSwapBuffers(Get()->m_window);
 	}
 
@@ -148,7 +154,78 @@ namespace chst
 		return Get()->m_data.title;
 	}
 
-	GLFWwindow* Renderer::getContext()
+	void Renderer::DrawLine(const glm::vec2& start, const glm::vec2& end, const glm::vec4& color)
+	{
+		Get()->m_primitives.drawLine(start, end, color, GetViewMat());
+	}
+
+	void Renderer::DrawLine(const Line& line, const glm::vec4 & color)
+	{
+		Get()->m_primitives.drawLine(line.start, line.end, color, GetViewMat());
+	}
+
+	void Renderer::DrawRect(float x, float y, float w, float h, const glm::vec4& color)
+	{
+		std::vector<glm::vec2> vertices =
+		{
+			glm::vec2(x, y),
+			glm::vec2(x + w, y),
+			glm::vec2(x + w, y + h),
+			glm::vec2(x, y + h)
+		};
+
+		Get()->m_primitives.drawPolygon(vertices, color, GetViewMat());
+	}
+
+	void Renderer::DrawRect(const glm::vec2& pos, const glm::vec2& dim, const glm::vec4& color)
+	{
+		DrawRect(pos.x, pos.y, dim.x, dim.y, color);
+	}
+
+	void Renderer::DrawRect(Rect rect, const glm::vec4& color)
+	{
+		DrawRect(rect.x, rect.y, rect.w, rect.h, color);
+	}
+
+	void Renderer::DrawCircle(const glm::vec2& center, float radius, const glm::vec4 & color)
+	{
+		Get()->m_primitives.drawCircle(center, radius, color, GetViewMat());
+	}
+
+	void Renderer::DrawPolygon(const std::vector<glm::vec2>& vertices, const glm::vec4& color)
+	{
+		Get()->m_primitives.drawPolygon(vertices, color, GetViewMat());
+	}
+
+	void Renderer::FillRect(float x, float y, float w, float h, const glm::vec4& color)
+	{
+		std::vector<glm::vec2> vertices =
+		{
+			glm::vec2(x, y),
+			glm::vec2(x + w, y),
+			glm::vec2(x + w, y + h),
+			glm::vec2(x, y + h)
+		};
+
+		Get()->m_primitives.fillPolygon(vertices, color, GetViewMat());
+	}
+
+	void Renderer::FillRect(Rect rect, const glm::vec4 & color)
+	{
+		FillRect(rect.x, rect.y, rect.w, rect.h, color);
+	}
+
+	void Renderer::FillCircle(const glm::vec2& center, float radius, const glm::vec4& color)
+	{
+		Get()->m_primitives.fillCircle(center, radius, color, GetViewMat());
+	}
+
+	void Renderer::FillPolygon(const std::vector<glm::vec2>& vertices, const glm::vec4& color)
+	{
+		Get()->m_primitives.fillPolygon(vertices, color, GetViewMat());
+	}
+
+	GLFWwindow* Renderer::GetContext()
 	{
 		return Get()->m_window;
 	}
@@ -157,8 +234,34 @@ namespace chst
 	{
 		return Get()->m_data.width;
 	}
+
 	unsigned int Renderer::GetWindowHeight()
 	{
 		return Get()->m_data.height;
+	}
+
+	void Renderer::SetView(float x, float y)
+	{
+		Get()->m_view.create(x, y, Get()->m_view.width, Get()->m_view.height);
+	}
+
+	void Renderer::SetView(float x, float y, float width, float height)
+	{
+		Get()->m_view.create(x, y, width, height);
+	}
+
+	glm::vec2 Renderer::GetViewPosition()
+	{
+		return glm::vec2(Get()->m_view.xPos, Get()->m_view.yPos);
+	}
+
+	glm::mat4 Renderer::GetViewMat()
+	{
+		return Get()->m_view.mat;
+	}
+
+	View* Renderer::GetView()
+	{
+		return &Get()->m_view;
 	}
 }

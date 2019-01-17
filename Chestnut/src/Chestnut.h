@@ -2,6 +2,7 @@
 
 #include "Chestnut\Game.h"
 #include "Chestnut\Log.h"
+#include "Chestnut\Graphics\View.h"
 
 // ---Entry Point---------------------
 extern chst::Game* chst::CreateGame();
