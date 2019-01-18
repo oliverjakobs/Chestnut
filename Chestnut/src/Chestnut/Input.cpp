@@ -37,6 +37,14 @@ namespace chst
 		}
 	}
 
+	bool Input::KeyDown(unsigned int key)
+	{
+		if (key >= GLFW_KEY_LAST || key == GLFW_KEY_UNKNOWN)
+			return false;
+
+		return Get()->m_keys[key].pressed;
+	}
+
 	bool Input::KeyPressed(unsigned int key)
 	{
 		if (key >= GLFW_KEY_LAST || key == GLFW_KEY_UNKNOWN)
@@ -50,7 +58,7 @@ namespace chst
 		if (key >= GLFW_KEY_LAST || key == GLFW_KEY_UNKNOWN)
 			return false;
 
-		//return (Get()->m_keys[key] && !Get()->m_prevKeys[key]);
+		return (Get()->m_keys[key].prev && !Get()->m_keys[key].pressed);
 	}
 
 	KeyState Input::getKeyState(unsigned int key)

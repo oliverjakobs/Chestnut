@@ -96,17 +96,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Chestnut.h" />
+    <ClInclude Include="src\Chestnut\Components.h" />
+    <ClInclude Include="src\Chestnut\ECS\AnimationComponent.h" />
+    <ClInclude Include="src\Chestnut\ECS\Component.h" />
+    <ClInclude Include="src\Chestnut\ECS\Entity.h" />
+    <ClInclude Include="src\Chestnut\ECS\PhysicsComponent.h" />
+    <ClInclude Include="src\Chestnut\ECS\PlayerComponent.h" />
     <ClInclude Include="src\Chestnut\Events.h" />
     <ClInclude Include="src\Chestnut\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Chestnut\Events\Event.h" />
     <ClInclude Include="src\Chestnut\Events\KeyEvent.h" />
     <ClInclude Include="src\Chestnut\Events\MouseEvent.h" />
     <ClInclude Include="src\Chestnut\Game.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Animation.h" />
     <ClInclude Include="src\Chestnut\Graphics\Buffers.h" />
     <ClInclude Include="src\Chestnut\Graphics\Color.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Framebuffer.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Image.h" />
     <ClInclude Include="src\Chestnut\Graphics\Primitives.h" />
     <ClInclude Include="src\Chestnut\Graphics\Renderer.h" />
     <ClInclude Include="src\Chestnut\Graphics\Shader.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Texture.h" />
     <ClInclude Include="src\Chestnut\Graphics\View.h" />
     <ClInclude Include="src\Chestnut\Input.h" />
     <ClInclude Include="src\Chestnut\Log.h" />
@@ -115,22 +125,35 @@
     <ClInclude Include="src\Chestnut\Math\Poly.h" />
     <ClInclude Include="src\Chestnut\Math\Rect.h" />
     <ClInclude Include="src\Chestnut\Patterns\Singelton.h" />
+    <ClInclude Include="src\Chestnut\Physics\Body.h" />
+    <ClInclude Include="src\Chestnut\Physics\Tilemap.h" />
+    <ClInclude Include="src\Chestnut\Physics\aabb.h" />
     <ClInclude Include="src\Chestnut\Timer.h" />
-    <ClInclude Include="src\Chestnut\fileutils.h" />
+    <ClInclude Include="src\Chestnut\utils.h" />
     <ClInclude Include="src\api.h" />
     <ClInclude Include="src\chstpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Chestnut\ECS\AnimationComponent.cpp" />
+    <ClCompile Include="src\Chestnut\ECS\Entity.cpp" />
+    <ClCompile Include="src\Chestnut\ECS\PhysicsComponent.cpp" />
+    <ClCompile Include="src\Chestnut\ECS\PlayerComponent.cpp" />
     <ClCompile Include="src\Chestnut\Game.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Animation.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Buffers.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Framebuffer.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Image.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Primitives.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Renderer.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Shader.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Texture.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\View.cpp" />
     <ClCompile Include="src\Chestnut\Input.cpp" />
     <ClCompile Include="src\Chestnut\Log.cpp" />
     <ClCompile Include="src\Chestnut\Math\Poly.cpp" />
     <ClCompile Include="src\Chestnut\Math\Rect.cpp" />
+    <ClCompile Include="src\Chestnut\Physics\Body.cpp" />
+    <ClCompile Include="src\Chestnut\Physics\Tilemap.cpp" />
     <ClCompile Include="src\Chestnut\Timer.cpp" />
     <ClCompile Include="src\chstpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

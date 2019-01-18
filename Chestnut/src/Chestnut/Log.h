@@ -3,20 +3,10 @@
 #include "api.h"
 
 #include "Patterns\Singelton.h"
+#include "utils.h"
 
 namespace chst
 {
-	template <typename... argv>
-	std::string stringf(const char* format, argv... args)
-	{
-		const size_t SIZE = std::snprintf(NULL, 0, format, args...);
-
-		std::string output;
-		output.resize(SIZE + 1);
-		std::snprintf(&(output[0]), SIZE + 1, format, args...);
-		return std::move(output);
-	}
-
 	class CHESTNUT_API Log : private Singleton<Log>
 	{
 	private:

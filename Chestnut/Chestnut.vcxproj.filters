@@ -4,6 +4,9 @@
     <Filter Include="Chestnut">
       <UniqueIdentifier>{3338928A-1F05-ED95-481E-DB3D344A2224}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Chestnut\ECS">
+      <UniqueIdentifier>{FD0DA47C-E970-3321-92F6-6BD77E38FFA3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Chestnut\Events">
       <UniqueIdentifier>{B74C76F5-23D8-E3B9-2CE9-66AE98F33FBA}</UniqueIdentifier>
     </Filter>
@@ -16,9 +19,30 @@
     <Filter Include="Chestnut\Patterns">
       <UniqueIdentifier>{7345EB25-DF5B-E9BB-28D3-74DD9428BA43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Chestnut\Physics">
+      <UniqueIdentifier>{A5BEC4D3-91B7-E325-BAE9-C8AAA641C331}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Chestnut.h" />
+    <ClInclude Include="src\Chestnut\Components.h">
+      <Filter>Chestnut</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\ECS\AnimationComponent.h">
+      <Filter>Chestnut\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\ECS\Component.h">
+      <Filter>Chestnut\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\ECS\Entity.h">
+      <Filter>Chestnut\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\ECS\PhysicsComponent.h">
+      <Filter>Chestnut\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\ECS\PlayerComponent.h">
+      <Filter>Chestnut\ECS</Filter>
+    </ClInclude>
     <ClInclude Include="src\Chestnut\Events.h">
       <Filter>Chestnut</Filter>
     </ClInclude>
@@ -37,7 +61,19 @@
     <ClInclude Include="src\Chestnut\Game.h">
       <Filter>Chestnut</Filter>
     </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Animation.h">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="src\Chestnut\Graphics\Buffers.h">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Color.h">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Framebuffer.h">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Image.h">
       <Filter>Chestnut\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\Chestnut\Graphics\Primitives.h">
@@ -47,6 +83,9 @@
       <Filter>Chestnut\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\Chestnut\Graphics\Shader.h">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Texture.h">
       <Filter>Chestnut\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\Chestnut\Graphics\View.h">
@@ -73,21 +112,50 @@
     <ClInclude Include="src\Chestnut\Patterns\Singelton.h">
       <Filter>Chestnut\Patterns</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Timer.h">
-      <Filter>Chestnut</Filter>
+    <ClInclude Include="src\Chestnut\Physics\Body.h">
+      <Filter>Chestnut\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\fileutils.h">
+    <ClInclude Include="src\Chestnut\Physics\Tilemap.h">
+      <Filter>Chestnut\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Physics\aabb.h">
+      <Filter>Chestnut\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Timer.h">
       <Filter>Chestnut</Filter>
     </ClInclude>
     <ClInclude Include="src\api.h" />
     <ClInclude Include="src\chstpch.h" />
-    <ClInclude Include="src\Chestnut\Graphics\Color.h" />
+    <ClInclude Include="src\Chestnut\utils.h">
+      <Filter>Chestnut</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Chestnut\ECS\AnimationComponent.cpp">
+      <Filter>Chestnut\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\ECS\Entity.cpp">
+      <Filter>Chestnut\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\ECS\PhysicsComponent.cpp">
+      <Filter>Chestnut\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\ECS\PlayerComponent.cpp">
+      <Filter>Chestnut\ECS</Filter>
+    </ClCompile>
     <ClCompile Include="src\Chestnut\Game.cpp">
       <Filter>Chestnut</Filter>
     </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Animation.cpp">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClCompile>
     <ClCompile Include="src\Chestnut\Graphics\Buffers.cpp">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Framebuffer.cpp">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Image.cpp">
       <Filter>Chestnut\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\Chestnut\Graphics\Primitives.cpp">
@@ -97,6 +165,9 @@
       <Filter>Chestnut\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\Chestnut\Graphics\Shader.cpp">
+      <Filter>Chestnut\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Texture.cpp">
       <Filter>Chestnut\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\Chestnut\Graphics\View.cpp">
@@ -113,6 +184,12 @@
     </ClCompile>
     <ClCompile Include="src\Chestnut\Math\Rect.cpp">
       <Filter>Chestnut\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Physics\Body.cpp">
+      <Filter>Chestnut\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Physics\Tilemap.cpp">
+      <Filter>Chestnut\Physics</Filter>
     </ClCompile>
     <ClCompile Include="src\Chestnut\Timer.cpp">
       <Filter>Chestnut</Filter>

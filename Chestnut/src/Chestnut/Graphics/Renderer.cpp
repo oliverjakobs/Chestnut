@@ -139,9 +139,26 @@ namespace chst
 		glClearColor(r, g, b, a);
 	}
 
+	void Renderer::SetClearColor(const glm::vec4& color)
+	{
+		glClearColor(color.r, color.g, color.b, color.a);
+	}
+
+	void Renderer::EnableBlend(GLenum sfactor, GLenum dfactor)
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(sfactor, dfactor);
+	}
+
 	void Renderer::SetEventCallback(const EventCallbackFunc& callback)
 	{
 		Get()->m_data.eventCallback = callback;
+	}
+
+	bool Renderer::OnResize(WindowResizeEvent& e)
+	{
+		Get()->m_view.create(Get()->m_view.xPos, Get()->m_view.yPos, e.getWidth(), e.getHeight());
+		return true;
 	}
 
 	void Renderer::SetWindowTitle(const std::string& title)
@@ -152,6 +169,70 @@ namespace chst
 	std::string Renderer::GetWindowTitle()
 	{
 		return Get()->m_data.title;
+	}
+
+	void Renderer::SetDefaultShader(const std::string& name)
+	{
+		Get()->m_defaultShader = name;
+	}
+
+	void Renderer::AddShader(const std::string& name, Shader* shader)
+	{
+		Get()->m_shaders[name] = shader;
+
+		if (Get()->m_defaultShader.empty())
+			Get()->m_defaultShader = name;
+	}
+
+	Shader* Renderer::GetShader(const std::string& name)
+	{
+		try
+		{
+			return Get()->m_shaders.at(name.empty() ? Get()->m_defaultShader : name);
+		}
+		catch (std::out_of_range outofrange)
+		{
+			CHST_CORE_WARN("No such shader: %s", (name.empty() ? Get()->m_defaultShader : name).c_str());
+			return nullptr;
+		}
+	}
+
+	void Renderer::RenderTexture(Texture* texture, std::vector<GLuint> indices)
+	{
+		if (texture != nullptr && texture->getTextureID() != 0)
+		{
+			texture->bind();
+
+			glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+		}
+	}
+
+	void Renderer::RenderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shader)
+	{
+		RenderTextureS(texture, srcPos, mvp, indices, GetShader(shader));
+	}
+
+	void Renderer::RenderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, Shader* shader)
+	{
+		if (texture != nullptr && texture->getTextureID() != 0)
+		{
+			texture->bind();
+
+			shader->enable();
+
+			try
+			{
+				shader->setUniformMat4("mvp", mvp);
+				shader->setUniform2f("uFramePos", srcPos);
+			}
+			catch (ShaderException& e)
+			{
+				CHST_CORE_ERROR(e.what());
+				return;
+			}
+
+			glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+		}
 	}
 
 	void Renderer::DrawLine(const glm::vec2& start, const glm::vec2& end, const glm::vec4& color)
@@ -248,6 +329,35 @@ namespace chst
 	void Renderer::SetView(float x, float y, float width, float height)
 	{
 		Get()->m_view.create(x, y, width, height);
+	}
+
+	void Renderer::SetViewPos(float x, float y, chstMath::Rect* constraint)
+	{
+		View& v = *GetView();
+
+		if (constraint != nullptr)
+		{
+			x -= v.width / 2.0f;
+			y -= v.height / 2.0f;
+
+			if (x < constraint->x)
+				x = constraint->x;
+
+			if (x + v.width > constraint->x + constraint->w)
+				x = constraint->x + constraint->w - v.width;
+
+			if (y < constraint->y)
+				y = constraint->y;
+
+			if (y + v.height > constraint->y + constraint->h)
+				y = constraint->y + constraint->h - v.height;
+
+			SetView(x, y);
+		}
+		else
+		{
+			SetView(x - v.width / 2.0f, y - v.height / 2.0f);
+		}
 	}
 
 	glm::vec2 Renderer::GetViewPosition()

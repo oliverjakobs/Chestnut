@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glad\glad.h>
+#include "Texture.h"
 #include <GLFW\glfw3.h>
 
 #include "View.h"
@@ -31,6 +31,9 @@ namespace chst
 
 		GLFWwindow* m_window;
 
+		std::string m_defaultShader;
+		std::map<std::string, Shader*> m_shaders;
+
 		View m_view;
 		Primitives m_primitives;
 	public:
@@ -43,11 +46,23 @@ namespace chst
 		static void SetVSync(bool b);
 
 		static void SetClearColor(float r, float g, float b, float a);
+		static void SetClearColor(const glm::vec4& color);
+		static void EnableBlend(GLenum sfactor, GLenum dfactor);
 
 		static void SetEventCallback(const EventCallbackFunc& callback);
+		static bool OnResize(WindowResizeEvent& e);
 
 		static void SetWindowTitle(const std::string& title);
 		static std::string GetWindowTitle();
+
+		static void SetDefaultShader(const std::string& name);
+		static void AddShader(const std::string& name, Shader* shader);
+		static Shader* GetShader(const std::string& name);
+
+		// ----------------------------texture---------------------------------------------------------------------------
+		static void RenderTexture(Texture* texture, std::vector<GLuint> indices);
+		static void RenderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, const std::string& shader);
+		static void RenderTextureS(Texture* texture, const glm::vec2& srcPos, const glm::mat4& mvp, std::vector<GLuint> indices, Shader* shader);
 
 		// ----------------------------primitives------------------------------------------------------------------------
 		static void DrawLine(const glm::vec2& start, const glm::vec2& end, const glm::vec4& color);
@@ -70,6 +85,7 @@ namespace chst
 		// ----------------------------view------------------------------------------------------------------------------
 		static void SetView(float x, float y);
 		static void SetView(float x, float y, float width, float height);
+		static void SetViewPos(float x, float y, chstMath::Rect* constraint);
 		static glm::vec2 GetViewPosition();
 
 		static glm::mat4 GetViewMat();

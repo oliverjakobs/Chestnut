@@ -33,6 +33,7 @@ namespace chst
 		static bool OnKeyReleased(KeyReleasedEvent& e);
 		static void OnUpdate();
 
+		static bool KeyDown(unsigned int key);
 		static bool KeyPressed(unsigned int key);
 		static bool KeyReleased(unsigned int key);
 

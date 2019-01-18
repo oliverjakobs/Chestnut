@@ -5,7 +5,7 @@
 
 #include "glm\gtc\type_ptr.hpp"
 
-#include "Chestnut\fileutils.h"
+#include "Chestnut\utils.h"
 
 namespace chst
 {
