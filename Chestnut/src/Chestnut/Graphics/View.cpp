@@ -19,8 +19,8 @@ namespace chst
 
 	glm::vec2 View::fromScreen(const glm::vec2& screenPos) const
 	{
-		float x = screenPos.x * (width / Renderer::GetWindowWidth());
-		float y = height - (screenPos.y  * (height / Renderer::GetWindowHeight()));
+		float x = xPos + screenPos.x * (width / Renderer::GetWindowWidth());
+		float y = yPos + height - (screenPos.y  * (height / Renderer::GetWindowHeight()));
 
 		return glm::vec2(x, y);
 	}

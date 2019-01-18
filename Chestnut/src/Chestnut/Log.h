@@ -1,5 +1,7 @@
 #pragma once
 
+#include <fmt\format.h>
+
 #include "api.h"
 
 #include "Patterns\Singelton.h"
@@ -22,13 +24,13 @@ namespace chst
 }
 
 // Core log macros
-#define CHST_CORE_TRACE(s, ...)    chst::Log::Trace(true, chst::stringf(s, __VA_ARGS__))
-#define CHST_CORE_INFO(s, ...)     chst::Log::Info(true, chst::stringf(s, __VA_ARGS__))
-#define CHST_CORE_WARN(s, ...)     chst::Log::Warn(true, chst::stringf(s, __VA_ARGS__))
-#define CHST_CORE_ERROR(s, ...)    chst::Log::Error(true, chst::stringf(s, __VA_ARGS__))
+#define CHST_CORE_TRACE(s, ...)    chst::Log::Trace(true, fmt::format(s, __VA_ARGS__))
+#define CHST_CORE_INFO(s, ...)     chst::Log::Info(true, fmt::format(s, __VA_ARGS__))
+#define CHST_CORE_WARN(s, ...)     chst::Log::Warn(true, fmt::format(s, __VA_ARGS__))
+#define CHST_CORE_ERROR(s, ...)    chst::Log::Error(true, fmt::format(s, __VA_ARGS__))
 
 // Client log macros
-#define CHST_TRACE(s)     chst::Log::Trace(false, s)
-#define CHST_INFO(s)      chst::Log::Info(false, s)
-#define CHST_WARN(s)      chst::Log::Warn(false, s)
-#define CHST_ERROR(s)     chst::Log::Error(false, s)
+#define CHST_TRACE(s, ...)     chst::Log::Trace(false, fmt::format(s, __VA_ARGS__))
+#define CHST_INFO(s, ...)      chst::Log::Info(false, fmt::format(s, __VA_ARGS__))
+#define CHST_WARN(s, ...)      chst::Log::Warn(false, fmt::format(s, __VA_ARGS__))
+#define CHST_ERROR(s, ...)     chst::Log::Error(false, fmt::format(s, __VA_ARGS__))

@@ -58,7 +58,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\Chestnut\src;..\Chestnut\external\include;..\Chestnut\external\glfw\include;..\Chestnut\external\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Chestnut\src;..\Chestnut\external\include;..\Chestnut\external\glfw\include;..\Chestnut\external\glad\include;..\Chestnut\external\fmt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -71,7 +71,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\Chestnut\src;..\Chestnut\external\include;..\Chestnut\external\glfw\include;..\Chestnut\external\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Chestnut\src;..\Chestnut\external\include;..\Chestnut\external\glfw\include;..\Chestnut\external\glad\include;..\Chestnut\external\fmt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -84,6 +84,9 @@
     <ClCompile Include="src\Frost.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Chestnut\external\fmt\FMT.vcxproj">
+      <Project>{ECE6870B-58F0-877C-E16B-9E7C4D74937C}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Chestnut\Chestnut.vcxproj">
       <Project>{3338928A-1F05-ED95-481E-DB3D344A2224}</Project>
     </ProjectReference>

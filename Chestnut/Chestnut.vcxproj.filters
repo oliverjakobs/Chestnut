@@ -124,11 +124,11 @@
     <ClInclude Include="src\Chestnut\Timer.h">
       <Filter>Chestnut</Filter>
     </ClInclude>
-    <ClInclude Include="src\api.h" />
-    <ClInclude Include="src\chstpch.h" />
     <ClInclude Include="src\Chestnut\utils.h">
       <Filter>Chestnut</Filter>
     </ClInclude>
+    <ClInclude Include="src\api.h" />
+    <ClInclude Include="src\chstpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Chestnut\ECS\AnimationComponent.cpp">

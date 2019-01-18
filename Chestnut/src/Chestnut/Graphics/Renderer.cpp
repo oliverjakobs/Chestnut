@@ -10,7 +10,7 @@ namespace chst
 		//CHST_CORE_ERROR("[GLFW]: (%c) %d", error, desc);
 	}
 
-	bool Renderer::Init(const std::string& title, int width, int height)
+	bool Renderer::Init(const std::string& title, int width, int height, float viewW, float viewH)
 	{
 		Get()->m_data.title = title;
 		Get()->m_data.width = width;
@@ -26,7 +26,7 @@ namespace chst
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		CHST_CORE_INFO("[GLFW] Creating window: %s, %d, %d", title.c_str(), width, height);
+		CHST_CORE_INFO("[GLFW] Creating window: {}, {}, {}", title.c_str(), width, height);
 
 		Get()->m_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 		CHST_CORE_ASSERT(Get()->m_window, "[GLFW] Failed to create GLFW window");
@@ -37,7 +37,7 @@ namespace chst
 
 		glfwSetWindowUserPointer(Get()->m_window, &Get()->m_data);
 
-		Get()->m_view.create(0.0f, 0.0f, width, height);
+		Get()->m_view.create(0.0f, 0.0f, viewW, viewH);
 		Get()->m_primitives.create(new Shader("res/shader/primitive.vert", "res/shader/primitive.frag"));
 
 		// set glfw callbacks

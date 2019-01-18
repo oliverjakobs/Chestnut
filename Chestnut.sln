@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chestnut", "Chestnut\Chestnut.vcxproj", "{3338928A-1F05-ED95-481E-DB3D344A2224}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fmt", "Chestnut\external\fmt\FMT.vcxproj", "{AFF1EA1C-AD1B-3A95-86AF-4868200DE508}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Frost", "Frost\Frost.vcxproj", "{131E320D-7F32-5ABE-48B4-FD1DB48756EF}"
 EndProject
@@ -19,6 +23,10 @@ Global
 		{3338928A-1F05-ED95-481E-DB3D344A2224}.Debug|Win32.Build.0 = Debug|Win32
 		{3338928A-1F05-ED95-481E-DB3D344A2224}.Release|Win32.ActiveCfg = Release|Win32
 		{3338928A-1F05-ED95-481E-DB3D344A2224}.Release|Win32.Build.0 = Release|Win32
+		{AFF1EA1C-AD1B-3A95-86AF-4868200DE508}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AFF1EA1C-AD1B-3A95-86AF-4868200DE508}.Debug|Win32.Build.0 = Debug|Win32
+		{AFF1EA1C-AD1B-3A95-86AF-4868200DE508}.Release|Win32.ActiveCfg = Release|Win32
+		{AFF1EA1C-AD1B-3A95-86AF-4868200DE508}.Release|Win32.Build.0 = Release|Win32
 		{131E320D-7F32-5ABE-48B4-FD1DB48756EF}.Debug|Win32.ActiveCfg = Debug|Win32
 		{131E320D-7F32-5ABE-48B4-FD1DB48756EF}.Debug|Win32.Build.0 = Debug|Win32
 		{131E320D-7F32-5ABE-48B4-FD1DB48756EF}.Release|Win32.ActiveCfg = Release|Win32
@@ -34,5 +42,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5DFDB69-B314-49B2-A099-211AB22D0D9D}
 	EndGlobalSection
 EndGlobal

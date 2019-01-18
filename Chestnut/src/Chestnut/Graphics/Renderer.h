@@ -37,7 +37,7 @@ namespace chst
 		View m_view;
 		Primitives m_primitives;
 	public:
-		static bool Init(const std::string& title, int width, int height);
+		static bool Init(const std::string& title, int width, int height, float viewW, float viewH);
 		static void Destroy();
 
 		static void Start();
