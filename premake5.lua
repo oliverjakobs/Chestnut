@@ -1,4 +1,4 @@
-workspace "Hazel"
+workspace "Chestnut"
 	architecture "x64"
 	startproject "Sandbox"
 
@@ -13,20 +13,20 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
-IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
-IncludeDir["ImGui"] = "Hazel/vendor/imgui"
-IncludeDir["glm"] = "Hazel/vendor/glm"
+IncludeDir["GLFW"] = "Chestnut/vendor/GLFW/include"
+IncludeDir["Glad"] = "Chestnut/vendor/Glad/include"
+IncludeDir["ImGui"] = "Chestnut/vendor/imgui"
+IncludeDir["glm"] = "Chestnut/vendor/glm"
 
 group "Dependencies"
-	include "Hazel/vendor/GLFW"
-	include "Hazel/vendor/Glad"
-	include "Hazel/vendor/imgui"
+	include "Chestnut/vendor/GLFW"
+	include "Chestnut/vendor/Glad"
+	include "Chestnut/vendor/imgui"
 
 group ""
 
-project "Hazel"
-	location "Hazel"
+project "Chestnut"
+	location "Chestnut"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
@@ -36,7 +36,7 @@ project "Hazel"
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "hzpch.h"
-	pchsource "Hazel/src/hzpch.cpp"
+	pchsource "Chestnut/src/hzpch.cpp"
 
 	files
 	{
@@ -112,15 +112,15 @@ project "Sandbox"
 
 	includedirs
 	{
-		"Hazel/vendor/spdlog/include",
-		"Hazel/src",
-		"Hazel/vendor",
+		"Chestnut/vendor/spdlog/include",
+		"Chestnut/src",
+		"Chestnut/vendor",
 		"%{IncludeDir.glm}"
 	}
 
 	links
 	{
-		"Hazel"
+		"Chestnut"
 	}
 
 	filter "system:windows"

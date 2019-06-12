@@ -4,12 +4,9 @@
 [submodule "Chestnut/vendor/GLFW"]
 	path = Chestnut/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+[submodule "Chestnut/vendor/imgui"]
+	path = Chestnut/vendor/imgui
+	url = https://github.com/TheCherno/imgui
 [submodule "Chestnut/vendor/glm"]
 	path = Chestnut/vendor/glm
 	url = https://github.com/g-truc/glm
-
-[submodule "Chestnut/vendor/imgui"]
-	
-	path = Chestnut/vendor/imgui
-	
-	url = https://github.com/TheCherno/imgui
