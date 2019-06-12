@@ -1,6 +1,15 @@
-[submodule "Hazel/vendor/spdlog"]
-	path = Hazel/vendor/spdlog
+[submodule "Chestnut/vendor/spdlog"]
+	path = Chestnut/vendor/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule "Hazel/vendor/imgui"]
-	path = Hazel/vendor/imgui
+[submodule "Chestnut/vendor/GLFW"]
+	path = Chestnut/vendor/GLFW
+	url = https://github.com/TheCherno/glfw
+[submodule "Chestnut/vendor/glm"]
+	path = Chestnut/vendor/glm
+	url = https://github.com/g-truc/glm
+
+[submodule "Chestnut/vendor/imgui"]
+	
+	path = Chestnut/vendor/imgui
+	
 	url = https://github.com/TheCherno/imgui
