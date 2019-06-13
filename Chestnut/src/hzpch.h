@@ -12,8 +12,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Hazel/Log.h"
+#include "Chestnut/Log.h"
 
-#ifdef HZ_PLATFORM_WINDOWS
+#ifdef CHST_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

@@ -5,24 +5,24 @@
 #include <glad/glad.h>
 #include <GL/GL.h>
 
-namespace Hazel {
-
+namespace chst 
+{
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)
 	{
-		HZ_CORE_ASSERT(windowHandle, "Window handle is null!")
+		CHST_CORE_ASSERT(windowHandle, "Window handle is null!")
 	}
 
 	void OpenGLContext::Init()
 	{
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		HZ_CORE_ASSERT(status, "Failed to initialize Glad!");
+		CHST_CORE_ASSERT(status, "Failed to initialize Glad!");
 
-		HZ_CORE_INFO("OpenGL Info:");
-		HZ_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
-		HZ_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
-		HZ_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
+		CHST_CORE_INFO("OpenGL Info:");
+		CHST_CORE_INFO("Vendor: {0}", glGetString(GL_VENDOR));
+		CHST_CORE_INFO("Renderer: {0}", glGetString(GL_RENDERER));
+		CHST_CORE_INFO("Version: {0}", glGetString(GL_VERSION));
 
 	}
 
@@ -30,5 +30,4 @@ namespace Hazel {
 	{
 		glfwSwapBuffers(m_WindowHandle);
 	}
-
 }

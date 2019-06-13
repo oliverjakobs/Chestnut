@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Hazel/Window.h"
-#include "Hazel/Renderer/GraphicsContext.h"
+#include "Chestnut/Window.h"
+#include "Chestnut/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
-namespace Hazel {
-
+namespace chst 
+{
 	class WindowsWindow : public Window
 	{
 	public:
@@ -42,5 +42,4 @@ namespace Hazel {
 
 		WindowData m_Data;
 	};
-
 }

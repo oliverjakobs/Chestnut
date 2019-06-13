@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Hazel/Renderer/GraphicsContext.h"
+#include "Chestnut/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;
 
-namespace Hazel {
-
+namespace chst 
+{
 	class OpenGLContext : public GraphicsContext
 	{
 	public:
@@ -16,5 +16,4 @@ namespace Hazel {
 	private:
 		GLFWwindow* m_WindowHandle;
 	};
-
 }

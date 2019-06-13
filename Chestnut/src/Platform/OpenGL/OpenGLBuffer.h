@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Hazel/Renderer/Buffer.h"
+#include "Chestnut/Renderer/Buffer.h"
 
-namespace Hazel {
-
+namespace chst
+{
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
@@ -34,5 +34,4 @@ namespace Hazel {
 		uint32_t m_RendererID;
 		uint32_t m_Count;
 	};
-
 }

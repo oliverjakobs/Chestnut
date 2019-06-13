@@ -1,19 +1,19 @@
 #include "hzpch.h"
 #include "WindowsWindow.h"
 
-#include "Hazel/Events/ApplicationEvent.h"
-#include "Hazel/Events/MouseEvent.h"
-#include "Hazel/Events/KeyEvent.h"
+#include "Chestnut/Events/ApplicationEvent.h"
+#include "Chestnut/Events/MouseEvent.h"
+#include "Chestnut/Events/KeyEvent.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
-namespace Hazel {
-	
+namespace chst 
+{
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		HZ_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
+		CHST_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
 	Window* Window::Create(const WindowProps& props)
@@ -37,13 +37,13 @@ namespace Hazel {
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		HZ_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		CHST_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
 		{
 			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
-			HZ_CORE_ASSERT(success, "Could not intialize GLFW!");
+			CHST_CORE_ASSERT(success, "Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
@@ -172,5 +172,4 @@ namespace Hazel {
 	{
 		return m_Data.VSync;
 	}
-
 }

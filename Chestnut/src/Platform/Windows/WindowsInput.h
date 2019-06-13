@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Hazel/Input.h"
+#include "Chestnut/Input.h"
 
-namespace Hazel {
-
+namespace chst
+{
 	class WindowsInput : public Input
 	{
 	protected:
@@ -14,5 +14,4 @@ namespace Hazel {
 		virtual float GetMouseXImpl() override;
 		virtual float GetMouseYImpl() override;
 	};
-
 }

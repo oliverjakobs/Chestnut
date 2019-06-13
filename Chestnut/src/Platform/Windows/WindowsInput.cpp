@@ -1,11 +1,11 @@
 #include "hzpch.h"
 #include "WindowsInput.h"
 
-#include "Hazel/Application.h"
+#include "Chestnut/Application.h"
 #include <GLFW/glfw3.h>
 
-namespace Hazel {
-
+namespace chst 
+{
 	Input* Input::s_Instance = new WindowsInput();
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
@@ -42,5 +42,4 @@ namespace Hazel {
 		auto[x, y] = GetMousePositionImpl();
 		return y;
 	}
-
 }
