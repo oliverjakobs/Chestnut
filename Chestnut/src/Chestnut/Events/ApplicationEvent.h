@@ -2,7 +2,7 @@
 
 #include "Event.h"
 
-namespace chst 
+namespace chst
 {
 	class CHST_API WindowResizeEvent : public Event
 	{

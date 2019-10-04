@@ -1,28 +1,32 @@
 #pragma once
 
 // For use by Chestnut applications
-#include "Chestnut/Application.h"
-#include "Chestnut/Log.h"
 
-#include "Chestnut/Events/ApplicationEvent.h"
-#include "Chestnut/Events/KeyEvent.h"
-#include "Chestnut/Events/MouseEvent.h"
+#include "Chestnut/Core/Application.h"
+#include "Chestnut/Core/Layer.h"
+#include "Chestnut/Core/Log.h"
 
-#include "Chestnut/Input.h"
+#include "Chestnut/Core/Timestep.h"
+
+// ---Input---------------------------
+#include "Chestnut/Input/Input.h"
+#include "Chestnut/Input/KeyCodes.h"
+#include "Chestnut/Input/OrthographicCameraController.h"
+
+#include "Chestnut/ImGui/ImGuiRenderer.h"
+
+// ---Renderer------------------------
+#include "Chestnut/Renderer/Renderer.h"
+#include "Chestnut/Renderer/RenderCommand.h"
+
+#include "Chestnut/Renderer/Buffer.h"
+#include "Chestnut/Renderer/Shader.h"
+#include "Chestnut/Renderer/Texture.h"
+#include "Chestnut/Renderer/VertexArray.h"
+
+#include "Chestnut/Renderer/OrthographicCamera.h"
+// -----------------------------------
 
 // ---Entry Point---------------------
-#ifdef CHST_PLATFORM_WINDOWS
-
-extern chst::Application* chst::CreateApplication();
-
-int main(int argc, char** argv)
-{
-	chst::Log::Init();
-
-	auto app = chst::CreateApplication();
-	app->Run();
-	delete app;
-}
-
-#endif
+#include "Chestnut/Core/EntryPoint.h"
 // -----------------------------------

@@ -1,12 +1,12 @@
-#include "hzpch.h"
+#include "chstpch.h"
 #include "OpenGLContext.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 #include <GL/GL.h>
 
-namespace chst 
-{
+namespace chst{
+
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)
 	{
@@ -20,9 +20,9 @@ namespace chst
 		CHST_CORE_ASSERT(status, "Failed to initialize Glad!");
 
 		CHST_CORE_INFO("OpenGL Info:");
-		CHST_CORE_INFO("Vendor: {0}", glGetString(GL_VENDOR));
-		CHST_CORE_INFO("Renderer: {0}", glGetString(GL_RENDERER));
-		CHST_CORE_INFO("Version: {0}", glGetString(GL_VERSION));
+		CHST_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
+		CHST_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
+		CHST_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
 
 	}
 
@@ -30,4 +30,5 @@ namespace chst
 	{
 		glfwSwapBuffers(m_WindowHandle);
 	}
+
 }

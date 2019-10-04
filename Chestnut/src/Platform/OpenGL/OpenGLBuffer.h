@@ -2,8 +2,8 @@
 
 #include "Chestnut/Renderer/Buffer.h"
 
-namespace chst
-{
+namespace chst{
+
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
@@ -34,4 +34,5 @@ namespace chst
 		uint32_t m_RendererID;
 		uint32_t m_Count;
 	};
+
 }

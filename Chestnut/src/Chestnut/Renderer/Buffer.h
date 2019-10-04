@@ -36,7 +36,10 @@ namespace chst
 		uint32_t Offset;
 		bool Normalized;
 
-		BufferElement() {}
+		BufferElement()
+			: Name(std::string()), Type(ShaderDataType::None), Size(ShaderDataTypeSize(ShaderDataType::None)), Offset(0), Normalized(false)
+		{
+		}
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
 			: Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
@@ -103,7 +106,7 @@ namespace chst
 	class VertexBuffer
 	{
 	public:
-		virtual ~VertexBuffer() {}
+		virtual ~VertexBuffer() = default;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
@@ -117,7 +120,7 @@ namespace chst
 	class IndexBuffer
 	{
 	public:
-		virtual ~IndexBuffer() {}
+		virtual ~IndexBuffer() = default;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Chestnut/Window.h"
+#include "Chestnut/Core/Window.h"
 #include "Chestnut/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
-namespace chst 
+namespace chst
 {
 	class WindowsWindow : public Window
 	{

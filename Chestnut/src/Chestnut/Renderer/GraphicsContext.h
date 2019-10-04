@@ -1,6 +1,6 @@
 #pragma once
 
-namespace chst 
+namespace chst
 {
 	class GraphicsContext
 	{

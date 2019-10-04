@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Chestnut/Input.h"
+#include "Chestnut/Input/Input.h"
 
 namespace chst
 {

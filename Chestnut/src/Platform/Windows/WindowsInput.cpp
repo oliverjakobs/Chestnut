@@ -1,10 +1,10 @@
-#include "hzpch.h"
+#include "chstpch.h"
 #include "WindowsInput.h"
 
-#include "Chestnut/Application.h"
+#include "Chestnut/Core/Application.h"
 #include <GLFW/glfw3.h>
 
-namespace chst 
+namespace chst
 {
 	Input* Input::s_Instance = new WindowsInput();
 

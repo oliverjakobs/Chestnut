@@ -1,18 +1,23 @@
 #pragma once
 
-#include "Chestnut/Api.h"
+#include "Chestnut/Events/ApplicationEvent.h"
+#include "Chestnut/Events/KeyEvent.h"
+#include "Chestnut/Events/MouseEvent.h"
 
-namespace chst 
+namespace chst
 {
-	class CHST_API ImGuiRenderer 
+	class CHST_API ImGuiRenderer
 	{
-	private:
-		float m_Time = 0.0f;
 	public:
-		void Init();
-		void Quit();
+		ImGuiRenderer() = default;
+		~ImGuiRenderer();
+
+		virtual void Init();
+		virtual void Quit();
 
 		void Begin();
 		void End();
+	private:
+		float m_Time = 0.0f;
 	};
 }

@@ -1,19 +1,23 @@
-#include "hzpch.h"
+#include "chstpch.h"
 #include "ImGuiRenderer.h"
 
 #include "imgui.h"
-
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
 
-#include "Chestnut/Application.h"
+#include "Chestnut/Core/Application.h"
 
 // TEMPORARY
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-namespace chst 
+namespace chst
 {
+	ImGuiRenderer::~ImGuiRenderer()
+	{
+		Quit();
+	}
+
 	void ImGuiRenderer::Init()
 	{
 		// Setup Dear ImGui context
@@ -79,4 +83,5 @@ namespace chst
 			glfwMakeContextCurrent(backup_current_context);
 		}
 	}
+
 }

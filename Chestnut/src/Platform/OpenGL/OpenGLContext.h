@@ -4,8 +4,8 @@
 
 struct GLFWwindow;
 
-namespace chst 
-{
+namespace chst{
+
 	class OpenGLContext : public GraphicsContext
 	{
 	public:
@@ -16,4 +16,5 @@ namespace chst
 	private:
 		GLFWwindow* m_WindowHandle;
 	};
+
 }

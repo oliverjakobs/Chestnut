@@ -5,23 +5,28 @@ workspace "Chestnut"
 	configurations
 	{
 		"Debug",
-		"Release",
-		"Dist"
+		"Release"
+	}
+	
+	flags
+	{
+		"MultiProcessorCompile"
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "Chestnut/vendor/GLFW/include"
-IncludeDir["Glad"] = "Chestnut/vendor/Glad/include"
-IncludeDir["ImGui"] = "Chestnut/vendor/imgui"
-IncludeDir["glm"] = "Chestnut/vendor/glm"
+IncludeDir["GLFW"] = "Chestnut/packages/GLFW/include"
+IncludeDir["Glad"] = "Chestnut/packages/Glad/include"
+IncludeDir["ImGui"] = "Chestnut/packages/imgui"
+IncludeDir["glm"] = "Chestnut/packages/glm"
+IncludeDir["stb_image"] = "Chestnut/packages/stb_image"
 
 group "Dependencies"
-	include "Chestnut/vendor/GLFW"
-	include "Chestnut/vendor/Glad"
-	include "Chestnut/vendor/imgui"
+	include "Chestnut/packages/GLFW"
+	include "Chestnut/packages/Glad"
+	include "Chestnut/packages/imgui"
 
 group ""
 
@@ -35,15 +40,17 @@ project "Chestnut"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "hzpch.h"
-	pchsource "Chestnut/src/hzpch.cpp"
+	pchheader "chstpch.h"
+	pchsource "Chestnut/src/chstpch.cpp"
 
 	files
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl",
+		"%{prj.name}/packages/stb_image/**.h",
+		"%{prj.name}/packages/stb_image/**.cpp",
+		"%{prj.name}/packages/glm/glm/**.hpp",
+		"%{prj.name}/packages/glm/glm/**.inl",
 	}
 
 	defines
@@ -54,11 +61,12 @@ project "Chestnut"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include",
+		"%{prj.name}/packages/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links 
@@ -89,11 +97,6 @@ project "Chestnut"
 		runtime "Release"
 		optimize "on"
 
-	filter "configurations:Dist"
-		defines "CHST_DIST"
-		runtime "Release"
-		optimize "on"
-
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
@@ -112,9 +115,9 @@ project "Sandbox"
 
 	includedirs
 	{
-		"Chestnut/vendor/spdlog/include",
+		"Chestnut/packages/spdlog/include",
 		"Chestnut/src",
-		"Chestnut/vendor",
+		"Chestnut/packages",
 		"%{IncludeDir.glm}"
 	}
 
@@ -132,16 +135,11 @@ project "Sandbox"
 		}
 
 	filter "configurations:Debug"
-		defines "CHST_DEBUG"
+		defines "HZ_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "CHST_RELEASE"
-		runtime "Release"
-		optimize "on"
-
-	filter "configurations:Dist"
-		defines "CHST_DIST"
+		defines "HZ_RELEASE"
 		runtime "Release"
 		optimize "on"

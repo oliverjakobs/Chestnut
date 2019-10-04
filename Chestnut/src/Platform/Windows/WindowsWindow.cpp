@@ -1,4 +1,4 @@
-#include "hzpch.h"
+#include "chstpch.h"
 #include "WindowsWindow.h"
 
 #include "Chestnut/Events/ApplicationEvent.h"
@@ -7,7 +7,7 @@
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
-namespace chst 
+namespace chst
 {
 	static bool s_GLFWInitialized = false;
 
