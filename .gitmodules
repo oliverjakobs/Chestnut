@@ -1,12 +1,12 @@
-[submodule "Chestnut/vendor/spdlog"]
-	path = Chestnut/vendor/spdlog
+[submodule "Chestnut/packages/spdlog"]
+	path = Chestnut/packages/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule "Chestnut/vendor/GLFW"]
-	path = Chestnut/vendor/GLFW
+[submodule "Chestnut/packages/GLFW"]
+	path = Chestnut/packages/GLFW
 	url = https://github.com/TheCherno/glfw
-[submodule "Chestnut/vendor/imgui"]
-	path = Chestnut/vendor/imgui
+[submodule "Chestnut/packages/imgui"]
+	path = Chestnut/packages/imgui
 	url = https://github.com/TheCherno/imgui
-[submodule "Chestnut/vendor/glm"]
-	path = Chestnut/vendor/glm
+[submodule "Chestnut/packages/glm"]
+	path = Chestnut/packages/glm
 	url = https://github.com/g-truc/glm
