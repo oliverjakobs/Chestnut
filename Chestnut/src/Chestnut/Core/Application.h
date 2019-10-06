@@ -15,6 +15,19 @@ namespace chst
 {
 	class Application
 	{
+	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
+
+		std::unique_ptr<Window> m_Window;
+		ImGuiRenderer m_imGuiRenderer;
+
+		bool m_Running = true;
+		bool m_Minimized = false;
+		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
+
+		static Application* s_Instance;
 	public:
 		Application();
 		virtual ~Application() = default;
@@ -29,19 +42,6 @@ namespace chst
 		inline Window& GetWindow() { return *m_Window; }
 
 		inline static Application& Get() { return *s_Instance; }
-	private:
-		bool OnWindowClose(WindowCloseEvent& e);
-		bool OnWindowResize(WindowResizeEvent& e);
-	private:
-		std::unique_ptr<Window> m_Window;
-		ImGuiRenderer m_imGuiRenderer;
-
-		bool m_Running = true;
-		bool m_Minimized = false;
-		LayerStack m_LayerStack;
-		float m_LastFrameTime = 0.0f;
-	private:
-		static Application* s_Instance;
 	};
 
 	// To be defined in CLIENT

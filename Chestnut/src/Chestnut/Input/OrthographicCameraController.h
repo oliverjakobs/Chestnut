@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Chestnut/Renderer/OrthographicCamera.h"
+#include "Chestnut/Graphics/OrthographicCamera.h"
 #include "Chestnut/Core/Timestep.h"
 
 #include "Chestnut/Events/ApplicationEvent.h"

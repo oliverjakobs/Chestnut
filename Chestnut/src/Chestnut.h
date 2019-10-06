@@ -16,15 +16,14 @@
 #include "Chestnut/ImGui/ImGuiRenderer.h"
 
 // ---Renderer------------------------
-#include "Chestnut/Renderer/Renderer.h"
-#include "Chestnut/Renderer/RenderCommand.h"
+#include "Chestnut/Graphics/Renderer.h"
 
-#include "Chestnut/Renderer/Buffer.h"
-#include "Chestnut/Renderer/Shader.h"
-#include "Chestnut/Renderer/Texture.h"
-#include "Chestnut/Renderer/VertexArray.h"
+#include "Chestnut/Graphics/Buffer.h"
+#include "Chestnut/Graphics/Shader.h"
+#include "Chestnut/Graphics/Texture.h"
+#include "Chestnut/Graphics/VertexArray.h"
 
-#include "Chestnut/Renderer/OrthographicCamera.h"
+#include "Chestnut/Graphics/OrthographicCamera.h"
 // -----------------------------------
 
 // ---Entry Point---------------------

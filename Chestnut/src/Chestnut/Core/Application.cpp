@@ -3,7 +3,7 @@
 
 #include "Chestnut/Core/Log.h"
 
-#include "Chestnut/Renderer/Renderer.h"
+#include "Chestnut/Graphics/Renderer.h"
 
 #include "Chestnut/Input/Input.h"
 
@@ -18,7 +18,7 @@ namespace chst
 		CHST_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = std::unique_ptr<Window>(Window::Create("Chestnut Engine", 1280, 720));
 		m_Window->SetEventCallback(CHST_BIND_FN(Application::OnEvent));
 
 		Renderer::Init();

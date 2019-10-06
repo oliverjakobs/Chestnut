@@ -1,13 +1,13 @@
 #include "chstpch.h"
-#include "OpenGLShader.h"
+#include "Shader.h"
 
 #include <fstream>
 #include <glad/glad.h>
 
 #include <glm/gtc/type_ptr.hpp>
 
-namespace chst{
-
+namespace chst
+{
 	static GLenum ShaderTypeFromString(const std::string& type)
 	{
 		if (type == "vertex")
@@ -19,7 +19,7 @@ namespace chst{
 		return 0;
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& filepath)
+	Shader::Shader(const std::string& filepath)
 	{
 		std::string source = ReadFile(filepath);
 		auto shaderSources = PreProcess(source);
@@ -33,7 +33,7 @@ namespace chst{
 		m_Name = filepath.substr(lastSlash, count);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+	Shader::Shader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 		: m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> sources;
@@ -42,12 +42,74 @@ namespace chst{
 		Compile(sources);
 	}
 
-	OpenGLShader::~OpenGLShader()
+	Shader::~Shader()
 	{
 		glDeleteProgram(m_RendererID);
 	}
 
-	std::string OpenGLShader::ReadFile(const std::string& filepath)
+	void Shader::Bind() const
+	{
+		glUseProgram(m_RendererID);
+	}
+
+	void Shader::Unbind() const
+	{
+		glUseProgram(0);
+	}
+
+	void Shader::UploadUniformInt(const std::string& name, int value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1i(location, value);
+	}
+
+	void Shader::UploadUniformFloat(const std::string& name, float value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1f(location, value);
+	}
+
+	void Shader::UploadUniformFloat2(const std::string& name, const glm::vec2& value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform2f(location, value.x, value.y);
+	}
+
+	void Shader::UploadUniformFloat3(const std::string& name, const glm::vec3& value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform3f(location, value.x, value.y, value.z);
+	}
+
+	void Shader::UploadUniformFloat4(const std::string& name, const glm::vec4& value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform4f(location, value.x, value.y, value.z, value.w);
+	}
+
+	void Shader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
+	void Shader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
+	Ref<Shader> Shader::Create(const std::string& filepath)
+	{
+		return std::make_shared<Shader>(filepath);
+	}
+
+	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+	{
+		return std::make_shared<Shader>(name, vertexSrc, fragmentSrc);
+	}
+
+	std::string Shader::ReadFile(const std::string& filepath)
 	{
 		std::string result;
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
@@ -58,7 +120,7 @@ namespace chst{
 			in.seekg(0, std::ios::beg);
 			in.read(&result[0], result.size());
 			in.close();
-;		}
+		}
 		else
 		{
 			CHST_CORE_ERROR("Could not open file '{0}'", filepath);
@@ -67,7 +129,7 @@ namespace chst{
 		return result;
 	}
 
-	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
+	std::unordered_map<uint32_t, std::string> Shader::PreProcess(const std::string& source)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 
@@ -90,7 +152,7 @@ namespace chst{
 		return shaderSources;
 	}
 
-	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
+	void Shader::Compile(const std::unordered_map<uint32_t, std::string>& shaderSources)
 	{
 		GLuint program = glCreateProgram();
 		CHST_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
@@ -128,7 +190,7 @@ namespace chst{
 			glAttachShader(program, shader);
 			glShaderIDs[glShaderIDIndex++] = shader;
 		}
-		
+
 		m_RendererID = program;
 
 		// Link our program
@@ -136,7 +198,7 @@ namespace chst{
 
 		// Note the different functions here: glGetProgram* instead of glGetShader*.
 		GLint isLinked = 0;
-		glGetProgramiv(program, GL_LINK_STATUS, (int*)&isLinked);
+		glGetProgramiv(program, GL_LINK_STATUS, (int*)& isLinked);
 		if (isLinked == GL_FALSE)
 		{
 			GLint maxLength = 0;
@@ -148,7 +210,7 @@ namespace chst{
 
 			// We don't need the program anymore.
 			glDeleteProgram(program);
-			
+
 			for (auto id : glShaderIDs)
 				glDeleteShader(id);
 
@@ -161,56 +223,40 @@ namespace chst{
 			glDetachShader(program, id);
 	}
 
-	void OpenGLShader::Bind() const
+	void ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader)
 	{
-		glUseProgram(m_RendererID);
+		CHST_CORE_ASSERT(!Exists(name), "Shader already exists!");
+		m_Shaders[name] = shader;
 	}
 
-	void OpenGLShader::Unbind() const
+	void ShaderLibrary::Add(const Ref<Shader>& shader)
 	{
-		glUseProgram(0);
+		auto& name = shader->GetName();
+		Add(name, shader);
 	}
 
-	void OpenGLShader::UploadUniformInt(const std::string& name, int value)
+	Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniform1i(location, value);
+		auto shader = Shader::Create(filepath);
+		Add(shader);
+		return shader;
 	}
 
-	void OpenGLShader::UploadUniformFloat(const std::string& name, float value)
+	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniform1f(location, value);
+		auto shader = Shader::Create(filepath);
+		Add(name, shader);
+		return shader;
 	}
 
-	void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& value)
+	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniform2f(location, value.x, value.y);
+		CHST_CORE_ASSERT(Exists(name), "Shader not found!");
+		return m_Shaders[name];
 	}
 
-	void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& value)
+	bool ShaderLibrary::Exists(const std::string& name) const
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniform3f(location, value.x, value.y, value.z);
+		return m_Shaders.find(name) != m_Shaders.end();
 	}
-
-	void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& value)
-	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniform4f(location, value.x, value.y, value.z, value.w);
-	}
-
-	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix)
-	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
-	}
-
-	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
-	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
-	}
-
 }

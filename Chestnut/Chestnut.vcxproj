@@ -473,8 +473,6 @@
     <ClInclude Include="src\Chestnut\Core\Application.h" />
     <ClInclude Include="src\Chestnut\Core\Core.h" />
     <ClInclude Include="src\Chestnut\Core\EntryPoint.h" />
-    <ClInclude Include="src\Chestnut\Input\Input.h" />
-    <ClInclude Include="src\Chestnut\Input\KeyCodes.h" />
     <ClInclude Include="src\Chestnut\Core\Layer.h" />
     <ClInclude Include="src\Chestnut\Core\LayerStack.h" />
     <ClInclude Include="src\Chestnut\Core\Log.h" />
@@ -485,24 +483,15 @@
     <ClInclude Include="src\Chestnut\Events\KeyEvent.h" />
     <ClInclude Include="src\Chestnut\Events\MouseEvent.h" />
     <ClInclude Include="src\Chestnut\ImGui\ImGuiRenderer.h" />
-    <ClInclude Include="src\Chestnut\Renderer\Buffer.h" />
-    <ClInclude Include="src\Chestnut\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Chestnut\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Chestnut\Input\Input.h" />
+    <ClInclude Include="src\Chestnut\Input\KeyCodes.h" />
     <ClInclude Include="src\Chestnut\Input\OrthographicCameraController.h" />
-    <ClInclude Include="src\Chestnut\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Chestnut\Renderer\Renderer.h" />
-    <ClInclude Include="src\Chestnut\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Chestnut\Renderer\Shader.h" />
-    <ClInclude Include="src\Chestnut\Renderer\Texture.h" />
-    <ClInclude Include="src\Chestnut\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Buffer.h" />
+    <ClInclude Include="src\Chestnut\Graphics\OrthographicCamera.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Renderer.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Shader.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Texture.h" />
+    <ClInclude Include="src\Chestnut\Graphics\VertexArray.h" />
     <ClInclude Include="src\chstpch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -511,25 +500,17 @@
     <ClCompile Include="src\Chestnut\Core\Layer.cpp" />
     <ClCompile Include="src\Chestnut\Core\LayerStack.cpp" />
     <ClCompile Include="src\Chestnut\Core\Log.cpp" />
+    <ClCompile Include="src\Chestnut\Core\Window.cpp" />
     <ClCompile Include="src\Chestnut\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Chestnut\ImGui\ImGuiRenderer.cpp" />
-    <ClCompile Include="src\Chestnut\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Chestnut\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Chestnut\Input\Input.cpp" />
     <ClCompile Include="src\Chestnut\Input\OrthographicCameraController.cpp" />
-    <ClCompile Include="src\Chestnut\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Chestnut\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Chestnut\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Chestnut\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Chestnut\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Chestnut\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Buffer.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Shader.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Texture.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\VertexArray.cpp" />
     <ClCompile Include="src\chstpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

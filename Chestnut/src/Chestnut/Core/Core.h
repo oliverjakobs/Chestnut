@@ -34,6 +34,7 @@
 
 #define CHST_BIND_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
+// types
 namespace chst
 {
 	template<typename T>

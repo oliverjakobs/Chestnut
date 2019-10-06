@@ -1,7 +1,5 @@
 #include <Chestnut.h>
 
-#include "Platform/OpenGL/OpenGLShader.h"
-
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -132,11 +130,11 @@ public:
 
 		auto textureShader = m_ShaderLibrary.Load("res/shaders/Texture.glsl");
 
-		m_Texture = Texture2D::Create("res/textures/Checkerboard.png");
-		m_ChernoLogoTexture = Texture2D::Create("res/textures/ChernoLogo.png");
+		m_Texture = Texture::Create("res/textures/Checkerboard.png");
+		m_ChernoLogoTexture = Texture::Create("res/textures/ChernoLogo.png");
 
-		std::dynamic_pointer_cast<OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		textureShader->Bind();
+		textureShader->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Timestep ts) override
@@ -145,15 +143,15 @@ public:
 		m_CameraController.OnUpdate(ts);
 
 		// Render
-		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-		RenderCommand::Clear();
+		Renderer::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		Renderer::Clear();
 
 		Renderer::BeginScene(m_CameraController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		std::dynamic_pointer_cast<OpenGLShader>(m_FlatColorShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+		m_FlatColorShader->Bind();
+		m_FlatColorShader->UploadUniformFloat3("u_Color", m_SquareColor);
 
 		for (int y = 0; y < 20; y++)
 		{
@@ -197,7 +195,7 @@ private:
 	Ref<Shader> m_FlatColorShader;
 	Ref<VertexArray> m_SquareVA;
 
-	Ref<Texture2D> m_Texture, m_ChernoLogoTexture;
+	Ref<Texture> m_Texture, m_ChernoLogoTexture;
 
 	OrthographicCameraController m_CameraController;
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };

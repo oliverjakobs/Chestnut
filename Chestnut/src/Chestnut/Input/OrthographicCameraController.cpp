@@ -1,8 +1,8 @@
 #include "chstpch.h"
 #include "OrthographicCameraController.h"
 
-#include "Chestnut/Core/Input.h"
-#include "Chestnut/Core/KeyCodes.h"
+#include "Chestnut/Input/Input.h"
+#include "Chestnut/Input/KeyCodes.h"
 
 namespace chst
 {

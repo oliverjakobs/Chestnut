@@ -1,14 +1,13 @@
 #include "chstpch.h"
-#include "OpenGLTexture.h"
+#include "Texture.h"
 
 #include "stb_image.h"
 
 #include <glad/glad.h>
 
-namespace chst{
-
-	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
-		: m_Path(path)
+namespace chst
+{
+	Texture::Texture(const std::string& path)
 	{
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
@@ -42,13 +41,18 @@ namespace chst{
 		stbi_image_free(data);
 	}
 
-	OpenGLTexture2D::~OpenGLTexture2D()
+	Texture::~Texture()
 	{
 		glDeleteTextures(1, &m_RendererID);
 	}
 
-	void OpenGLTexture2D::Bind(uint32_t slot) const
+	void Texture::Bind(uint32_t slot) const
 	{
 		glBindTextureUnit(slot, m_RendererID);
+	}
+
+	Ref<Texture> Texture::Create(const std::string& path)
+	{
+		return std::make_shared<Texture>(path);
 	}
 }

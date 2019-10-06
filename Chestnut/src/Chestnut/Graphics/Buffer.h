@@ -105,27 +105,35 @@ namespace chst
 
 	class VertexBuffer
 	{
+	private:
+		uint32_t m_RendererID;
+		BufferLayout m_Layout;
 	public:
-		virtual ~VertexBuffer() = default;
+		VertexBuffer(float* vertices, uint32_t size);
+		~VertexBuffer();
 
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
+		void Bind() const;
+		void Unbind() const;
 
-		virtual const BufferLayout& GetLayout() const = 0;
-		virtual void SetLayout(const BufferLayout& layout) = 0;
+		void SetLayout(const BufferLayout& layout) { m_Layout = layout; }
+		const BufferLayout& GetLayout() const { return m_Layout; }
 
 		static VertexBuffer* Create(float* vertices, uint32_t size);
 	};
 
 	class IndexBuffer
 	{
+	private:
+		uint32_t m_RendererID;
+		uint32_t m_Count;
 	public:
-		virtual ~IndexBuffer() = default;
+		IndexBuffer(uint32_t* indices, uint32_t count);
+		~IndexBuffer();
 
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
+		void Bind() const;
+		void Unbind() const;
 
-		virtual uint32_t GetCount() const = 0;
+		uint32_t GetCount() const { return m_Count; }
 
 		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
 	};

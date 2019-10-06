@@ -5,40 +5,46 @@
 #include "Chestnut/Core/Core.h"
 #include "Chestnut/Events/Event.h"
 
+struct GLFWwindow;
+
 namespace chst
 {
-	struct WindowProps
-	{
-		std::string Title;
-		unsigned int Width;
-		unsigned int Height;
-
-		WindowProps(const std::string& title = "Chestnut Engine", unsigned int width = 1280, unsigned int height = 720)
-			: Title(title), Width(width), Height(height)
-		{
-		}
-	};
-
-	// Interface representing a desktop system based Window
-	class CHST_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
+	private:
+		GLFWwindow* m_Window;
 
-		virtual ~Window() = default;
+		struct WindowData
+		{
+			std::string Title;
+			uint32_t Width, Height;
+			bool VSync;
 
-		virtual void OnUpdate() = 0;
+			EventCallbackFn EventCallback;
+		};
 
-		virtual unsigned int GetWidth() const = 0;
-		virtual unsigned int GetHeight() const = 0;
+		WindowData m_Data;
+
+		void Init(const std::string& title, uint32_t width, uint32_t height);
+		void Shutdown();
+	public:
+		Window(const std::string& title, uint32_t width, uint32_t height);
+		~Window();
+
+		void OnUpdate();
+
+		inline unsigned int GetWidth() const { return m_Data.Width; }
+		inline unsigned int GetHeight() const { return m_Data.Height; }
 
 		// Window attributes
-		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
-		virtual void SetVSync(bool enabled) = 0;
-		virtual bool IsVSync() const = 0;
+		inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
+		virtual void SetVSync(bool enabled);
+		virtual bool IsVSync() const;
 
-		virtual void* GetNativeWindow() const = 0;
+		inline void* GetNativeWindow() const { return m_Window; }
 
-		static Window* Create(const WindowProps& props = WindowProps());
+		static Window* Create(const std::string& title, uint32_t width, uint32_t height);
 	};
 }

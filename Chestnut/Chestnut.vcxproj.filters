@@ -40,6 +40,9 @@
     <Filter Include="src\Chestnut\ImGui">
       <UniqueIdentifier>{D4E72294-C0CB-E3E9-292C-DE3C152FCE6B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Chestnut\Input">
+      <UniqueIdentifier>{A9222494-9506-E5E9-FE66-DF3CEA69CF6B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Chestnut\Renderer">
       <UniqueIdentifier>{10AE4578-7C1A-0173-450E-99D0B13923DB}</UniqueIdentifier>
     </Filter>
@@ -1200,71 +1203,38 @@
     <ClInclude Include="src\Chestnut\Events\MouseEvent.h">
       <Filter>src\Chestnut\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Renderer\Buffer.h">
-      <Filter>src\Chestnut\Renderer</Filter>
+    <ClInclude Include="src\Chestnut\ImGui\ImGuiRenderer.h">
+      <Filter>src\Chestnut\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Renderer\GraphicsContext.h">
-      <Filter>src\Chestnut\Renderer</Filter>
+    <ClInclude Include="src\Chestnut\Input\Input.h">
+      <Filter>src\Chestnut\Input</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Renderer\OrthographicCamera.h">
-      <Filter>src\Chestnut\Renderer</Filter>
+    <ClInclude Include="src\Chestnut\Input\KeyCodes.h">
+      <Filter>src\Chestnut\Input</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Renderer\RenderCommand.h">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Chestnut\Renderer\Renderer.h">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Chestnut\Renderer\RendererAPI.h">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Chestnut\Renderer\Shader.h">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Chestnut\Renderer\Texture.h">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Chestnut\Renderer\VertexArray.h">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
-      <Filter>src\Platform\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
-      <Filter>src\Platform\Windows</Filter>
+    <ClInclude Include="src\Chestnut\Input\OrthographicCameraController.h">
+      <Filter>src\Chestnut\Input</Filter>
     </ClInclude>
     <ClInclude Include="src\chstpch.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Input\Input.h">
-      <Filter>src\Chestnut\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Chestnut\Input\OrthographicCameraController.h">
+    <ClInclude Include="src\Chestnut\Graphics\Buffer.h">
       <Filter>src\Chestnut\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Input\KeyCodes.h">
-      <Filter>src\Chestnut\Core</Filter>
+    <ClInclude Include="src\Chestnut\Graphics\OrthographicCamera.h">
+      <Filter>src\Chestnut\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\ImGui\ImGuiRenderer.h">
-      <Filter>src\Chestnut\ImGui</Filter>
+    <ClInclude Include="src\Chestnut\Graphics\Renderer.h">
+      <Filter>src\Chestnut\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Shader.h">
+      <Filter>src\Chestnut\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Texture.h">
+      <Filter>src\Chestnut\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\VertexArray.h">
+      <Filter>src\Chestnut\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1286,62 +1256,34 @@
     <ClCompile Include="src\Chestnut\ImGui\ImGuiBuild.cpp">
       <Filter>src\Chestnut\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Chestnut\Renderer\Buffer.cpp">
-      <Filter>src\Chestnut\Renderer</Filter>
+    <ClCompile Include="src\Chestnut\ImGui\ImGuiRenderer.cpp">
+      <Filter>src\Chestnut\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Chestnut\Renderer\OrthographicCamera.cpp">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Chestnut\Renderer\RenderCommand.cpp">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Chestnut\Renderer\Renderer.cpp">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Chestnut\Renderer\RendererAPI.cpp">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Chestnut\Renderer\Shader.cpp">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Chestnut\Renderer\Texture.cpp">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Chestnut\Renderer\VertexArray.cpp">
-      <Filter>src\Chestnut\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
-      <Filter>src\Platform\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
-      <Filter>src\Platform\Windows</Filter>
+    <ClCompile Include="src\Chestnut\Input\OrthographicCameraController.cpp">
+      <Filter>src\Chestnut\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\chstpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Chestnut\Input\OrthographicCameraController.cpp">
+    <ClCompile Include="src\Chestnut\Graphics\Buffer.cpp">
       <Filter>src\Chestnut\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Chestnut\ImGui\ImGuiRenderer.cpp">
-      <Filter>src\Chestnut\ImGui</Filter>
+    <ClCompile Include="src\Chestnut\Graphics\OrthographicCamera.cpp">
+      <Filter>src\Chestnut\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Renderer.cpp">
+      <Filter>src\Chestnut\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Shader.cpp">
+      <Filter>src\Chestnut\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Texture.cpp">
+      <Filter>src\Chestnut\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\VertexArray.cpp">
+      <Filter>src\Chestnut\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chestnut\Core\Window.cpp" />
+    <ClCompile Include="src\Chestnut\Input\Input.cpp" />
   </ItemGroup>
 </Project>
