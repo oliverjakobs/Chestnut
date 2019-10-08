@@ -5,6 +5,8 @@
 
 #include <glm/glm.hpp>
 
+#include "Chestnut/Core/Core.h"
+
 namespace chst
 {
 	class Shader
@@ -31,17 +33,15 @@ namespace chst
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
 
 		const std::string& GetName() const { return m_Name; }
-
-		static Ref<Shader> Create(const std::string& filepath);
-		static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 	private:
-		std::string ReadFile(const std::string& filepath);
 		std::unordered_map<uint32_t, std::string> PreProcess(const std::string& source);
 		void Compile(const std::unordered_map<uint32_t, std::string>& shaderSources);
 	};
 
 	class ShaderLibrary
 	{
+	private:
+		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
 	public:
 		void Add(const std::string& name, const Ref<Shader>& shader);
 		void Add(const Ref<Shader>& shader);
@@ -51,7 +51,5 @@ namespace chst
 		Ref<Shader> Get(const std::string& name);
 
 		bool Exists(const std::string& name) const;
-	private:
-		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
 	};
 }

@@ -25,7 +25,12 @@ namespace chst
 
 	void Renderer::SetClearColor(const glm::vec4& color)
 	{
-		glClearColor(color.r, color.g, color.b, color.a);
+		SetClearColor(color.r, color.g, color.b, color.a);
+	}
+
+	void Renderer::SetClearColor(float r, float g, float b, float a)
+	{
+		glClearColor(r, g, b, a);
 	}
 
 	void Renderer::Clear()

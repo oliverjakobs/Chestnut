@@ -33,11 +33,6 @@ namespace chst
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
-	{
-		return new VertexBuffer(vertices, size);
-	}
-
 	/////////////////////////////////////////////////////////////////////////////
 	// IndexBuffer //////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////
@@ -63,10 +58,5 @@ namespace chst
 	void IndexBuffer::Unbind() const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	}
-
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
-	{
-		return new IndexBuffer(indices, size);
 	}
 }

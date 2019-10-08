@@ -4,7 +4,6 @@
 
 #include "Chestnut/Core/Application.h"
 #include "Chestnut/Core/Layer.h"
-#include "Chestnut/Core/Log.h"
 
 #include "Chestnut/Core/Timestep.h"
 
@@ -24,6 +23,11 @@
 #include "Chestnut/Graphics/VertexArray.h"
 
 #include "Chestnut/Graphics/OrthographicCamera.h"
+
+// ---Utility-------------------------
+#include "Chestnut/Utility/Obelisk.h"
+#include "Chestnut/Utility/Debugger.h"
+
 // -----------------------------------
 
 // ---Entry Point---------------------

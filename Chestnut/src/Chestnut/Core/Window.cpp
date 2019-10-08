@@ -5,6 +5,8 @@
 #include "Chestnut/Events/MouseEvent.h"
 #include "Chestnut/Events/KeyEvent.h"
 
+#include "Chestnut/Utility/Debugger.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -14,7 +16,7 @@ namespace chst
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		CHST_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
+		DEBUG_ERROR("[GLFW] Error ({0}): {1}", error, description);
 	}
 
 	Window* Window::Create(const std::string& title, uint32_t width, uint32_t height)
@@ -38,13 +40,13 @@ namespace chst
 		m_Data.Width = width;
 		m_Data.Height = height;
 
-		CHST_CORE_INFO("Creating window {0} ({1}, {2})", title, width, height);
+		DEBUG_INFO("Creating window {0} ({1}, {2})", title, width, height);
 
 		if (!s_GLFWInitialized)
 		{
 			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
-			CHST_CORE_ASSERT(success, "Could not intialize GLFW!");
+			DEBUG_ASSERT(success, "Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
@@ -53,12 +55,12 @@ namespace chst
 
 		glfwMakeContextCurrent(m_Window);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		CHST_CORE_ASSERT(status, "Failed to initialize Glad!");
+		DEBUG_ASSERT(status, "Failed to initialize Glad!");
 
-		CHST_CORE_INFO("OpenGL Info:");
-		CHST_CORE_INFO("Vendor: {0}", glGetString(GL_VENDOR));
-		CHST_CORE_INFO("Renderer: {0}", glGetString(GL_RENDERER));
-		CHST_CORE_INFO("Version: {0}", glGetString(GL_VERSION));
+		DEBUG_INFO("OpenGL Info:");
+		DEBUG_INFO("Vendor: {0}", glGetString(GL_VENDOR));
+		DEBUG_INFO("Renderer: {0}", glGetString(GL_RENDERER));
+		DEBUG_INFO("Version: {0}", glGetString(GL_VERSION));
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);

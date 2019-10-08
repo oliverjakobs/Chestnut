@@ -1,7 +1,7 @@
 #pragma once
 
 #include "chstpch.h"
-#include "Chestnut/Core/Core.h"
+#include "Chestnut/Utility/Obelisk.h"
 
 namespace chst
 {
@@ -35,7 +35,7 @@ namespace chst
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class CHST_API Event
+	class Event
 	{
 	public:
 		bool Handled = false;

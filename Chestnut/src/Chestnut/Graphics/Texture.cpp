@@ -1,9 +1,12 @@
 #include "chstpch.h"
 #include "Texture.h"
 
+#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 #include <glad/glad.h>
+
+#include "Chestnut/Utility/Debugger.h"
 
 namespace chst
 {
@@ -12,7 +15,7 @@ namespace chst
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
-		CHST_CORE_ASSERT(data, "Failed to load image!");
+		DEBUG_ASSERT(data, "Failed to load image!");
 		m_Width = width;
 		m_Height = height;
 
@@ -28,7 +31,7 @@ namespace chst
 			dataFormat = GL_RGB;
 		}
 
-		CHST_CORE_ASSERT(internalFormat & dataFormat, "Format not supported!");
+		DEBUG_ASSERT(internalFormat & dataFormat, "Format not supported!");
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
 		glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
@@ -49,10 +52,5 @@ namespace chst
 	void Texture::Bind(uint32_t slot) const
 	{
 		glBindTextureUnit(slot, m_RendererID);
-	}
-
-	Ref<Texture> Texture::Create(const std::string& path)
-	{
-		return std::make_shared<Texture>(path);
 	}
 }

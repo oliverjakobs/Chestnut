@@ -1,7 +1,7 @@
 #include "chstpch.h"
 #include "Application.h"
 
-#include "Chestnut/Core/Log.h"
+#include "Chestnut/Utility/Debugger.h"
 
 #include "Chestnut/Graphics/Renderer.h"
 
@@ -15,11 +15,11 @@ namespace chst
 
 	Application::Application()
 	{
-		CHST_CORE_ASSERT(!s_Instance, "Application already exists!");
+		DEBUG_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create("Chestnut Engine", 1280, 720));
-		m_Window->SetEventCallback(CHST_BIND_FN(Application::OnEvent));
+		m_Window->SetEventCallback(BIND_FUNCTION(Application::OnEvent));
 
 		Renderer::Init();
 
@@ -39,8 +39,8 @@ namespace chst
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(CHST_BIND_FN(Application::OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(CHST_BIND_FN(Application::OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_FUNCTION(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_FUNCTION(Application::OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{

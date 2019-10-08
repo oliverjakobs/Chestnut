@@ -7,26 +7,26 @@ namespace chst
 	class OrthographicCamera
 	{
 	private:
-		glm::mat4 m_ProjectionMatrix;
-		glm::mat4 m_ViewMatrix;
-		glm::mat4 m_ViewProjectionMatrix;
+		glm::mat4 m_projection;
+		glm::mat4 m_view;
+		glm::mat4 m_viewProjection;
 
-		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
-		float m_Rotation = 0.0f;
+		glm::vec3 m_position = { 0.0f, 0.0f, 0.0f };
+		float m_rotation = 0.0f;
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
 
 		void SetProjection(float left, float right, float bottom, float top);
 
-		const glm::vec3& GetPosition() const { return m_Position; }
-		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
+		void SetPosition(const glm::vec3& position) { m_position = position; RecalculateViewMatrix(); }
+		void SetRotation(float rotation) { m_rotation = rotation; RecalculateViewMatrix(); }
 
-		float GetRotation() const { return m_Rotation; }
-		void SetRotation(float rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
+		const glm::vec3& GetPosition() const { return m_position; }
+		const float GetRotation() const { return m_rotation; }
 
-		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
-		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
-		const glm::mat4& GetViewProjectionMatrix() const { return m_ViewProjectionMatrix; }
+		const glm::mat4& GetProjectionMatrix() const { return m_projection; }
+		const glm::mat4& GetViewMatrix() const { return m_view; }
+		const glm::mat4& GetViewProjectionMatrix() const { return m_viewProjection; }
 	private:
 		void RecalculateViewMatrix();
 	};

@@ -13,21 +13,21 @@ namespace chst
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
-		if (Input::IsKeyPressed(CHST_KEY_A))
+		if (Input::KeyPressed(CHST_KEY_A))
 			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
-		else if (Input::IsKeyPressed(CHST_KEY_D))
+		else if (Input::KeyPressed(CHST_KEY_D))
 			m_CameraPosition.x += m_CameraTranslationSpeed * ts;
 
-		if (Input::IsKeyPressed(CHST_KEY_W))
+		if (Input::KeyPressed(CHST_KEY_W))
 			m_CameraPosition.y += m_CameraTranslationSpeed * ts;
-		else if (Input::IsKeyPressed(CHST_KEY_S))
+		else if (Input::KeyPressed(CHST_KEY_S))
 			m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
 
 		if (m_Rotation)
 		{
-			if (Input::IsKeyPressed(CHST_KEY_Q))
+			if (Input::KeyPressed(CHST_KEY_Q))
 				m_CameraRotation += m_CameraRotationSpeed * ts;
-			if (Input::IsKeyPressed(CHST_KEY_E))
+			if (Input::KeyPressed(CHST_KEY_E))
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 			m_Camera.SetRotation(m_CameraRotation);
@@ -41,8 +41,8 @@ namespace chst
 	void OrthographicCameraController::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<MouseScrolledEvent>(CHST_BIND_FN(OrthographicCameraController::OnMouseScrolled));
-		dispatcher.Dispatch<WindowResizeEvent>(CHST_BIND_FN(OrthographicCameraController::OnWindowResized));
+		dispatcher.Dispatch<MouseScrolledEvent>(BIND_FUNCTION(OrthographicCameraController::OnMouseScrolled));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_FUNCTION(OrthographicCameraController::OnWindowResized));
 	}
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)

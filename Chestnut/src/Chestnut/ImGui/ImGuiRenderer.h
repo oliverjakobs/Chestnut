@@ -6,7 +6,7 @@
 
 namespace chst
 {
-	class CHST_API ImGuiRenderer
+	class ImGuiRenderer
 	{
 	public:
 		ImGuiRenderer() = default;

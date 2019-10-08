@@ -24,7 +24,7 @@ namespace chst
 		case ShaderDataType::Bool:     return GL_BOOL;
 		}
 
-		CHST_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		DEBUG_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;
 	}
 
@@ -50,7 +50,7 @@ namespace chst
 
 	void VertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
 	{
-		CHST_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
+		DEBUG_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
@@ -77,10 +77,5 @@ namespace chst
 		indexBuffer->Bind();
 
 		m_IndexBuffer = indexBuffer;
-	}
-
-	VertexArray* VertexArray::Create()
-	{
-		return new VertexArray();
 	}
 }

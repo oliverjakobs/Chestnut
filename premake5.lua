@@ -21,7 +21,6 @@ IncludeDir["GLFW"] = "Chestnut/packages/GLFW/include"
 IncludeDir["Glad"] = "Chestnut/packages/Glad/include"
 IncludeDir["ImGui"] = "Chestnut/packages/imgui"
 IncludeDir["glm"] = "Chestnut/packages/glm"
-IncludeDir["stb_image"] = "Chestnut/packages/stb_image"
 
 group "Dependencies"
 	include "Chestnut/packages/GLFW"
@@ -47,8 +46,6 @@ project "Chestnut"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/packages/stb_image/**.h",
-		"%{prj.name}/packages/stb_image/**.cpp",
 		"%{prj.name}/packages/glm/glm/**.hpp",
 		"%{prj.name}/packages/glm/glm/**.inl",
 	}
@@ -61,12 +58,12 @@ project "Chestnut"
 	includedirs
 	{
 		"%{prj.name}/src",
+		"%{prj.name}/packages/stb",
 		"%{prj.name}/packages/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.glm}"
 	}
 
 	links 

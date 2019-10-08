@@ -20,7 +20,5 @@ namespace chst
 		uint32_t GetHeight() const { return m_Height; }
 
 		void Bind(uint32_t slot = 0) const;
-
-		static Ref<Texture> Create(const std::string& path);
 	};
 }

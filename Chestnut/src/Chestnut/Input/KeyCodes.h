@@ -1,6 +1,8 @@
 #pragma once
 
 // From glfw3.h
+#define CHST_KEY_UNKNOWN                 -1
+
 #define CHST_KEY_SPACE              32
 #define CHST_KEY_APOSTROPHE         39  /* ' */
 #define CHST_KEY_COMMA              44  /* , */
@@ -123,6 +125,8 @@
 #define CHST_KEY_RIGHT_ALT          346
 #define CHST_KEY_RIGHT_SUPER        347
 #define CHST_KEY_MENU               348
+
+#define CHST_KEY_LAST               CHST_KEY_MENU
 
 // Mouse Buttons
 #define CHST_MOUSE_BUTTON_1         0

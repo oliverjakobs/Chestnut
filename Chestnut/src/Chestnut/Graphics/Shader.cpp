@@ -6,6 +6,9 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Chestnut/Utility/Debugger.h"
+#include "Chestnut/Utility/FileUtility.h"
+
 namespace chst
 {
 	static GLenum ShaderTypeFromString(const std::string& type)
@@ -15,13 +18,18 @@ namespace chst
 		if (type == "fragment" || type == "pixel")
 			return GL_FRAGMENT_SHADER;
 
-		CHST_CORE_ASSERT(false, "Unknown shader type!");
+		DEBUG_ASSERT(false, "Unknown shader type!");
 		return 0;
 	}
 
 	Shader::Shader(const std::string& filepath)
 	{
-		std::string source = ReadFile(filepath);
+		std::string source = obelisk::ReadFile(filepath);
+		if (source.empty())
+		{
+			DEBUG_ERROR("Could not open file '{0}'", filepath);
+		}
+
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
 
@@ -99,36 +107,6 @@ namespace chst
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-	Ref<Shader> Shader::Create(const std::string& filepath)
-	{
-		return std::make_shared<Shader>(filepath);
-	}
-
-	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
-	{
-		return std::make_shared<Shader>(name, vertexSrc, fragmentSrc);
-	}
-
-	std::string Shader::ReadFile(const std::string& filepath)
-	{
-		std::string result;
-		std::ifstream in(filepath, std::ios::in | std::ios::binary);
-		if (in)
-		{
-			in.seekg(0, std::ios::end);
-			result.resize(in.tellg());
-			in.seekg(0, std::ios::beg);
-			in.read(&result[0], result.size());
-			in.close();
-		}
-		else
-		{
-			CHST_CORE_ERROR("Could not open file '{0}'", filepath);
-		}
-
-		return result;
-	}
-
 	std::unordered_map<uint32_t, std::string> Shader::PreProcess(const std::string& source)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
@@ -139,10 +117,10 @@ namespace chst
 		while (pos != std::string::npos)
 		{
 			size_t eol = source.find_first_of("\r\n", pos);
-			CHST_CORE_ASSERT(eol != std::string::npos, "Syntax error");
+			DEBUG_ASSERT(eol != std::string::npos, "Syntax error");
 			size_t begin = pos + typeTokenLength + 1;
 			std::string type = source.substr(begin, eol - begin);
-			CHST_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
+			DEBUG_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
 
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
 			pos = source.find(typeToken, nextLinePos);
@@ -155,7 +133,7 @@ namespace chst
 	void Shader::Compile(const std::unordered_map<uint32_t, std::string>& shaderSources)
 	{
 		GLuint program = glCreateProgram();
-		CHST_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
+		DEBUG_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
 		std::array<GLenum, 2> glShaderIDs;
 		int glShaderIDIndex = 0;
 		for (auto& kv : shaderSources)
@@ -182,8 +160,8 @@ namespace chst
 
 				glDeleteShader(shader);
 
-				CHST_CORE_ERROR("{0}", infoLog.data());
-				CHST_CORE_ASSERT(false, "Shader compilation failure!");
+				DEBUG_ERROR("{0}", infoLog.data());
+				DEBUG_ASSERT(false, "Shader compilation failure!");
 				break;
 			}
 
@@ -214,8 +192,8 @@ namespace chst
 			for (auto id : glShaderIDs)
 				glDeleteShader(id);
 
-			CHST_CORE_ERROR("{0}", infoLog.data());
-			CHST_CORE_ASSERT(false, "Shader link failure!");
+			DEBUG_ERROR("{0}", infoLog.data());
+			DEBUG_ASSERT(false, "Shader link failure!");
 			return;
 		}
 
@@ -225,7 +203,7 @@ namespace chst
 
 	void ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader)
 	{
-		CHST_CORE_ASSERT(!Exists(name), "Shader already exists!");
+		DEBUG_ASSERT(!Exists(name), "Shader already exists!");
 		m_Shaders[name] = shader;
 	}
 
@@ -237,21 +215,21 @@ namespace chst
 
 	Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
 	{
-		auto shader = Shader::Create(filepath);
+		auto shader = std::make_shared<Shader>(filepath);
 		Add(shader);
 		return shader;
 	}
 
 	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
 	{
-		auto shader = Shader::Create(filepath);
+		auto shader = std::make_shared<Shader>(filepath);
 		Add(name, shader);
 		return shader;
 	}
 
 	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
-		CHST_CORE_ASSERT(Exists(name), "Shader not found!");
+		DEBUG_ASSERT(Exists(name), "Shader not found!");
 		return m_Shaders[name];
 	}
 

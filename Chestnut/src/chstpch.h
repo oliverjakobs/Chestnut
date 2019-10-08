@@ -13,7 +13,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Chestnut/Core/Log.h"
 
 #ifdef CHST_PLATFORM_WINDOWS
 	#include <Windows.h>

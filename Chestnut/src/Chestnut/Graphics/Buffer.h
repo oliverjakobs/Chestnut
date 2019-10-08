@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Chestnut/Utility/Debugger.h"
+
 namespace chst
 {
 	enum class ShaderDataType
@@ -24,7 +26,7 @@ namespace chst
 			case ShaderDataType::Bool:     return 1;
 		}
 
-		CHST_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		DEBUG_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;
 	}
 
@@ -63,7 +65,7 @@ namespace chst
 				case ShaderDataType::Bool:    return 1;
 			}
 
-			CHST_CORE_ASSERT(false, "Unknown ShaderDataType!");
+			DEBUG_ASSERT(false, "Unknown ShaderDataType!");
 			return 0;
 		}
 	};
@@ -117,8 +119,6 @@ namespace chst
 
 		void SetLayout(const BufferLayout& layout) { m_Layout = layout; }
 		const BufferLayout& GetLayout() const { return m_Layout; }
-
-		static VertexBuffer* Create(float* vertices, uint32_t size);
 	};
 
 	class IndexBuffer
@@ -134,7 +134,5 @@ namespace chst
 		void Unbind() const;
 
 		uint32_t GetCount() const { return m_Count; }
-
-		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
 	};
 }

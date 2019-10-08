@@ -1,43 +1,61 @@
 #include "chstpch.h"
 #include "Input.h"
 
-#include "Chestnut/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace chst
 {
-	bool Input::IsKeyPressed(int keycode)
+	bool Input::KeyPressed(int keycode)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		auto state = glfwGetKey(window, keycode);
+		if (keycode > CHST_KEY_LAST || keycode == CHST_KEY_UNKNOWN)
+			return false;
+
+		auto state = glfwGetKey(glfwGetCurrentContext(), keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool Input::IsMouseButtonPressed(int button)
+	bool Input::KeyReleased(int keycode)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		auto state = glfwGetMouseButton(window, button);
+		if (keycode > CHST_KEY_LAST || keycode == CHST_KEY_UNKNOWN)
+			return false;
+
+		auto state = glfwGetKey(glfwGetCurrentContext(), keycode);
+		return state == GLFW_RELEASE;
+	}
+
+	bool Input::MousePressed(int button)
+	{
+		if (button > CHST_MOUSE_BUTTON_LAST || button < CHST_MOUSE_BUTTON_1)
+			return false;
+
+		auto state = glfwGetMouseButton(glfwGetCurrentContext(), button);
 		return state == GLFW_PRESS;
 	}
 
-	std::pair<float, float> Input::GetMousePosition()
+	bool Input::MouseReleased(int button)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		if (button > CHST_MOUSE_BUTTON_LAST || button < CHST_MOUSE_BUTTON_1)
+			return false;
+
+		auto state = glfwGetMouseButton(glfwGetCurrentContext(), button);
+		return state == GLFW_RELEASE;
+	}
+
+	glm::vec2 Input::MousePosition()
+	{
 		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
+		glfwGetCursorPos(glfwGetCurrentContext(), &xpos, &ypos);
 
-		return { (float)xpos, (float)ypos };
+		return glm::vec2((float)xpos, (float)ypos);
 	}
 
-	float Input::GetMouseX()
+	float Input::MouseX()
 	{
-		auto [x, y] = GetMousePosition();
-		return x;
+		return MousePosition().x;
 	}
 
-	float Input::GetMouseY()
+	float Input::MouseY()
 	{
-		auto [x, y] = GetMousePosition();
-		return y;
+		return MousePosition().y;
 	}
 }

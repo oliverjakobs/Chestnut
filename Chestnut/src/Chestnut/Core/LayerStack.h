@@ -7,7 +7,7 @@
 
 namespace chst
 {
-	class CHST_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();
