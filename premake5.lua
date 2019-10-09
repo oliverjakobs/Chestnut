@@ -13,18 +13,18 @@ workspace "Chestnut"
 		"MultiProcessorCompile"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+outputDir = "%{cfg.buildcfg}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "Chestnut/packages/GLFW/include"
-IncludeDir["Glad"] = "Chestnut/packages/Glad/include"
+IncludeDir["GLFW"] = "Chestnut/packages/glfw/include"
+IncludeDir["Glad"] = "Chestnut/packages/glad/include"
 IncludeDir["ImGui"] = "Chestnut/packages/imgui"
 IncludeDir["glm"] = "Chestnut/packages/glm"
 
 group "Dependencies"
-	include "Chestnut/packages/GLFW"
-	include "Chestnut/packages/Glad"
+	include "Chestnut/packages/glfw"
+	include "Chestnut/packages/glad"
 	include "Chestnut/packages/imgui"
 
 group ""
@@ -36,8 +36,8 @@ project "Chestnut"
 	cppdialect "C++17"
 	staticruntime "on"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 
 	pchheader "chstpch.h"
 	pchsource "Chestnut/src/chstpch.cpp"
@@ -101,8 +101,8 @@ project "Sandbox"
 	cppdialect "C++17"
 	staticruntime "on"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 
 	files
 	{
