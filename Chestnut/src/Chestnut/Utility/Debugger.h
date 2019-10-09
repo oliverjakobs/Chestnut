@@ -7,7 +7,7 @@
 	
 #define OBILISK_LOGGING
 #define OBILISK_ASSERT
-#define OBILISK_TIMER
+#define OBILISK_CHRONO
 
 #endif
 
@@ -48,20 +48,26 @@
 // -----------------------------------------------------------------------------------
 // Timer
 // -----------------------------------------------------------------------------------
-#ifdef OBILISK_TIMER
+#ifdef OBILISK_CHRONO
 
-#define DEBUG_TIMER()				obelisk::Timer timer
-#define DEBUG_TIMER_GET_ELAPSED()	timer.GetElapsedMS()
-#define DEBUG_TIMER_RESET()			timer.Reset()
-
-#define DEBUG_TIMER_TRACE(s)		DEBUG_TRACE(s, timer.GetElapsedMS())
+#define DEBUG_CHRONO()				obelisk::Chrono chrono
+#define DEBUG_CHRONO_GET_ELAPSED()	chrono.GetElapsedMS()
+#define DEBUG_CHRONO_RESET()		chrono.Reset()
 
 #else
 
-#define DEBUG_TIMER()
-#define DEBUG_TIMER_GET_ELAPSED()
-#define DEBUG_TIMER_RESET()
+#define DEBUG_CHRONO()
+#define DEBUG_CHRONO_GET_ELAPSED()
+#define DEBUG_CHRONO_RESET()
 
-#define DEBUG_TIMER_TRACE(s)
+#endif
+
+#if defined(OBILISK_LOGGING) && defined(OBILISK_CHRONO)
+
+#define DEBUG_CHRONO_TRACE(s)		DEBUG_TRACE(s, chrono.GetElapsedMS())
+
+#else
+
+#define DEBUG_CHRONO_TRACE(s)
 
 #endif

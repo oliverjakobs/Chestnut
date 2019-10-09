@@ -2,55 +2,93 @@
 #include "Texture.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
-#include <glad/glad.h>
+#include <stb_image.h>
 
 #include "Chestnut/Utility/Debugger.h"
 
 namespace chst
 {
-	Texture::Texture(const std::string& path)
+	Texture::Texture(const std::string& path, bool flipOnLoad, TextureConfig config)
+		: m_activeSlot(0)
 	{
-		int width, height, channels;
-		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
-		DEBUG_ASSERT(data, "Failed to load image!");
-		m_Width = width;
-		m_Height = height;
+		DEBUG_TRACE("[Tex] ------------------------------------------------");
+		DEBUG_TRACE("[Tex] Loading {0}", path);
 
-		GLenum internalFormat = 0, dataFormat = 0;
-		if (channels == 4)
+		DEBUG_CHRONO();
+
+		stbi_set_flip_vertically_on_load(flipOnLoad);
+
+		Width = 0;
+		Height = 0;
+		BPP = 0;
+
+		byte* pixels = stbi_load(path.c_str(), &Width, &Height, &BPP, 4);
+
+		DEBUG_CHRONO_TRACE("[Tex] Parsed file in {0}ms");
+
+		if (pixels)
 		{
-			internalFormat = GL_RGBA8;
-			dataFormat = GL_RGBA;
+			//DEBUG_TRACE("[Tex] Bytes:\n {0}", std::string(reinterpret_cast<char*>(pixels)));
+			ID = CreateTexture(pixels, Width, Height, config);
+			stbi_image_free(pixels);
 		}
-		else if (channels == 3)
+		else
 		{
-			internalFormat = GL_RGB8;
-			dataFormat = GL_RGB;
+			DEBUG_ERROR("[Tex] Failed to load texture({0}): {1}", path, stbi_failure_reason());
+			ID = 0;
 		}
 
-		DEBUG_ASSERT(internalFormat & dataFormat, "Format not supported!");
+		DEBUG_TRACE("[Tex] Loaded Texture ({0}) in {1}ms", ID, DEBUG_CHRONO_GET_ELAPSED());
+		DEBUG_TRACE("[Tex] Size: {0}x{1} (bpp: {2})", Width, Height, BPP);
+	}
 
-		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
-		glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
+	Texture::Texture(int width, int height, TextureConfig config)
+		: Width(width), Height(height), m_activeSlot(0)
+	{
+		ID = CreateTexture(nullptr, width, height, config);
+	}
 
-		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, dataFormat, GL_UNSIGNED_BYTE, data);
-
-		stbi_image_free(data);
+	Texture::Texture(byte* bitmap, int width, int height, TextureConfig config)
+		: Width(width), Height(height), m_activeSlot(0)
+	{
+		ID = CreateTexture(bitmap, width, height, config);
 	}
 
 	Texture::~Texture()
 	{
-		glDeleteTextures(1, &m_RendererID);
+		glDeleteTextures(1, &ID);
+		ID = 0;
 	}
 
-	void Texture::Bind(uint32_t slot) const
+	unsigned int Texture::CreateTexture(byte* pixels, int width, int height, TextureConfig config)
 	{
-		glBindTextureUnit(slot, m_RendererID);
+		unsigned int id;
+		glGenTextures(1, &id);
+		glBindTexture(GL_TEXTURE_2D, id);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, config.WRAP_S);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, config.WRAP_T);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config.MIN_FILTER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config.MAG_FILTER);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, config.INTERAL_FORMAT, width, height, 0, config.FORMAT, config.TYPE, pixels);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		return id;
+	}
+
+	void Texture::Bind(uint32_t slot)
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D, ID);
+		m_activeSlot = slot;
+	}
+
+	void Texture::Unbind()
+	{
+		glActiveTexture(GL_TEXTURE0 + m_activeSlot);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		m_activeSlot = 0;
 	}
 }

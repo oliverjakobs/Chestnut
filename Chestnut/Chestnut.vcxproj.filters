@@ -43,6 +43,9 @@
     <Filter Include="src\Chestnut\Input">
       <UniqueIdentifier>{A9222494-9506-E5E9-FE66-DF3CEA69CF6B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Chestnut\Utility">
+      <UniqueIdentifier>{6D83EDD6-5912-77A0-0231-8B9BEE9E8746}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="packages\glm\glm\common.hpp">
@@ -1215,14 +1218,24 @@
     <ClInclude Include="src\Chestnut\Input\OrthographicCameraController.h">
       <Filter>src\Chestnut\Input</Filter>
     </ClInclude>
+    <ClInclude Include="src\Chestnut\Utility\Debugger.h">
+      <Filter>src\Chestnut\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Utility\FileUtility.h">
+      <Filter>src\Chestnut\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Utility\Logger.h">
+      <Filter>src\Chestnut\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Utility\Obelisk.h">
+      <Filter>src\Chestnut\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Utility\Timer.h">
+      <Filter>src\Chestnut\Utility</Filter>
+    </ClInclude>
     <ClInclude Include="src\chstpch.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Utility\FileUtility.h" />
-    <ClInclude Include="src\Chestnut\Utility\Debugger.h" />
-    <ClInclude Include="src\Chestnut\Utility\Logger.h" />
-    <ClInclude Include="src\Chestnut\Utility\Timer.h" />
-    <ClInclude Include="src\Chestnut\Utility\Obelisk.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Chestnut\Core\Application.cpp">

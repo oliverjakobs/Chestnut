@@ -115,7 +115,8 @@ project "Sandbox"
 		"Chestnut/packages/spdlog/include",
 		"Chestnut/src",
 		"Chestnut/packages",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links

@@ -34,47 +34,14 @@ public:
 		squareIB.reset(new IndexBuffer(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
-		std::string flatColorShaderVertexSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec3 v_Position;
-
-			void main()
-			{
-				v_Position = a_Position;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
-			}
-		)";
-
-		std::string flatColorShaderFragmentSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-
-			in vec3 v_Position;
-			
-			uniform vec3 u_Color;
-
-			void main()
-			{
-				color = vec4(u_Color, 1.0);
-			}
-		)";
-
-		m_FlatColorShader = std::make_shared<Shader>("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
-
-		auto textureShader = m_ShaderLibrary.Load("res/shaders/Texture.glsl");
+		m_FlatColorShader = std::make_shared<Shader>("res/shaders/color.vert", "res/shaders/color.frag");
+		m_TextureShader = std::make_shared<Shader>("res/shaders/texture.vert", "res/shaders/texture.frag");
 
 		m_Texture = std::make_shared<Texture>("res/textures/Checkerboard.png");
 		m_ChernoLogoTexture = std::make_shared<Texture>("res/textures/ChernoLogo.png");
 
-		textureShader->Bind();
-		textureShader->UploadUniformInt("u_Texture", 0);
+		m_TextureShader->Use();
+		m_TextureShader->SetUniform1i("u_Texture", 0);
 	}
 
 	void OnUpdate(Timestep ts) override
@@ -90,25 +57,22 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		m_FlatColorShader->Bind();
-		m_FlatColorShader->UploadUniformFloat3("u_Color", m_SquareColor);
+		m_FlatColorShader->Use();
+		m_FlatColorShader->SetUniform3f("u_Color", m_SquareColor);
 
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
 			{
-				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
-				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(x * 0.11f, y * 0.11f, 0.0f)) * scale;
 				Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 			}
 		}
 
-		auto textureShader = m_ShaderLibrary.Get("Texture");
-
 		m_Texture->Bind();
-		Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		m_ChernoLogoTexture->Bind();
-		Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Renderer::EndScene();
 	}
@@ -125,9 +89,9 @@ public:
 		m_CameraController.OnEvent(e);
 	}
 private:
-	ShaderLibrary m_ShaderLibrary;
-
 	Ref<Shader> m_FlatColorShader;
+	Ref<Shader> m_TextureShader;
+
 	Ref<VertexArray> m_SquareVA;
 
 	Ref<Texture> m_Texture, m_ChernoLogoTexture;

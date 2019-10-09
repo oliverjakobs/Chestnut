@@ -1,55 +1,40 @@
 #pragma once
 
-#include <string>
-#include <unordered_map>
-
 #include <glm/glm.hpp>
-
-#include "Chestnut/Core/Core.h"
 
 namespace chst
 {
 	class Shader
 	{
 	private:
-		uint32_t m_RendererID;
-		std::string m_Name;
+		uint32_t m_program;
 	public:
-		Shader(const std::string& filepath);
-		Shader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+		Shader(const std::string& vert, const std::string& frag);
 		~Shader();
 
-		void Bind() const;
-		void Unbind() const;
+		static uint32_t CreateShader(const std::string& vertSrc, const std::string& geomSrc, const std::string& fragSrc);
+		static uint32_t CompileShader(uint32_t type, const std::string& source);
 
-		void UploadUniformInt(const std::string& name, int value);
+		void Use();
 
-		void UploadUniformFloat(const std::string& name, float value);
-		void UploadUniformFloat2(const std::string& name, const glm::vec2& value);
-		void UploadUniformFloat3(const std::string& name, const glm::vec3& value);
-		void UploadUniformFloat4(const std::string& name, const glm::vec4& value);
+		void SetUniform1i(const std::string& name, int value) const;
+		void SetUniform1f(const std::string& name, float value) const;
+		void SetUniform2f(const std::string& name, const glm::vec2& vector) const;
+		void SetUniform3f(const std::string& name, const glm::vec3& vector) const;
+		void SetUniform4f(const std::string& name, const glm::vec4& vector) const;
+		void SetUniformMat2(const std::string& name, const glm::mat4& matrix) const;
+		void SetUniformMat3(const std::string& name, const glm::mat4& matrix) const;
+		void SetUniformMat4(const std::string& name, const glm::mat4& matrix) const;
 
-		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
-		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
+		int GetUniformLocation(const std::string& name) const;
 
-		const std::string& GetName() const { return m_Name; }
-	private:
-		std::unordered_map<uint32_t, std::string> PreProcess(const std::string& source);
-		void Compile(const std::unordered_map<uint32_t, std::string>& shaderSources);
-	};
-
-	class ShaderLibrary
-	{
-	private:
-		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
-	public:
-		void Add(const std::string& name, const Ref<Shader>& shader);
-		void Add(const Ref<Shader>& shader);
-		Ref<Shader> Load(const std::string& filepath);
-		Ref<Shader> Load(const std::string& name, const std::string& filepath);
-
-		Ref<Shader> Get(const std::string& name);
-
-		bool Exists(const std::string& name) const;
+		void SetUniform1i(int location, int value) const;
+		void SetUniform1f(int location, float value) const;
+		void SetUniform2f(int location, const glm::vec2& vector) const;
+		void SetUniform3f(int location, const glm::vec3& vector) const;
+		void SetUniform4f(int location, const glm::vec4& vector) const;
+		void SetUniformMat2(int location, const glm::mat4& matrix) const;
+		void SetUniformMat3(int location, const glm::mat4& matrix) const;
+		void SetUniformMat4(int location, const glm::mat4& matrix) const;
 	};
 }

@@ -1,24 +1,45 @@
 #pragma once
 
-#include <string>
-
-#include "Chestnut/Core/Core.h"
+#include "glad/glad.h"
 
 namespace chst
 {
-	class Texture
+	struct TextureConfig
+	{
+		int INTERAL_FORMAT;
+		uint32_t FORMAT;
+
+		uint32_t TYPE;
+
+		int MIN_FILTER;
+		int MAG_FILTER;
+
+		int WRAP_S;
+		int WRAP_T;
+	};
+
+	constexpr TextureConfig DEFAULT_CONFIG{ GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE, GL_LINEAR, GL_NEAREST, GL_REPEAT, GL_REPEAT };
+
+	struct Texture
 	{
 	private:
-		std::string m_Path;
-		uint32_t m_Width, m_Height;
-		uint32_t m_RendererID;
+		uint32_t m_activeSlot;
 	public:
-		Texture(const std::string& path);
+		uint32_t ID;
+
+		int Width;
+		int Height;
+		int BPP;
+
+		// functions
+		Texture(const std::string& path, bool flipOnLoad = true, TextureConfig config = DEFAULT_CONFIG);
+		Texture(int width, int height, TextureConfig config = DEFAULT_CONFIG);
+		Texture(byte* bitmap, int width, int height, TextureConfig config = DEFAULT_CONFIG);
 		~Texture();
 
-		uint32_t GetWidth() const { return m_Width; }
-		uint32_t GetHeight() const { return m_Height; }
+		static unsigned int CreateTexture(byte* pixels, int width, int height, TextureConfig config);
 
-		void Bind(uint32_t slot = 0) const;
+		void Bind(uint32_t slot = 0);
+		void Unbind();
 	};
 }
