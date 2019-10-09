@@ -7,3 +7,6 @@
 [submodule "Chestnut/packages/glm"]
 	path = Chestnut/packages/glm
 	url = https://github.com/g-truc/glm
+[submodule "Chestnut/packages/imgui"]
+	path = Chestnut/packages/imgui
+	url = https://github.com/oliverjakobs/imgui
