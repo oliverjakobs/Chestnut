@@ -48,6 +48,7 @@ namespace chst
 	{
 	private:
 		Event& m_event;
+
 	public:
 		EventDispatcher(Event& event) : m_event(event) { }
 		
@@ -68,4 +69,6 @@ namespace chst
 	{
 		return os << e.ToString();
 	}
+
+	using EventCallback = std::function<void(Event&)>;
 }

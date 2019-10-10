@@ -13,7 +13,6 @@ namespace chst
 	class Window
 	{
 	public:
-		using EventCallbackFn = std::function<void(Event&)>;
 	private:
 		GLFWwindow* m_window;
 
@@ -23,7 +22,7 @@ namespace chst
 			uint32_t Width, Height;
 			bool VSync;
 
-			EventCallbackFn EventCallback;
+			EventCallback EventCallback;
 		};
 
 		WindowData m_data;
@@ -41,10 +40,10 @@ namespace chst
 		inline float GetAspectRatio() const { return (float)m_data.Width / (float)m_data.Height; }
 
 		// Window attributes
-		inline void SetEventCallback(const EventCallbackFn& callback) { m_data.EventCallback = callback; }
+		inline void SetEventCallback(const EventCallback& callback) { m_data.EventCallback = callback; }
 		virtual void SetVSync(bool enabled);
 		virtual bool IsVSync() const;
 
-		inline GLFWwindow* GetNativeWindow() const { return m_window; }
+		inline GLFWwindow* GetNative() const { return m_window; }
 	};
 }
