@@ -1,33 +1,30 @@
 #pragma once
 
-#include "Core.h"
+#include "Api.h"
 
 #include "Window.h"
-#include "Chestnut/Core/LayerStack.h"
-#include "Chestnut/Events/Event.h"
-#include "Chestnut/Events/ApplicationEvent.h"
-
-#include "Chestnut/Core/Timestep.h"
+#include "LayerStack.h"
 
 #include "Chestnut/ImGui/ImGuiRenderer.h"
+
+#include "Chestnut/Utility/Timer.h"
 
 namespace chst
 {
 	class Application
 	{
 	private:
-		bool OnWindowClose(WindowCloseEvent& e);
-		bool OnWindowResize(WindowResizeEvent& e);
-
-		std::unique_ptr<Window> m_Window;
+		chst::Scope<Window> m_window;
 		ImGuiRenderer m_imGuiRenderer;
 
-		bool m_Running = true;
-		bool m_Minimized = false;
-		LayerStack m_LayerStack;
-		float m_LastFrameTime = 0.0f;
+		bool m_running = true;
+		bool m_minimized = false;
+		LayerStack m_layerStack;
 
-		static Application* s_Instance;
+		obelisk::Timer m_timer;
+
+		static Application* s_instance;
+
 	public:
 		Application();
 		virtual ~Application() = default;
@@ -39,9 +36,12 @@ namespace chst
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 
-		inline Window& GetWindow() { return *m_Window; }
+		inline static Application& Get() { return *s_instance; }
+		inline static Window& GetWindow() { return *Get().m_window; }
 
-		inline static Application& Get() { return *s_Instance; }
+	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 	};
 
 	// To be defined in CLIENT

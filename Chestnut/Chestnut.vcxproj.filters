@@ -1158,9 +1158,6 @@
     <ClInclude Include="src\Chestnut\Core\Application.h">
       <Filter>src\Chestnut\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Chestnut\Core\Core.h">
-      <Filter>src\Chestnut\Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\Chestnut\Core\EntryPoint.h">
       <Filter>src\Chestnut\Core</Filter>
     </ClInclude>
@@ -1175,9 +1172,6 @@
     </ClInclude>
     <ClInclude Include="src\Chestnut\Core\Window.h">
       <Filter>src\Chestnut\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Chestnut\Events\ApplicationEvent.h">
-      <Filter>src\Chestnut\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Chestnut\Events\Event.h">
       <Filter>src\Chestnut\Events</Filter>
@@ -1236,12 +1230,15 @@
     <ClInclude Include="src\chstpch.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Chestnut\Core\Api.h">
+      <Filter>src\Chestnut\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chestnut\Events\WindowEvent.h">
+      <Filter>src\Chestnut\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Chestnut\Core\Application.cpp">
-      <Filter>src\Chestnut\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Chestnut\Core\Layer.cpp">
       <Filter>src\Chestnut\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Chestnut\Core\LayerStack.cpp">
@@ -1267,9 +1264,6 @@
     </ClCompile>
     <ClCompile Include="src\Chestnut\Graphics\VertexArray.cpp">
       <Filter>src\Chestnut\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Chestnut\ImGui\ImGuiBuild.cpp">
-      <Filter>src\Chestnut\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Chestnut\ImGui\ImGuiRenderer.cpp">
       <Filter>src\Chestnut\ImGui</Filter>

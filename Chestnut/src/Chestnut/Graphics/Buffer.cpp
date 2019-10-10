@@ -13,19 +13,19 @@ namespace chst
 
 	VertexBuffer::VertexBuffer(float* vertices, uint32_t size)
 	{
-		glCreateBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glCreateBuffers(1, &m_id);
+		glBindBuffer(GL_ARRAY_BUFFER, m_id);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
 	VertexBuffer::~VertexBuffer()
 	{
-		glDeleteBuffers(1, &m_RendererID);
+		glDeleteBuffers(1, &m_id);
 	}
 
 	void VertexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_id);
 	}
 
 	void VertexBuffer::Unbind() const
@@ -38,21 +38,21 @@ namespace chst
 	/////////////////////////////////////////////////////////////////////////////
 
 	IndexBuffer::IndexBuffer(uint32_t* indices, uint32_t count)
-		: m_Count(count)
+		: m_count(count)
 	{
-		glCreateBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glCreateBuffers(1, &m_id);
+		glBindBuffer(GL_ARRAY_BUFFER, m_id);
 		glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
 
 	IndexBuffer::~IndexBuffer()
 	{
-		glDeleteBuffers(1, &m_RendererID);
+		glDeleteBuffers(1, &m_id);
 	}
 
 	void IndexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
 	}
 
 	void IndexBuffer::Unbind() const

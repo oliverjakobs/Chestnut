@@ -11,8 +11,9 @@ namespace chst
 		glm::mat4 m_view;
 		glm::mat4 m_viewProjection;
 
-		glm::vec3 m_position = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 m_position = glm::vec3();
 		float m_rotation = 0.0f;
+
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
 
@@ -27,6 +28,7 @@ namespace chst
 		const glm::mat4& GetProjectionMatrix() const { return m_projection; }
 		const glm::mat4& GetViewMatrix() const { return m_view; }
 		const glm::mat4& GetViewProjectionMatrix() const { return m_viewProjection; }
+
 	private:
 		void RecalculateViewMatrix();
 	};

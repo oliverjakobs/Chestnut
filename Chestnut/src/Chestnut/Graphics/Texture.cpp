@@ -22,7 +22,7 @@ namespace chst
 		Height = 0;
 		BPP = 0;
 
-		byte* pixels = stbi_load(path.c_str(), &Width, &Height, &BPP, 4);
+		unsigned char* pixels = stbi_load(path.c_str(), &Width, &Height, &BPP, 4);
 
 		DEBUG_CHRONO_TRACE("[Tex] Parsed file in {0}ms");
 
@@ -48,7 +48,7 @@ namespace chst
 		ID = CreateTexture(nullptr, width, height, config);
 	}
 
-	Texture::Texture(byte* bitmap, int width, int height, TextureConfig config)
+	Texture::Texture(unsigned char* bitmap, int width, int height, TextureConfig config)
 		: Width(width), Height(height), m_activeSlot(0)
 	{
 		ID = CreateTexture(bitmap, width, height, config);
@@ -60,7 +60,7 @@ namespace chst
 		ID = 0;
 	}
 
-	unsigned int Texture::CreateTexture(byte* pixels, int width, int height, TextureConfig config)
+	unsigned int Texture::CreateTexture(unsigned char* pixels, int width, int height, TextureConfig config)
 	{
 		unsigned int id;
 		glGenTextures(1, &id);

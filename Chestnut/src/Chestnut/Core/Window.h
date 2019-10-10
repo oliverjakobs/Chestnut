@@ -1,9 +1,10 @@
 #pragma once
 
-#include "chstpch.h"
+#include "Api.h"
 
-#include "Chestnut/Core/Core.h"
-#include "Chestnut/Events/Event.h"
+#include "Chestnut/Events/WindowEvent.h"
+#include "Chestnut/Events/MouseEvent.h"
+#include "Chestnut/Events/KeyEvent.h"
 
 struct GLFWwindow;
 
@@ -14,7 +15,7 @@ namespace chst
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 	private:
-		GLFWwindow* m_Window;
+		GLFWwindow* m_window;
 
 		struct WindowData
 		{
@@ -25,7 +26,7 @@ namespace chst
 			EventCallbackFn EventCallback;
 		};
 
-		WindowData m_Data;
+		WindowData m_data;
 
 		void Init(const std::string& title, uint32_t width, uint32_t height);
 		void Shutdown();
@@ -35,16 +36,15 @@ namespace chst
 
 		void OnUpdate();
 
-		inline unsigned int GetWidth() const { return m_Data.Width; }
-		inline unsigned int GetHeight() const { return m_Data.Height; }
+		inline unsigned int GetWidth() const { return m_data.Width; }
+		inline unsigned int GetHeight() const { return m_data.Height; }
+		inline float GetAspectRatio() const { return (float)m_data.Width / (float)m_data.Height; }
 
 		// Window attributes
-		inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
+		inline void SetEventCallback(const EventCallbackFn& callback) { m_data.EventCallback = callback; }
 		virtual void SetVSync(bool enabled);
 		virtual bool IsVSync() const;
 
-		inline void* GetNativeWindow() const { return m_Window; }
-
-		static Window* Create(const std::string& title, uint32_t width, uint32_t height);
+		inline GLFWwindow* GetNativeWindow() const { return m_window; }
 	};
 }

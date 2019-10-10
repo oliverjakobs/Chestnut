@@ -1,20 +1,13 @@
 #pragma once
 
-#include "chstpch.h"
-#include "Chestnut/Utility/Obelisk.h"
+#include "Chestnut/Core/Api.h"
 
 namespace chst
 {
-	// Events in Hazel are currently blocking, meaning when an event occurs it
-	// immediately gets dispatched and must be dealt with right then an there.
-	// For the future, a better strategy might be to buffer events in an event
-	// bus and process them during the "event" part of the update stage.
-
 	enum class EventType
 	{
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
-		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased, KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
@@ -22,11 +15,11 @@ namespace chst
 	enum EventCategory
 	{
 		None = 0,
-		EventCategoryApplication    = BIT(0),
-		EventCategoryInput          = BIT(1),
-		EventCategoryKeyboard       = BIT(2),
-		EventCategoryMouse          = BIT(3),
-		EventCategoryMouseButton    = BIT(4)
+		EventCategoryWindow			= 1 << 0,
+		EventCategoryInput			= 1 << 1,
+		EventCategoryKeyboard		= 1 << 2,
+		EventCategoryMouse			= 1 << 3,
+		EventCategoryMouseButton	= 1 << 4
 	};
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
@@ -53,25 +46,22 @@ namespace chst
 
 	class EventDispatcher
 	{
+	private:
+		Event& m_event;
 	public:
-		EventDispatcher(Event& event)
-			: m_Event(event)
-		{
-		}
+		EventDispatcher(Event& event) : m_event(event) { }
 		
 		// F will be deduced by the compiler
 		template<typename T, typename F>
 		bool Dispatch(const F& func)
 		{
-			if (m_Event.GetEventType() == T::GetStaticType())
+			if (m_event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.Handled = func(static_cast<T&>(m_Event));
+				m_event.Handled = func(static_cast<T&>(m_event));
 				return true;
 			}
 			return false;
 		}
-	private:
-		Event& m_Event;
 	};
 
 	inline std::ostream& operator<<(std::ostream& os, const Event& e)

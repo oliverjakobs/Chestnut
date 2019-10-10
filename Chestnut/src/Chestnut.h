@@ -30,6 +30,9 @@
 
 // -----------------------------------
 
+
 // ---Entry Point---------------------
+#ifdef CHST_ENTRY_POINT
 #include "Chestnut/Core/EntryPoint.h"
+#endif
 // -----------------------------------

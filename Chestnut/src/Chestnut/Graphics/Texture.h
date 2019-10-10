@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 namespace chst
 {
@@ -34,10 +34,10 @@ namespace chst
 		// functions
 		Texture(const std::string& path, bool flipOnLoad = true, TextureConfig config = DEFAULT_CONFIG);
 		Texture(int width, int height, TextureConfig config = DEFAULT_CONFIG);
-		Texture(byte* bitmap, int width, int height, TextureConfig config = DEFAULT_CONFIG);
+		Texture(unsigned char* bitmap, int width, int height, TextureConfig config = DEFAULT_CONFIG);
 		~Texture();
 
-		static unsigned int CreateTexture(byte* pixels, int width, int height, TextureConfig config);
+		static unsigned int CreateTexture(unsigned char* pixels, int width, int height, TextureConfig config);
 
 		void Bind(uint32_t slot = 0);
 		void Unbind();

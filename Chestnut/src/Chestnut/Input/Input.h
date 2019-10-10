@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Chestnut/Core/Core.h"
+#include "Chestnut/Core/Api.h"
 
 #include "KeyCodes.h"
-#include <glm/glm.hpp>
 
 namespace chst
 {

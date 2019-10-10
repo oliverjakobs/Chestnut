@@ -57,7 +57,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>chstpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;CHST_PLATFORM_WINDOWS;CHST_BUILD_DLL;GLFW_INCLUDE_NONE;CHST_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CHST_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;packages\stb;packages\spdlog\include;packages\glfw\include;packages\glad\include;packages\imgui;packages\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -79,7 +79,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>chstpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;CHST_PLATFORM_WINDOWS;CHST_BUILD_DLL;GLFW_INCLUDE_NONE;CHST_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;CHST_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;packages\stb;packages\spdlog\include;packages\glfw\include;packages\glad\include;packages\imgui;packages\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -470,13 +470,13 @@
     <ClInclude Include="packages\glm\glm\vector_relational.hpp" />
     <ClInclude Include="src\Chestnut.h" />
     <ClInclude Include="src\Chestnut\Core\Application.h" />
-    <ClInclude Include="src\Chestnut\Core\Core.h" />
+    <ClInclude Include="src\Chestnut\Core\Api.h" />
     <ClInclude Include="src\Chestnut\Core\EntryPoint.h" />
     <ClInclude Include="src\Chestnut\Core\Layer.h" />
     <ClInclude Include="src\Chestnut\Core\LayerStack.h" />
     <ClInclude Include="src\Chestnut\Core\Timestep.h" />
     <ClInclude Include="src\Chestnut\Core\Window.h" />
-    <ClInclude Include="src\Chestnut\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Chestnut\Events\WindowEvent.h" />
     <ClInclude Include="src\Chestnut\Events\Event.h" />
     <ClInclude Include="src\Chestnut\Events\KeyEvent.h" />
     <ClInclude Include="src\Chestnut\Events\MouseEvent.h" />
@@ -499,7 +499,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Chestnut\Core\Application.cpp" />
-    <ClCompile Include="src\Chestnut\Core\Layer.cpp" />
     <ClCompile Include="src\Chestnut\Core\LayerStack.cpp" />
     <ClCompile Include="src\Chestnut\Core\Window.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Buffer.cpp" />
@@ -508,7 +507,6 @@
     <ClCompile Include="src\Chestnut\Graphics\Shader.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Texture.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\VertexArray.cpp" />
-    <ClCompile Include="src\Chestnut\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Chestnut\ImGui\ImGuiRenderer.cpp" />
     <ClCompile Include="src\Chestnut\Input\Input.cpp" />
     <ClCompile Include="src\Chestnut\Input\OrthographicCameraController.cpp" />

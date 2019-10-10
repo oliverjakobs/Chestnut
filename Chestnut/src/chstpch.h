@@ -13,7 +13,4 @@
 #include <unordered_map>
 #include <unordered_set>
 
-
-#ifdef CHST_PLATFORM_WINDOWS
-	#include <Windows.h>
-#endif
+#include <glm/glm.hpp>

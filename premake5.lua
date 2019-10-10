@@ -79,8 +79,6 @@ project "Chestnut"
 
 		defines
 		{
-			"CHST_PLATFORM_WINDOWS",
-			"CHST_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 
@@ -127,17 +125,12 @@ project "Sandbox"
 	filter "system:windows"
 		systemversion "latest"
 
-		defines
-		{
-			"CHST_PLATFORM_WINDOWS"
-		}
-
 	filter "configurations:Debug"
-		defines "HZ_DEBUG"
+		defines "CHST_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "HZ_RELEASE"
+		defines "CHST_RELEASE"
 		runtime "Release"
 		optimize "on"

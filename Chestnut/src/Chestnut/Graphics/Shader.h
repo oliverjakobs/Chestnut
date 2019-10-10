@@ -8,6 +8,7 @@ namespace chst
 	{
 	private:
 		uint32_t m_program;
+
 	public:
 		Shader(const std::string& vert, const std::string& frag);
 		~Shader();

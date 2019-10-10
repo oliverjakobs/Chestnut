@@ -1,8 +1,6 @@
 #include "chstpch.h"
 #include "VertexArray.h"
 
-#include "Renderer.h"
-
 #include <glad/glad.h>
 
 namespace chst
@@ -48,7 +46,7 @@ namespace chst
 		glBindVertexArray(0);
 	}
 
-	void VertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+	void VertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
 		DEBUG_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
@@ -71,7 +69,7 @@ namespace chst
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void VertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+	void VertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();
