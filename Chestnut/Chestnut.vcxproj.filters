@@ -1236,6 +1236,7 @@
     <ClInclude Include="src\Chestnut\Events\WindowEvent.h">
       <Filter>src\Chestnut\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Chestnut\Graphics\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Chestnut\Core\Application.cpp">
@@ -1277,5 +1278,6 @@
     <ClCompile Include="src\chstpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Chestnut\Graphics\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

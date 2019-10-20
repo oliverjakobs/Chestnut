@@ -483,6 +483,7 @@
     <ClInclude Include="src\Chestnut\Graphics\Buffer.h" />
     <ClInclude Include="src\Chestnut\Graphics\OrthographicCamera.h" />
     <ClInclude Include="src\Chestnut\Graphics\Renderer.h" />
+    <ClInclude Include="src\Chestnut\Graphics\Renderer2D.h" />
     <ClInclude Include="src\Chestnut\Graphics\Shader.h" />
     <ClInclude Include="src\Chestnut\Graphics\Texture.h" />
     <ClInclude Include="src\Chestnut\Graphics\VertexArray.h" />
@@ -504,6 +505,7 @@
     <ClCompile Include="src\Chestnut\Graphics\Buffer.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\OrthographicCamera.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\Chestnut\Graphics\Renderer2D.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Shader.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\Texture.cpp" />
     <ClCompile Include="src\Chestnut\Graphics\VertexArray.cpp" />

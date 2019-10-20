@@ -4,6 +4,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Chestnut/Graphics/Renderer2D.h"
+
 Sandbox2D::Sandbox2D() : Layer("Sandbox2D"), m_cameraController(chst::Application::GetWindow().GetAspectRatio())
 {
 	
@@ -49,14 +51,11 @@ void Sandbox2D::OnRender()
 	chst::Renderer::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	chst::Renderer::Clear();
 
-	chst::Renderer::BeginScene(m_cameraController.GetCamera());
+	chst::Renderer2D::BeginScene(m_cameraController.GetCamera());
 
-	m_shader->Use();
-	m_shader->SetUniform4f("u_Color", m_squareColor);
+	chst::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 
-	chst::Renderer::Submit(m_shader, m_vertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-
-	chst::Renderer::EndScene();
+	chst::Renderer2D::EndScene();
 }
 
 void Sandbox2D::OnImGuiRender()
