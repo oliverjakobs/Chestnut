@@ -6,6 +6,8 @@
 #include "VertexArray.h"
 #include "Shader.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 namespace chst
 {
 	struct Renderer2DStorage
@@ -53,7 +55,6 @@ namespace chst
 	{
 		RenderData->Shader->Use();
 		RenderData->Shader->SetUniformMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
-		RenderData->Shader->SetUniformMat4("u_Transform", glm::mat4(1.0f));
 	}
 
 	void Renderer2D::EndScene()
@@ -64,6 +65,9 @@ namespace chst
 	{
 		RenderData->Shader->Use();
 		RenderData->Shader->SetUniform4f("u_Color", color);
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size, 1.0f });
+		RenderData->Shader->SetUniformMat4("u_Transform", transform);
 
 		RenderData->VertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, RenderData->VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);

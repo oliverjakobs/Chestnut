@@ -53,7 +53,8 @@ void Sandbox2D::OnRender()
 
 	chst::Renderer2D::BeginScene(m_cameraController.GetCamera());
 
-	chst::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+	chst::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.0f }, { 0.8f, 0.8f }, m_squareColor);
+	chst::Renderer2D::DrawQuad({ 0.5f, -0.5f, 0.0f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
 
 	chst::Renderer2D::EndScene();
 }

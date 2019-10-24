@@ -10,7 +10,7 @@ private:
 	chst::Ref<chst::VertexArray> m_vertexArray;
 	chst::Ref<chst::Shader> m_shader;
 
-	glm::vec4 m_squareColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
+	glm::vec4 m_squareColor = glm::vec4(0.8f, 0.2f, 0.3f, 1.0f);
 
 public:
 	Sandbox2D();
